@@ -2,9 +2,41 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Tank Wars</title>
 </head>
 <body>
-Welcome
+Welcome!!
+
+<div id="output"></div>
+
+<script type="text/javascript">
+
+var wsUri = "ws://" + document.location.host + document.location.pathname + "echo";
+var output = document.getElementById("output");
+var websocket = new WebSocket(wsUri);
+
+
+websocket.onerror = function(evt) { onError(evt) };
+
+function onError(evt) {
+    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+}
+
+websocket.onopen = function(evt) { onOpen(evt) };
+
+function writeToScreen(message) {
+    output.innerHTML += message + "<br>";
+}
+
+function onOpen() {
+    writeToScreen("Connected to " + wsUri);
+    websocket.send("hello from client :-)");
+}
+
+websocket.onmessage = function(message) {
+	writeToScreen("Received message: " + message.data);
+}
+
+</script>
 </body>
 </html>
