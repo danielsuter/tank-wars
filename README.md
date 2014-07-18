@@ -27,3 +27,6 @@ eclipse {
 ```
 
 The eclipse wtp plugin allows to generate all neccessary eclipse files. The facets need to be configured manually for later versions (such as Java 8 and servlet 3.1).
+
+### Websocket tutorial from oracle
+http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm
