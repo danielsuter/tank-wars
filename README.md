@@ -1,6 +1,12 @@
 # Tank Wars
 
 ## Architecture
+###Backend
+Layers
+* transport
+* game
+
+### Frontend
 
 ## Technologies
 * Java 8
@@ -9,6 +15,9 @@
 * Gradle
 
 ## Other
+
+### Build server
+http://91.138.8.56:8080/job/Tank%20Wars/
 
 ### How to get gradle working with eclipse
 ```
