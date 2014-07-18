@@ -33,3 +33,4 @@ http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm
 
 ### Links
 Grunt Live Reload http://stackoverflow.com/questions/16371022/how-to-use-grunt-contrib-livereload
+https://github.com/gruntjs/grunt-contrib-watch#live-reloading
