@@ -30,3 +30,6 @@ The eclipse wtp plugin allows to generate all neccessary eclipse files. The face
 
 ### Websocket tutorial from oracle
 http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm
+
+### Links
+Grunt Live Reload http://stackoverflow.com/questions/16371022/how-to-use-grunt-contrib-livereload
