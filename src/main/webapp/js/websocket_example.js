@@ -1,4 +1,4 @@
-var wsUri = "ws://" + document.location.host + document.location.pathname + "echo";
+var wsUri = "ws://localhost:8080/tank-wars/echo";
 var output = document.getElementById("output");
 var websocket = new WebSocket(wsUri);
 
@@ -23,7 +23,7 @@ function writeToScreen(message) {
 }
 
 function onOpen() {
-    writeToScreen("Connected to " + wsUri);
+    writeToScreen("Connected to (using live reload) " + wsUri);
     websocket.send("hello from client :-)");
 }
 /**
