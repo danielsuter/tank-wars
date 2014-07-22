@@ -12,6 +12,9 @@ targetCompatibility = 1.8
 dependencies {
   providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
   providedCompile 'javax.websocket:javax.websocket-api:1.0'
+  compile 'com.google.code.gson:gson:2.2.4'
+  compile 'org.apache.commons:commons-lang3:3.3.2'
+  testCompile 'junit:junit:4.11'  
 }
 
 eclipse {
@@ -23,6 +26,7 @@ eclipse {
 	}
 }
 
+war.archiveName "tank-wars.war"
 
 task deployToTomcat(type: Copy) {
     from war
