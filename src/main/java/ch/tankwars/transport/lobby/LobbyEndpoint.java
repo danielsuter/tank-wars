@@ -12,6 +12,9 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import ch.tankwars.transport.lobby.response.AbstractResponse;
+import ch.tankwars.transport.lobby.response.ChatResponse;
+
 import com.google.gson.Gson;
 
 @ServerEndpoint("/lobby")
@@ -26,27 +29,31 @@ public class LobbyEndpoint {
 		LobbyCommand lobbyCommand = gson.fromJson(message, LobbyCommand.class);
 		switch(lobbyCommand.getCommand()) {
 		case CHAT:
-			broadcastStringMessage(lobbyCommand.getData());
+			ChatResponse response = new ChatResponse();
+			response.setUser("unknown");
+			response.setMessage(lobbyCommand.getData());
+			broadcastResponse(response);
 			break;
 		default:
 			System.out.println("cannot handle yet");
 			break;
 		}
 	}
-
-	private void broadcastStringMessage(String message) {
+	
+	private void broadcastResponse(AbstractResponse response) {
 		for (Session session : peers) {
-			sendStringMessage(session, message);
+			sendResponse(session, response);
 		}
 	}
 
-	private void sendStringMessage(Session session, String message) {
+	private void sendResponse(Session session, AbstractResponse response) {
 		try {
-			session.getBasicRemote().sendText(message + " (from your server)");
+			session.getBasicRemote().sendText(gson.toJson(response));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
+
 
 	@OnOpen
 	public void onOpen(Session peer) {

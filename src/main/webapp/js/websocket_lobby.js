@@ -3,6 +3,7 @@ $(function() {
 
     $("#sendButtonId").on('click', function() {
         sendMessage(messageText.val());
+        messageText.val('');
     });
 
     var hostname =  window.location.hostname;
@@ -45,7 +46,8 @@ $(function() {
      * @param event {Event}
      */
     websocket.onmessage = function(event) {
-        writeToScreen("Received message: " + event.data);
+        var message = JSON.parse(event.data);
+        writeToScreen(message.user + ': ' + message.message);
     };
 
     /**
