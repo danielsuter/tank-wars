@@ -1,5 +1,7 @@
 package ch.tankwars.example;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import ch.tankwars.transport.lobby.LobbyEndpoint;
@@ -25,5 +27,25 @@ public class GSonTest {
 		for(int i = 0; i < numberOfTimes; i++) {
 			gson.toJson(lobbyEndpoint);
 		}
+	}
+	
+	@Test
+	public void hierarchyTest() throws Exception {
+		Gson gson = new Gson();
+		Child child = new Child();
+		
+		String childAsJson = gson.toJson(child);
+		assertEquals("{\"someAttribute\":\"yo\",\"name\":\"Hans\"}", childAsJson);
+		
+		Child deserialisedChild = gson.fromJson(childAsJson, Child.class);
+		assertEquals("yo", deserialisedChild.someAttribute);
+	}
+	
+	class Parent {
+		public String name = "Hans";
+	}
+	
+	class Child extends Parent {
+		public String someAttribute = "yo";
 	}
 }
