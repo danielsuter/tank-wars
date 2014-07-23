@@ -6,14 +6,9 @@ $(function() {
         messageText.val('');
     });
 
-    var hostname =  window.location.hostname;
-    var wsUri;
-    if(hostname === 'localhost') {
-        wsUri = "ws://" + hostname + ":8080/tank-wars/lobby";
-    } else {
-        wsUri = "ws://" + hostname + ":9090/tank-wars/lobby";
-        console.log("detected CI, using wsUri: " + wsUri);
-    }
+
+    var wsUri = TUtil.getWebsocketUrl();
+
 
     var output = document.getElementById("messages");
     var websocket = new WebSocket(wsUri);
