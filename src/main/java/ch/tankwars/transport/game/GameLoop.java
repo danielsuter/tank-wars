@@ -27,6 +27,7 @@ public class GameLoop {
 	}
 	
 	public void start() {
+		System.out.println("starting loop...");
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			

@@ -23,12 +23,14 @@ public class GameEndpoint {
 
 	@OnMessage
 	public void onMessage(String message, Session clientSession) {
+		System.out.println(message);
 		String[] fullCommand = message.split(" ");
 		String command = fullCommand[0];
-		String arguments = fullCommand[1];
+		
 		switch (command) {
 		case "JOIN":
-			tank = game.spawn(arguments);
+			String playerName = fullCommand[1];
+			tank = game.spawn(playerName);
 			break;
 		case "START":
 			gameLoop.start();
@@ -37,8 +39,10 @@ public class GameEndpoint {
 			gameLoop.stop();
 			break;
 		case "MOVE":
-			Direction direction = Direction.valueOf(arguments);
+			String directionAsString = fullCommand[1];
+			Direction direction = Direction.valueOf(directionAsString);
 			tank.move(direction);
+			break;
 		default:
 			throw new RuntimeException("Cannot handle command: " + command);
 		}
