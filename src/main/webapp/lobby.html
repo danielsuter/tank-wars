@@ -3,12 +3,16 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Lobby</title>
+    <script type="text/javascript" src="js/lib/jquery-2.1.1.js"></script>
 </head>
 <body>
-    <div id="messages"></div>
+    <div id="messages" style="height: 100px; overflow-y: scroll"></div>
     <div>
-        <input type="text" name="message" />
-        <input type="button" value="Send"/>
+        <input type="text" name="message" id="messageId" />
+        <input type="button" value="Send" id="sendButtonId"/>
     </div>
+
+    <script type="text/javascript" src="js/websocket_lobby.js"></script>
+
 </body>
 </html>
