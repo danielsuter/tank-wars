@@ -12,16 +12,26 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.google.gson.Gson;
+
 @ServerEndpoint("/lobby")
 public class LobbyEndpoint {
 	private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
-
+	private static Gson gson = new Gson();
+	
 	@OnMessage
 	public void onMessage(String message, Session clientSession) {
 		System.out.println("Received messsage from client: " + message);
 		
-		broadcastStringMessage(message);
-
+		LobbyCommand lobbyCommand = gson.fromJson(message, LobbyCommand.class);
+		switch(lobbyCommand.getCommand()) {
+		case CHAT:
+			broadcastStringMessage(lobbyCommand.getData());
+			break;
+		default:
+			System.out.println("cannot handle yet");
+			break;
+		}
 	}
 
 	private void broadcastStringMessage(String message) {

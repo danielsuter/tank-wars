@@ -39,7 +39,6 @@ $(function() {
 
     function onOpen() {
         writeToScreen("Connected to " + wsUri);
-        websocket.send("hello from client :-)");
     }
     /**
      *
@@ -54,6 +53,11 @@ $(function() {
      * @param message {string}
      */
     function sendMessage(message) {
-        websocket.send(message);
+        var messageObject = {
+          command: "CHAT",
+          data: message
+        };
+
+        websocket.send(JSON.stringify(messageObject));
     }
 });
