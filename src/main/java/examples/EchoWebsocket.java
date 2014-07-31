@@ -12,30 +12,35 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @ServerEndpoint("/echo")
 public class EchoWebsocket {
-
+	
+	private final static Logger LOGGER = LoggerFactory.getLogger(EchoWebsocket.class);
+	
 	private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
 
 	@OnMessage
 	public void echo(String message, Session session) {
-		System.out.println("Received messsage from client: " + message);
+		LOGGER.debug("Received messsage from client: {}", message);
 		try {
 			session.getBasicRemote().sendText(message + " (from your server)");
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error(e.toString(), e);
 		}
 	}
 
 	@OnOpen
 	public void onOpen(Session peer) {
-		System.out.println("opening connection");
+		LOGGER.debug("opening connection");
 		peers.add(peer);
 	}
 
 	@OnClose
 	public void onClose(Session peer) {
-		System.out.println("closing connection");
+		LOGGER.debug("closing connection");
 		peers.remove(peer);
 	}
 
@@ -52,7 +57,7 @@ public class EchoWebsocket {
 	 */
 	private boolean isBrokenPipe(Throwable throwable) {
 		if ("java.io.IOException: Broken pipe".equals(throwable.getMessage())) {
-			System.out.println("Ignoring broken pipe");
+			LOGGER.info("Ignoring broken pipe");
 			return true;
 		} else if (throwable.getCause() != null) {
 			return isBrokenPipe(throwable.getCause());
