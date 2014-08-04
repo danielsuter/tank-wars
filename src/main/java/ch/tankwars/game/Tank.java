@@ -3,8 +3,8 @@ package ch.tankwars.game;
 public class Tank extends Actor {
 
 	private static final int DEFAULT_PROJECTILE_SPEED = 10;
-	public final static int DEFAULT_WIDTH = 10;
-	public final static int DEFAULT_HEIGHT = 10;
+	public final static int DEFAULT_WIDTH = 25;
+	public final static int DEFAULT_HEIGHT = 25;
 
 	private final String playerName;
 	private final String playerId; 
