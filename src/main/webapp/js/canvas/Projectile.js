@@ -5,7 +5,7 @@ var Projectile = function() {
             left: projectile.x,
             top: projectile.y,
             fill: 'red',
-            radius: projectile.dimension
+            radius: projectile.radius
         });
     };
 };

@@ -1,5 +1,6 @@
 package ch.tankwars.transport.game;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Set;
 
@@ -23,9 +24,7 @@ public class GameCommunicator {
 		long startTime = System.nanoTime();
 		String gameAsJson = responseMapper.map(objectToBroadcast, type);
 		long jsonTime = System.nanoTime();
-		for (Session session : peers) {
-			sendResponse(session, gameAsJson);
-		}
+		peers.parallelStream().forEach(peer -> sendResponse(peer, gameAsJson));
 		long responseTime = System.nanoTime();
 		double durationMillis = (responseTime - startTime) / 1000000d;
 		double durationJson = (jsonTime - startTime) / 1000000d;
@@ -37,11 +36,10 @@ public class GameCommunicator {
 
 	}
 	
-	// TODO sync futures
 	private void sendResponse(Session session, String response) {
 		try {
-			session.getAsyncRemote().sendText(response);
-		} catch (IllegalStateException e) {
+			session.getBasicRemote().sendText(response);
+		} catch (IOException | IllegalStateException e) {
 			LOGGER.error(e.toString(), e);
 		}
 	}

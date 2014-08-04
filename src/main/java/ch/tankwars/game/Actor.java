@@ -1,6 +1,6 @@
 package ch.tankwars.game;
 
-public abstract class Actor {
+public abstract class Actor implements Cloneable {
 	
 	private int id;
 	private int x;
@@ -15,10 +15,14 @@ public abstract class Actor {
 	private ActorType actorType;
 	private ActorListener actorListener;
 
-	public Actor(ActorListener actorListener, ActorType actorType, int id) {
+	public Actor(ActorListener actorListener, ActorType actorType) {
 		this.actorListener = actorListener;
 		this.actorType = actorType;
-		this.id = id;
+	}
+	
+	@Override
+	public Actor clone() throws CloneNotSupportedException {
+		return (Actor)super.clone();
 	}
 	
 	public void setId(int id) {

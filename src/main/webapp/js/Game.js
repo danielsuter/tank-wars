@@ -10,6 +10,7 @@ var Game = function(canvasId) {
     var walls = [];
     var projectiles = [];
     var lastCode;
+    var knownActors = [];
 
     var doKeyDown = function(event) {
         if(event.keyCode === lastCode) {
@@ -74,25 +75,51 @@ var Game = function(canvasId) {
     };
 
     var update = function(actors) {
-        removeProjectiles();
+        var projectilesFromResponse = [];
         $.each(actors, function() {
-            switch (this.actorType) {
+            if (!knownActors[this.id]) {
+                knownActors[this.id] = this;
+            }
+
+            var actorType = knownActors[this.id].actorType;
+            switch (actorType) {
                 case "TANK":
-                    var tankShape = tanks[this.playerId];
+                    var tankShape = tanks[this.id];
                     if (!tankShape) {
                         tankShape = tank.drawTank(this);
-                        tanks[this.playerId] = tankShape;
+                        tanks[this.id] = tankShape;
                         canvas.add(tankShape);
                     } else {
-                        tankShape.set({"left": this.x, "top": this.y});
-                        tankShape.setCoords();
+                        if (this.x) {
+                            tankShape.set({"left": this.x});
+                        }
+                        if (this.y) {
+                            tankShape.set({"top": this.y});
+                        }
+                        if (this.x || this.y) {
+                            tankShape.setCoords();
+                        }
                     }
                     break;
                 case "PROJECTILE":
-                    var projectileShape = projectile.drawProjectile(this);
-                    projectiles.push(projectileShape);
-                    canvas.add(projectileShape);
-                    break;
+                    projectilesFromResponse[this.id] = this;
+                    var projectileShape = projectiles[this.id];
+                    if (!projectileShape) {
+                        projectileShape = projectile.drawProjectile(this);
+                        projectiles[this.id] = projectileShape;
+                        canvas.add(projectileShape);
+                    } else {
+                        if (this.x) {
+                            projectileShape.set({"left": this.x});
+                        }
+                        if (this.y) {
+                            projectileShape.set({"top": this.y});
+                        }
+                        if (this.x || this.y) {
+                            projectileShape.setCoords();
+                        }
+                    }
+					break; 
                 case "WALL":
                     var wallShape = walls[this.wallId];
                     if(!wallShape) {
@@ -101,7 +128,6 @@ var Game = function(canvasId) {
                         canvas.add(wallShape);
                     }
                     break;
-            }
         });
 
         canvas.renderAll();
@@ -145,6 +171,5 @@ var Game = function(canvasId) {
     resource = new GameResource(update);
     tank = new Tank();
     projectile = new Projectile();
-    wall = new Wall();
     registerEventListeners();
 };

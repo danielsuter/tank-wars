@@ -1,5 +1,6 @@
 package ch.tankwars.game;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.UnsupportedEncodingException;
@@ -16,8 +17,10 @@ import com.google.gson.Gson;
 public class GameSerialiseTest {
 
 	private static final int TICKS_PER_SECOND = 10;
-	private static final int MAX_SIZE_BYTES = 7000;
+	private static final int MAX_SIZE_BYTES = 2500;
 
+	ResponseMapper mapper = new ResponseMapper();
+	
 	@Test
 	public void actorMapping() {
 		Gson gson = GsonFactory.create();
@@ -30,7 +33,6 @@ public class GameSerialiseTest {
 
 	@Test
 	public void assertSize() {
-		ResponseMapper mapper = new ResponseMapper();
 		
 		Game game = new Game();
 		List<Tank> tanks = new LinkedList<Tank>();
@@ -45,12 +47,13 @@ public class GameSerialiseTest {
 		for(int i = 0; i < 5; i++) {
 			tanks.stream().forEach(t -> t.shoot());
 			game.tick();
+			// Allow caching
+			mapper.map(game.getActors(), GsonFactory.ACTOR_LIST_TYPE);
 		}
 		
 		
 		List<Actor> actors = game.getActors();
 		String response = mapper.map(actors, GsonFactory.ACTOR_LIST_TYPE);
-		
 		long actualSize = getSizeInBytes(response) * TICKS_PER_SECOND;
 		assertTrue("Expected size to be below " + MAX_SIZE_BYTES + " but was " + actualSize ,actualSize < MAX_SIZE_BYTES);
 	}
@@ -61,5 +64,21 @@ public class GameSerialiseTest {
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@Test
+	public void assertDeltaRecogniztion() {
+		Game game = new Game();
+		Tank tank = game.spawn("Lux");
+		tank.setPosition(0, 0);
+		tank.setVelocity(1);
+		tank.setDirection(Direction.DOWN);
+		mapper.map(game.getActors(), GsonFactory.ACTOR_LIST_TYPE);
+		
+		game.tick();
+
+		String response2 = mapper.map(game.getActors(), GsonFactory.ACTOR_LIST_TYPE);
+		assertEquals("[0,{\"i\":1,\"y\":1}]", response2);
+		
 	}
 }

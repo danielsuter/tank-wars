@@ -59,6 +59,7 @@ public class GameController {
 
 	public void stop() {
 		timer.cancel();
+		isStarted = false;
 	}
 
 	public void join(Session player, String playerName) {
