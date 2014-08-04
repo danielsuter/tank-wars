@@ -19,7 +19,7 @@ import ch.tankwars.game.Tank;
 import ch.tankwars.transport.game.dto.JoinResponse;
 
 public class GameController {
-	private static final long INTERVAL_MILIS = 1000L;
+	private static final long INTERVAL_MILLIS = 40L;
 	
 	private final static Logger LOGGER = LoggerFactory.getLogger(GameController.class);
 	
@@ -40,7 +40,7 @@ public class GameController {
 				gameCommunicator.sendMessage(game.getActors(), peers);
 			}
 
-		}, 0, INTERVAL_MILIS);
+		}, 0, INTERVAL_MILLIS);
 	}
 
 	public void stop() {
