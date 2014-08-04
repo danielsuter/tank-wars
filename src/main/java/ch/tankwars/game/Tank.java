@@ -1,9 +1,11 @@
 package ch.tankwars.game;
 
+
 public class Tank extends Actor {
 
 	private final static int DEFAULT_WIDTH = 25;
 	private final static int DEFAULT_HEIGHT = 25;
+	private static final int DEFAULT_SPEED = 5;
 
 	private final String playerName;
 
@@ -21,7 +23,14 @@ public class Tank extends Actor {
 	public String getPlayerName() {
 		return playerName;
 	}
-
+	
+	@Override
+	public void setDirection(Direction direction) {
+		super.setDirection(direction);
+		if(getVelocity() == 0) {
+			setVelocity(DEFAULT_SPEED);
+		}
+	}
 
 	@Override
 	public void act() {
