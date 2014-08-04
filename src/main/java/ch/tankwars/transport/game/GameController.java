@@ -36,8 +36,12 @@ public class GameController {
 
 			@Override
 			public void run() {
+				double startTime = System.nanoTime();
 				game.tick();
 				gameCommunicator.sendMessage(game.getActors(), peers);
+				double endTime = System.nanoTime();
+				double durationMilis = (endTime - startTime) / 1000000d;
+				LOGGER.info("LOOP TIME: {}", durationMilis);
 			}
 
 		}, 0, INTERVAL_MILIS);
