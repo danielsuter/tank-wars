@@ -7,16 +7,21 @@ public abstract class Actor {
 	private int height;
 
 	private int velocityX;
-	private int velociyY;
+	private int velocityY;
 
 	public void act() {
 		x += velocityX;
-		y += velociyY;
+		y += velocityY;
 	}
 
 	public void setPosition(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public void setVelocity(int velocityX, int velocityY) {
+		this.velocityX = velocityX;
+		this.velocityY = velocityY;
 	}
 
 	public int getWidth() {
@@ -60,10 +65,10 @@ public abstract class Actor {
 	}
 
 	public int getVelociyY() {
-		return velociyY;
+		return velocityY;
 	}
 
 	public void setVelocityY(int velociyY) {
-		this.velociyY = velociyY;
+		this.velocityY = velociyY;
 	}
 }
