@@ -36,8 +36,9 @@ var GameResource = function(_onGameUpdate) {
         var message = JSON.parse(event.data);
 
         if(!message.messageType) {
-            // TODO We don't have a message type for the game class yet
-            onGameUpdate(message);
+            message.splice(0, 1);
+            var actors = mapToActorArray(message);
+            onGameUpdate(actors);
         } else if(message.messageType === 'JOIN') {
             onJoined(message.fieldWidth, message.fieldHeight);
         }
@@ -67,5 +68,41 @@ var GameResource = function(_onGameUpdate) {
      */
     var sendMessage = function (message) {
         websocket.send(message);
-    }
+    };
+
+    var protocolToViewMap = {
+        "t" : "actorType",
+        "i" : "id",
+        "x" : "x",
+        "y" : "y",
+        "w" : "width",
+        "h" : "height",
+        "d" : "direction",
+        "v" : "velocity"
+    };
+
+    var actorTypeMap = {
+        0 : "TANK"
+    };
+
+    var mapToActorArray = function(protocol) {
+        var actors = [];
+        $.each(protocol, function() {
+            var actor = {};
+
+            for (var property in this) {
+                var viewPropertyName = protocolToViewMap[property];
+                if (property === "t") {
+                    console.log("bla");
+                    actor[viewPropertyName]  = actorTypeMap[this[property]];
+                } else {
+                    actor[viewPropertyName] = this[property];
+                }
+            }
+
+            actors.push(actor);
+        });
+
+        return actors;
+    };
 };
