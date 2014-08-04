@@ -67,7 +67,7 @@ var Game = function(canvasId) {
     var drawBoard = function() {
         canvas.setWidth(width);
         canvas.setHeight(height);
-        canvas.backgroundColor = 'grey';
+        canvas.backgroundColor = '#33FF33';
         canvas.renderAll();
     };
 
