@@ -5,11 +5,13 @@ public class Tank extends Actor {
 	public final static int DEFAULT_WIDTH = 10;
 	public final static int DEFAULT_HEIGHT = 10;
 
-	private String playerName;
+	private final String playerName;
+	private final String playerId; 
 	private int speed = 5;
 
-	public Tank(String playerName) {
+	public Tank(String playerName, String playerId) {
 		this.playerName = playerName;
+		this.playerId = playerId;
 		setWidth(DEFAULT_WIDTH);
 		setHeight(DEFAULT_HEIGHT);
 	}
@@ -18,19 +20,19 @@ public class Tank extends Actor {
 		switch (direction) {
 		case DOWN:
 			setVelocityX(0);
-			setVelociyY(speed);
+			setVelocityY(speed);
 			break;
 		case UP:
 			setVelocityX(0);
-			setVelociyY(-speed);
+			setVelocityY(-speed);
 			break;
 		case LEFT:
 			setVelocityX(-speed);
-			setVelociyY(0);
+			setVelocityY(0);
 			break;
 		case RIGHT:
 			setVelocityX(speed);
-			setVelociyY(0);
+			setVelocityY(0);
 			break;
 		default:
 			throw new RuntimeException("Cannot handle direction: " + direction);
@@ -41,15 +43,15 @@ public class Tank extends Actor {
 		return playerName;
 	}
 
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
-	}
-
 	public int getSpeed() {
 		return speed;
 	}
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+
+	public String getPlayerId() {
+		return playerId;
 	}
 }
