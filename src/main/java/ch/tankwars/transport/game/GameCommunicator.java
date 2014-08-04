@@ -17,7 +17,7 @@ public class GameCommunicator {
 	public GameCommunicator() {
 		gson = GsonFactory.create();
 	}
-	
+
 	public void sendMessage(Object objectToBroadcast, Set<Session> peers) {
 		long startTime = System.nanoTime();
 		String gameAsJson = gson.toJson(objectToBroadcast);
@@ -33,10 +33,15 @@ public class GameCommunicator {
 
 	public void sendMessage(Object objectToBroadcast, Session session) {
 		sendResponse(session, gson.toJson(objectToBroadcast));
+
 	}
 
 	private void sendResponse(Session session, String response) {
-		session.getAsyncRemote().sendText(response);
+		try {
+			session.getAsyncRemote().sendText(response);
+		} catch (IllegalStateException e) {
+			LOGGER.error(e.toString(), e);
+		}
 	}
 
 }
