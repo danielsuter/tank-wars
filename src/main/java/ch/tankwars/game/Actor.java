@@ -7,7 +7,7 @@ public abstract class Actor {
 	private int width;
 	private int height;
 
-	private int velocity;
+	private int velocity = 5;
 	private Direction direction;
 	
 	private ActorType actorType;

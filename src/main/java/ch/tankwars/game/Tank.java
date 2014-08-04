@@ -7,7 +7,6 @@ public class Tank extends Actor {
 	public final static int DEFAULT_HEIGHT = 25;
 
 	private final String playerName;
-	private int speed = 5;
 
 	public Tank(ActorListener actorListener, String playerName, int id) {
 		super(actorListener, ActorType.TANK, id);
@@ -24,13 +23,6 @@ public class Tank extends Actor {
 		return playerName;
 	}
 
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
 
 	@Override
 	public void act() {
