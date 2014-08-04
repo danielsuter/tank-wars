@@ -63,7 +63,7 @@ public abstract class Actor {
 		return velociyY;
 	}
 
-	public void setVelociyY(int velociyY) {
+	public void setVelocityY(int velociyY) {
 		this.velociyY = velociyY;
 	}
 }

@@ -8,8 +8,6 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import ch.tankwars.game.Direction;
-import ch.tankwars.game.Game;
-import ch.tankwars.game.Tank;
 
 /**
  * One endpoint will be created per session.
@@ -17,10 +15,11 @@ import ch.tankwars.game.Tank;
  */
 @ServerEndpoint("/game")
 public class GameEndpoint {
-	private static Game game = new Game();
-	private static GameLoop gameLoop = new GameLoop(game);
-	private Tank tank;
 
+	private static GameController gameLoop = new GameController();
+	
+	private Session playerSession;
+	
 	@OnMessage
 	public void onMessage(String message, Session clientSession) {
 		System.out.println(message);
@@ -29,8 +28,8 @@ public class GameEndpoint {
 		
 		switch (command) {
 		case "JOIN":
-			String playerName = fullCommand[1];
-			tank = game.spawn(playerName);
+			final String playerName = fullCommand[1];
+			gameLoop.join(playerSession, playerName);
 			break;
 		case "START":
 			gameLoop.start();
@@ -41,7 +40,7 @@ public class GameEndpoint {
 		case "MOVE":
 			String directionAsString = fullCommand[1];
 			Direction direction = Direction.valueOf(directionAsString);
-			tank.move(direction);
+			gameLoop.move(playerSession, direction);
 			break;
 		default:
 			throw new RuntimeException("Cannot handle command: " + command);
@@ -50,12 +49,12 @@ public class GameEndpoint {
 
 	@OnOpen
 	public void onOpen(Session peer) {
-		gameLoop.registerListener(peer);
+		playerSession = peer;
 	}
 
 	@OnClose
 	public void onClose(Session peer) {
-		gameLoop.removeListener(peer);
+		gameLoop.removePlayer(peer);
 	}
 
 	@OnError
