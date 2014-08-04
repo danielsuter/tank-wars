@@ -9,8 +9,8 @@ public class Tank extends Actor {
 
 	private final String playerName;
 
-	public Tank(ActorListener actorListener, String playerName, int id) {
-		super(actorListener, ActorType.TANK, id);
+	public Tank(ActorListener actorListener, String playerName) {
+		super(actorListener, ActorType.TANK);
 		this.playerName = playerName;
 		setWidth(DEFAULT_WIDTH);
 		setHeight(DEFAULT_HEIGHT);

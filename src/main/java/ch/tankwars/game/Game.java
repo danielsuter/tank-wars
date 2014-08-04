@@ -38,8 +38,8 @@ public class Game implements ActorListener {
 	}
 	
 	public Tank spawn(String playerName) {
-		final int playerId = generateId();
-		final Tank tank = new Tank(this, playerName, playerId);
+		final Tank tank = new Tank(this, playerName);
+		tank.setId(generateId());
 		
 		final Random random = new Random();
 		final int x = random.nextInt(GAME_WIDTH + 1 - tank.getWidth());
@@ -66,6 +66,7 @@ public class Game implements ActorListener {
 
 	@Override
 	public void createActor(Actor actor) {
+		actor.setId(generateId());
 		actorsToAdd.add(actor);
 	}
 }

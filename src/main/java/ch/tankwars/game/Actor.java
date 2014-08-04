@@ -15,10 +15,9 @@ public abstract class Actor implements Cloneable {
 	private ActorType actorType;
 	private ActorListener actorListener;
 
-	public Actor(ActorListener actorListener, ActorType actorType, int id) {
+	public Actor(ActorListener actorListener, ActorType actorType) {
 		this.actorListener = actorListener;
 		this.actorType = actorType;
-		this.id = id;
 	}
 	
 	@Override
