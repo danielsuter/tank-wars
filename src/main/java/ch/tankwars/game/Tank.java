@@ -2,6 +2,7 @@ package ch.tankwars.game;
 
 public class Tank extends Actor {
 
+	private static final int DEFAULT_PROJECTILE_SPEED = 10;
 	public final static int DEFAULT_WIDTH = 10;
 	public final static int DEFAULT_HEIGHT = 10;
 
@@ -67,16 +68,16 @@ public class Tank extends Actor {
 		Projectile projectile = new Projectile(getActorListener());
 		switch(getDirection()) {
 		case DOWN:
-			projectile.setVelocity(0, 1);
+			projectile.setVelocity(0, DEFAULT_PROJECTILE_SPEED);
 			break;
 		case UP:
-			projectile.setVelocity(0, -1);
+			projectile.setVelocity(0, -DEFAULT_PROJECTILE_SPEED);
 			break;
 		case LEFT:
-			projectile.setVelocity(-1, 0);
+			projectile.setVelocity(-DEFAULT_PROJECTILE_SPEED, 0);
 			break;
 		case RIGHT:
-			projectile.setVelocity(1, 0);
+			projectile.setVelocity(DEFAULT_PROJECTILE_SPEED, 0);
 			break;
 		}
 		
