@@ -4,6 +4,7 @@ var Game = function(canvasId) {
     var height;
     var resource;
     var tanks = [];
+    var projectiles = [];
     var lastCode;
 
     var doKeyDown = function(event) {
@@ -70,8 +71,16 @@ var Game = function(canvasId) {
 
     var update = function(_tanks) {
         $.each(_tanks, function() {
-            drawTank(this);
+            switch (this.actorType) {
+                case "TANK":
+                    drawTank(this);
+                    break;
+                case "PROJECTILE":
+                    drawProjectile(this);
+            }
         });
+
+        canvas.renderAll();
     };
 
     var drawBoard = function() {
@@ -81,9 +90,27 @@ var Game = function(canvasId) {
         canvas.renderAll();
     };
 
+    var drawProjectile = function(projectile) {
+        var projectileShape = projectiles[projectile.projectileId];
+
+        if (!projectileShape) {
+            projectileShape = new fabric.Circle({
+                left: projectile.x,
+                top: projectile.y,
+                fill: 'red',
+                radius: projectile.width
+            });
+
+            projectiles[projectile.projectileId] = projectileShape;
+            canvas.add(projectileShape);
+        } else {
+            projectileShape.set({"left" : projectile.x, "top" : projectile.y});
+            projectileShape.setCoords();
+        }
+    };
+
     var drawTank = function(tank) {
         var tankShape = tanks[tank.playerId];
-
         if (!tankShape) {
             tankShape = new fabric.Rect({
                 left: tank.x,
@@ -99,8 +126,6 @@ var Game = function(canvasId) {
             tankShape.set({"left" : tank.x, "top" : tank.y});
             tankShape.setCoords();
         }
-
-        canvas.renderAll();
     };
 
     var registerEventListeners = function() {
