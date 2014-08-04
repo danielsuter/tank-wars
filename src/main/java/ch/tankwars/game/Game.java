@@ -20,7 +20,7 @@ public class Game implements ActorListener {
 	
 	private List<Actor> actors = new LinkedList<Actor>();
 	
-	public void tick() {
+	public synchronized void tick() {
 		Actor actorToAdd = null;
 		while((actorToAdd = actorsToAdd.poll()) != null){
 			actors.add(actorToAdd);
