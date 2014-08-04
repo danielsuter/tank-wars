@@ -59,11 +59,11 @@ public class GsonFactory {
 			toSerialize.parallelStream().map(new Function<Actor, JsonObject>() {
 				@Override
 				public JsonObject apply(Actor actor) {
-					int identifier = actor.getActorType().getIdentifier();
-
-					Actor cachedActor = CACHE.get(identifier);
+					Actor cachedActor = CACHE.get(actor.getId());
 
 					JsonObject actorJson = new JsonObject();
+					
+					int identifier = actor.getActorType().getIdentifier();
 					actorJson.addProperty("t", identifier);
 					actorJson.addProperty("i", actor.getId());
 
@@ -90,8 +90,17 @@ public class GsonFactory {
 						actorJson.addProperty("v", actor.getVelocity());
 					}
 
-					CACHE.put(identifier, actor);
+					putToCache(actor);
+					
 					return actorJson;
+				}
+
+				private void putToCache(Actor actor) {
+					try {
+						CACHE.put(actor.getId(), actor.clone());
+					} catch (CloneNotSupportedException e) {
+						throw new RuntimeException(e);
+					}
 				}
 			}).forEach(json -> returnValue.add(json));
 
