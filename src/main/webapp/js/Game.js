@@ -1,11 +1,11 @@
 var Game = function(canvasId) {
-    var canvas = new fabric.Canvas(canvasId);
+    var canvas = new fabric.StaticCanvas(canvasId);
     var width;
     var height;
 
-    var onJoin = function(boardSize, playerId) {
-        width = boardSize.width;
-        height = boardSize.height;
+    var onJoin = function(_width, _height) {
+        width = _width;
+        height = _height;
         drawBoard();
     };
 
