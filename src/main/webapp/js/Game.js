@@ -2,6 +2,49 @@ var Game = function(canvasId) {
     var canvas = new fabric.StaticCanvas(canvasId);
     var width;
     var height;
+    var resource;
+
+    var doKeyDown = function(event) {
+        switch(event.keyCode) {
+            case 37: // LEFT
+                resource.move('LEFT');
+                break;
+            case 38: // UP
+                resource.move('UP');
+                break;
+            case 39: // RIGHT
+                resource.move('RIGHT');
+                break;
+            case 40: // DOWN
+                resource.move('DOWN');
+                break;
+            default:
+                console.log('We don\'t care about keycode: ' + event.keyCode);
+        }
+    };
+
+    var doKeyUp = function(event) {
+        switch(event.keyCode) {
+            case 37: // LEFT
+                resource.stopMove('LEFT');
+                break;
+            case 38: // UP
+                resource.stopMove('UP');
+                break;
+            case 39: // RIGHT
+                resource.stopMove('RIGHT');
+                break;
+            case 40: // DOWN
+                resource.stopMove('DOWN');
+                break;
+            default:
+                console.log('We don\'t care about keycode: ' + event.keyCode);
+        }
+    };
+
+
+    window.addEventListener('keydown', doKeyDown, false);
+    window.addEventListener('keyup', doKeyUp, false);
 
     var onJoin = function(_width, _height) {
         width = _width;
@@ -10,7 +53,7 @@ var Game = function(canvasId) {
     };
 
     var update = function(tanks) {
-        $.each(tanks, function(i) {
+        $.each(tanks, function() {
             drawTank(this);
         });
     };
@@ -33,6 +76,6 @@ var Game = function(canvasId) {
         canvas.add(tank);
     };
 
-    var resource = new GameResource(update);
+    resource = new GameResource(update);
     resource.join(onJoin, 'Sepp');
 };
