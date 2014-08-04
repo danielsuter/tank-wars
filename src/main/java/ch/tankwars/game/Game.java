@@ -52,4 +52,8 @@ public class Game {
 	private String generateNewPlayerId() {
 		return UUID.randomUUID().toString();
 	}
+
+	public void remove(Tank tank) {
+		actors.remove(tank);
+	}
 }
