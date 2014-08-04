@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Tank Wars</title>
-
-    <script type="text/javascript" src="js/lib/jquery-2.1.1.js"></script>
-    <script type="text/javascript" src="js/util/TUtil.js"></script>
-
+    <meta charset="UTF-8">
+    <title>Tank Wars</title>
+    <script src="js/lib/jquery-2.1.1.js"></script>
 </head>
 <body>
-    <script type="text/javascript" src="js/Game.js"></script>
-    <script type="text/javascript" src="js/GameResource.js"></script>
+<h1>Tank Wars</h1>
+    <canvas id="board"></canvas>
 
     <script>
         $(function() {
-
-            //new Game();
+            new Game('board');
         });
     </script>
+
+    <script src="js/lib/fabric.min.js"></script>
+    <script src="js/util/TUtil.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/GameResource.js"></script>
 </body>
+
 </html>
