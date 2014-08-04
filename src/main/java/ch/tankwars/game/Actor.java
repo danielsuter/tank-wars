@@ -7,8 +7,8 @@ public abstract class Actor {
 	private int width;
 	private int height;
 
-	private int velocity = 5;
-	private Direction direction;
+	private int velocity = 0;
+	private Direction direction = Direction.RIGHT;
 	
 	private ActorType actorType;
 	private ActorListener actorListener;
