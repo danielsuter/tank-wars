@@ -58,7 +58,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		final Projectile projectile = new Projectile(getActorListener(), 1); // TODO does not work, game needs to create ids
+		final Projectile projectile = new Projectile(getActorListener());
 		// TODO beautify
 		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2));
 		

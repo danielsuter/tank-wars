@@ -7,7 +7,7 @@ public class Projectile extends Actor {
 	private static final int DEFAULT_PROJECTILE_DIMENSION = 3; 
 	private int projectileDimension; 
 
-	public Projectile(ActorListener actorListener, int id) {
+	public Projectile(ActorListener actorListener) {
 		super(actorListener, ActorType.PROJECTILE);
 		setProjectileDimension(DEFAULT_PROJECTILE_DIMENSION);
 		setVelocity(DEFAULT_PROJECTILE_SPEED);
