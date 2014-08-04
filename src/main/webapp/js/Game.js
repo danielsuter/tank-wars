@@ -14,15 +14,19 @@ var Game = function(canvasId) {
 
         switch(event.keyCode) {
             case 37: // LEFT
+                event.preventDefault();
                 resource.move('LEFT');
                 break;
             case 38: // UP
+                event.preventDefault();
                 resource.move('UP');
                 break;
             case 39: // RIGHT
+                event.preventDefault();
                 resource.move('RIGHT');
                 break;
             case 40: // DOWN
+                event.preventDefault();
                 resource.move('DOWN');
                 break;
         }
@@ -32,15 +36,19 @@ var Game = function(canvasId) {
         lastCode = null;
         switch(event.keyCode) {
             case 37: // LEFT
+                event.preventDefault();
                 resource.stopMove('LEFT');
                 break;
             case 38: // UP
+                event.preventDefault();
                 resource.stopMove('UP');
                 break;
             case 39: // RIGHT
+                event.preventDefault();
                 resource.stopMove('RIGHT');
                 break;
             case 40: // DOWN
+                event.preventDefault();
                 resource.stopMove('DOWN');
                 break;
             case 32: // Space
@@ -69,7 +77,7 @@ var Game = function(canvasId) {
     var drawBoard = function() {
         canvas.setWidth(width);
         canvas.setHeight(height);
-        canvas.backgroundColor = 'rgba(0,0,255,0.3)';
+        canvas.backgroundColor = 'grey';
         canvas.renderAll();
     };
 

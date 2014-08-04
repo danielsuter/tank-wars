@@ -52,7 +52,7 @@ public class GameController {
 		Tank spawnedTank = game.spawn(playerName);
 		tanksMap.put(player, spawnedTank);
 		
-		JoinResponse joinResponse = new JoinResponse(spawnedTank.getPlayerId(), game.getWidth(), game.getHeight());
+		JoinResponse joinResponse = new JoinResponse(spawnedTank.getPlayerId(), Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		gameCommunicator.sendMessage(joinResponse, player);
 	}
 

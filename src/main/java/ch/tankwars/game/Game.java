@@ -11,8 +11,8 @@ import java.util.UUID;
  */
 public class Game implements ActorListener {
 
-	private int width = 800;
-	private int height = 600;
+	public static final int GAME_WIDTH = 800;
+	public static final int GAME_HEIGHT = 600;
 	
 	private List<Actor> actors = Collections.synchronizedList(new LinkedList<Actor>());
 	
@@ -28,8 +28,8 @@ public class Game implements ActorListener {
 		final Tank tank = new Tank(this, playerName, playerId);
 		
 		final Random random = new Random();
-		final int x = random.nextInt(width + 1 - tank.getWidth());
-		final int y = random.nextInt(height + 1 - tank.getHeight());
+		final int x = random.nextInt(GAME_WIDTH + 1 - tank.getWidth());
+		final int y = random.nextInt(GAME_HEIGHT + 1 - tank.getHeight());
 		
 		tank.setPosition(x, y);
 		actors.add(tank);
@@ -41,14 +41,6 @@ public class Game implements ActorListener {
 		return actors;
 	}
 
-	public int getWidth() {
-		return width;
-	}
-	
-	public int getHeight() {
-		return height;
-	}
-	
 	private String generateNewPlayerId() {
 		return UUID.randomUUID().toString();
 	}

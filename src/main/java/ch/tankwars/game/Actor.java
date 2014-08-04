@@ -81,7 +81,7 @@ public abstract class Actor {
 		this.velocityX = velocityX;
 	}
 
-	public int getVelociyY() {
+	public int getVelocityY() {
 		return velocityY;
 	}
 

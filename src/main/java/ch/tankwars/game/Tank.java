@@ -58,6 +58,27 @@ public class Tank extends Actor {
 	public String getPlayerId() {
 		return playerId;
 	}
+	
+	@Override
+	public void act() {
+		int newX = getX() + getVelocityX();
+		int newY = getY() + getVelocityY();
+		
+		if(newX > Game.GAME_WIDTH - getWidth()) {
+			newX = Game.GAME_WIDTH - getWidth();
+		} else if(newX < 0) {
+			newX = 0;
+		}
+		
+		if (newY > Game.GAME_HEIGHT - getHeight()) {
+			newY = Game.GAME_HEIGHT - getHeight(); 
+		} else if(newY < 0) {
+			newY = 0;
+		}
+		
+		setX(newX);
+		setY(newY);
+	}
 
 	public void moveStop(Direction direction) {
 		// TODO is the direction really necessary?
