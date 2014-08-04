@@ -1,9 +1,11 @@
 package ch.tankwars.game;
 
 public abstract class Actor {
+	
 	private int id;
 	private int x;
 	private int y;
+	
 	private int width;
 	private int height;
 
@@ -45,8 +47,6 @@ public abstract class Actor {
 		this.y = y;
 	}
 	
-	
-
 	public int getWidth() {
 		return width;
 	}
