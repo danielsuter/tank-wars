@@ -19,7 +19,7 @@ import ch.tankwars.game.Tank;
 import ch.tankwars.transport.game.dto.JoinResponse;
 
 public class GameController {
-	private static final long INTERVAL_MILIS = 40L;
+	private static final long INTERVAL_MILIS = 100L;
 	
 	private final static Logger LOGGER = LoggerFactory.getLogger(GameController.class);
 	
