@@ -32,7 +32,11 @@ public class GameCommunicator {
 	}
 
 	public void sendMessage(Object objectToBroadcast, Session session) {
-		sendResponse(session, gson.toJson(objectToBroadcast));
+		try {
+			sendResponse(session, gson.toJson(objectToBroadcast));
+		} catch(IllegalStateException e) {
+			LOGGER.error(e.toString(), e);
+		}
 	}
 
 	private void sendResponse(Session session, String response) {
