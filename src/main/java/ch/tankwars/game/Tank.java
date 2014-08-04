@@ -2,9 +2,8 @@ package ch.tankwars.game;
 
 public class Tank extends Actor {
 
-	private static final int DEFAULT_PROJECTILE_SPEED = 10;
-	public final static int DEFAULT_WIDTH = 25;
-	public final static int DEFAULT_HEIGHT = 25;
+	private final static int DEFAULT_WIDTH = 25;
+	private final static int DEFAULT_HEIGHT = 25;
 
 	private final String playerName;
 
@@ -17,7 +16,7 @@ public class Tank extends Actor {
 	
 	public void move(Direction direction) {
 		setDirection(direction);
-	}
+	}	
 
 	public String getPlayerName() {
 		return playerName;
@@ -50,12 +49,9 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		Projectile projectile = new Projectile(getActorListener(), 1); // TODO does not work, game needs to create ids
+		final Projectile projectile = new Projectile(getActorListener(), 1); // TODO does not work, game needs to create ids
 		// TODO beautify
-		projectile.setWidth(3);
-		projectile.setHeight(3);
-		projectile.setPosition(getX() + (getWidth() / 2 ) - (projectile.getWidth() / 2), getY() + (getHeight() / 2) - (projectile.getHeight() / 2));
-		projectile.setVelocity(DEFAULT_PROJECTILE_SPEED);
+		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2));
 		
 		switch(getDirection()) {
 		case DOWN:
