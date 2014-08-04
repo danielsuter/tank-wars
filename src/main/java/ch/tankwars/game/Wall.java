@@ -3,7 +3,7 @@ package ch.tankwars.game;
 public class Wall extends Actor {
 
 	public Wall(ActorListener actorListener, int id, int x, int y, int width, int height) {
-		super(actorListener, ActorType.WALL, id);
+		super(actorListener, ActorType.WALL);
 		setX(x);
 		setY(y);
 		setWidth(width);

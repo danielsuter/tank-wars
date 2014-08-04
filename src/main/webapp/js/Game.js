@@ -117,7 +117,6 @@ var Game = function(canvasId) {
                             projectileShape.setCoords();
                         }
                     }
-
             }
         });
 
