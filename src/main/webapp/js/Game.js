@@ -93,6 +93,8 @@ var Game = function(canvasId) {
 
         $("#stopGame").click(function() {
             resource.stop();
+            $(this).hide();
+            $("#startGame").show();
         });
    };
 
