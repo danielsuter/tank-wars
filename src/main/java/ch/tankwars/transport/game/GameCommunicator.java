@@ -9,8 +9,12 @@ import com.google.gson.Gson;
 
 public class GameCommunicator {
 
-	private final Gson gson = new Gson();
+	private final Gson gson;
 
+	public GameCommunicator() {
+		gson = GsonFactory.create();
+	}
+	
 	public void sendMessage(Object objectToBroadcast, Set<Session> peers) {
 		String gameAsJson = gson.toJson(objectToBroadcast);
 		for (Session session : peers) {
