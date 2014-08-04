@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import ch.tankwars.game.Actor;
+import ch.tankwars.game.Projectile;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -76,12 +77,20 @@ public class GsonFactory {
 					if (cachedActor == null || cachedActor.getY() != actor.getY()) {
 						actorJson.addProperty("y", actor.getY());
 					}
-
-					if (cachedActor == null || cachedActor.getWidth() != actor.getWidth()) {
-						actorJson.addProperty("w", actor.getWidth());
-					}
-					if (cachedActor == null || cachedActor.getHeight() != actor.getHeight()) {
-						actorJson.addProperty("h", actor.getHeight());
+					
+					if (actor instanceof Projectile) {
+						Projectile projectile = (Projectile) actor;
+						Projectile cachedProjectile = (Projectile) cachedActor;
+						if (cachedProjectile == null || cachedProjectile.getProjectileDimension() != projectile.getProjectileDimension()) {
+							actorJson.addProperty("r", projectile.getProjectileDimension());
+						}
+					} else {
+						if (cachedActor == null || cachedActor.getWidth() != actor.getWidth()) {
+							actorJson.addProperty("w", actor.getWidth());
+						}
+						if (cachedActor == null || cachedActor.getHeight() != actor.getHeight()) {
+							actorJson.addProperty("h", actor.getHeight());
+						}
 					}
 
 					if (cachedActor == null || cachedActor.getDirection() != actor.getDirection()) {
@@ -91,7 +100,7 @@ public class GsonFactory {
 					if (cachedActor == null || cachedActor.getVelocity() != actor.getVelocity()) {
 						actorJson.addProperty("v", actor.getVelocity());
 					}
-
+					
 					putToCache(actor);
 					
 					return actorJson;

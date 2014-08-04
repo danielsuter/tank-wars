@@ -8,6 +8,7 @@ var Game = function(canvasId) {
     var tanks = [];
     var projectiles = [];
     var lastCode;
+    var knownActors = [];
 
     var doKeyDown = function(event) {
         if(event.keyCode === lastCode) {
@@ -72,9 +73,14 @@ var Game = function(canvasId) {
     };
 
     var update = function(actors) {
-        removeProjectiles();
+        var projectilesFromResponse = [];
         $.each(actors, function() {
-            switch (this.actorType) {
+            if (!knownActors[this.id]) {
+                knownActors[this.id] = this;
+            }
+
+            var actorType = knownActors[this.id].actorType;
+            switch (actorType) {
                 case "TANK":
                     var tankShape = tanks[this.id];
                     if (!tankShape) {
@@ -94,12 +100,28 @@ var Game = function(canvasId) {
                     }
                     break;
                 case "PROJECTILE":
-                    var projectileShape = projectile.drawProjectile(this);
-                    projectiles.push(projectileShape);
-                    canvas.add(projectileShape);
+                    projectilesFromResponse[this.id] = this;
+                    var projectileShape = projectiles[this.id];
+                    if (!projectileShape) {
+                        projectileShape = projectile.drawProjectile(this);
+                        projectiles[this.id] = projectileShape;
+                        canvas.add(projectileShape);
+                    } else {
+                        if (this.x) {
+                            projectileShape.set({"left": this.x});
+                        }
+                        if (this.y) {
+                            projectileShape.set({"top": this.y});
+                        }
+                        if (this.x || this.y) {
+                            projectileShape.setCoords();
+                        }
+                    }
+
             }
         });
 
+//        removeDeadProjectiles(projectilesFromResponse);
         canvas.renderAll();
     };
 
@@ -110,11 +132,14 @@ var Game = function(canvasId) {
         canvas.renderAll();
     };
 
-    var removeProjectiles = function() {
+    var removeDeadProjectiles = function(projectilesInGame) {
         $.each(projectiles, function() {
-            canvas.remove(this);
+            if (!projectilesInGame[this.id]) {
+                projectiles[this.id] = undefined;
+                knownActors[this.id] = undefined;
+                canvas.remove(this);
+            }
         });
-        projectiles = [];
     };
 
     var registerEventListeners = function() {
