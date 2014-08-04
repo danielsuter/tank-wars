@@ -4,8 +4,10 @@ var Game = function(canvasId) {
     var height;
     var resource;
     var tank;
+    var wall;
     var projectile;
     var tanks = [];
+    var walls = [];
     var projectiles = [];
     var lastCode;
 
@@ -90,6 +92,15 @@ var Game = function(canvasId) {
                     var projectileShape = projectile.drawProjectile(this);
                     projectiles.push(projectileShape);
                     canvas.add(projectileShape);
+                    break;
+                case "WALL":
+                    var wallShape = walls[this.wallId];
+                    if(!wallShape) {
+                        wallShape = wall.drawWall(this);
+                        walls[this.wallId] = wallShape;
+                        canvas.add(wallShape);
+                    }
+                    break;
             }
         });
 
@@ -134,5 +145,6 @@ var Game = function(canvasId) {
     resource = new GameResource(update);
     tank = new Tank();
     projectile = new Projectile();
+    wall = new Wall();
     registerEventListeners();
 };
