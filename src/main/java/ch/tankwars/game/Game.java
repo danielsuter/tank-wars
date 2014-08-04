@@ -10,7 +10,7 @@ import java.util.UUID;
  * Contains all game logic.
  */
 public class Game {
-	
+
 	private int width = 800;
 	private int height = 600;
 	
@@ -36,9 +36,17 @@ public class Game {
 		
 		return tank;
 	}
-
+	
 	public List<Actor> getActors() {
 		return actors;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 	
 	private String generateNewPlayerId() {

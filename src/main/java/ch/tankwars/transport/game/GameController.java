@@ -13,6 +13,7 @@ import javax.websocket.Session;
 import ch.tankwars.game.Direction;
 import ch.tankwars.game.Game;
 import ch.tankwars.game.Tank;
+import ch.tankwars.transport.game.dto.JoinResponse;
 
 public class GameController {
 
@@ -45,10 +46,9 @@ public class GameController {
 		peers.add(player);
 		Tank spawnedTank = game.spawn(playerName);
 		tanksMap.put(player, spawnedTank);
-		/*
-		 * fieldWidth fieldHeight playerId
-		 */
-		gameCommunicator.sendMessage(null, player);
+		
+		JoinResponse joinResponse = new JoinResponse(spawnedTank.getPlayerId(), game.getWidth(), game.getHeight());
+		gameCommunicator.sendMessage(joinResponse, player);
 	}
 
 	public void move(Session player, Direction direction) {
