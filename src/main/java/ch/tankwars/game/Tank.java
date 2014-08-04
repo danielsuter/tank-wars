@@ -1,6 +1,5 @@
 package ch.tankwars.game;
 
-
 public class Tank extends Actor {
 
 	private final static int DEFAULT_WIDTH = 25;
