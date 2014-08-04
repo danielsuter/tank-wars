@@ -76,14 +76,21 @@ var Game = function(canvasId) {
         $.each(actors, function() {
             switch (this.actorType) {
                 case "TANK":
-                    var tankShape = tanks[this.playerId];
+                    var tankShape = tanks[this.id];
                     if (!tankShape) {
                         tankShape = tank.drawTank(this);
-                        tanks[this.playerId] = tankShape;
+                        tanks[this.id] = tankShape;
                         canvas.add(tankShape);
                     } else {
-                        tankShape.set({"left": this.x, "top": this.y});
-                        tankShape.setCoords();
+                        if (this.x) {
+                            tankShape.set({"left": this.x});
+                        }
+                        if (this.y) {
+                            tankShape.set({"top": this.y});
+                        }
+                        if (this.x || this.y) {
+                            tankShape.setCoords();
+                        }
                     }
                     break;
                 case "PROJECTILE":
