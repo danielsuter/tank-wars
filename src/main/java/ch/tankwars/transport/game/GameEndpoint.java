@@ -20,7 +20,7 @@ import ch.tankwars.game.Direction;
 public class GameEndpoint {
 	private final static Logger LOGGER = LoggerFactory.getLogger(GameEndpoint.class);
 	
-	private static GameController gameLoop = new GameController();
+	private final static GameController gameLoop = new GameController();
 	
 	private Session playerSession;
 	

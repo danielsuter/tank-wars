@@ -29,8 +29,16 @@ public class GameController {
 	private static GameCommunicator gameCommunicator = new GameCommunicator();
 	private final Map<Session, Tank> tanksMap = new HashMap<Session, Tank>();
 
-	public void start() {
+	private boolean isStarted;
+
+	public synchronized void start() {
+		if(isStarted) {
+			LOGGER.warn("Already started! Aborting...");
+			return;
+		}
+		isStarted = true;
 		LOGGER.info("game started");
+		
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 
