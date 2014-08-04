@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Tank Wars</title>
+    <meta charset="UTF-8">
+    <title>Tank Wars</title>
+    <script src="js/lib/jquery-2.1.1.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 </head>
 <body>
-	Welcome live reload!!
+<div class="container">
+    <h1>Tank Wars</h1>
+    <canvas id="board"></canvas>
 
-	<div id="output"></div>
 
-    <script type="text/javascript" src="js/websocket_example.js"></script>
+</div>
+
+    <script>
+        $(function() {
+            new Game('board');
+        });
+    </script>
+
+    <script src="js/lib/fabric.min.js"></script>
+    <script src="js/util/TUtil.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/GameResource.js"></script>
 </body>
+
 </html>
