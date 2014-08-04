@@ -45,6 +45,20 @@ var GameResource = function(_onGameUpdate) {
     }
 
     /**
+     * @param direction {string} one of RIGHT, LEFT, TOP, DOWN
+     */
+    this.move = function(direction) {
+        sendMessage('MOVE ' + direction);
+    };
+
+    /**
+     * @param direction {string} one of RIGHT, LEFT, TOP, DOWN
+     */
+    this.stopMove = function(direction) {
+        sendMessage('MOVESTOP ' + direction);
+    };
+
+    /**
      *
      * @param message {string}
      */

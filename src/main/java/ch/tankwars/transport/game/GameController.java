@@ -54,10 +54,16 @@ public class GameController {
 	public void move(Session player, Direction direction) {
 		tanksMap.get(player).move(direction);
 	}
-
+	
+	public void moveStop(Session player, Direction direction) {
+		tanksMap.get(player).moveStop(direction);
+	}
+	
 	public void removePlayer(Session player) {
 		// TODO remove player from game
 		tanksMap.remove(player);
 		peers.remove(player);
 	}
+
+
 }
