@@ -5,7 +5,7 @@ var GameResource = function(_onGameUpdate) {
         onJoined(
             {
                 width : 800,
-                height : 600
+                height : 400
             },
             "abcdefghijklmnop"
         );
