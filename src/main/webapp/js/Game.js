@@ -34,5 +34,5 @@ var Game = function(canvasId) {
     };
 
     var resource = new GameResource(update);
-    resource.join(onJoin);
+    resource.join(onJoin, 'Sepp');
 };

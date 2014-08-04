@@ -1,19 +1,24 @@
 var GameResource = function(_onGameUpdate) {
     var onGameUpdate = _onGameUpdate;
-
+    var websocket;
     var onJoined;
 
-    this.join = function(_onJoined) {
+    this.join = function(_onJoined, playerName) {
         onJoined = _onJoined;
         var wsUri = TUtil.getWebsocketGameUrl();
-        var websocket = new WebSocket(wsUri);
+        websocket = new WebSocket(wsUri);
 
         websocket.onerror = this.onError;
         websocket.onmessage = this.onMessage;
+
+        websocket.onopen = function(event) {
+            sendMessage("JOIN " + playerName);
+        }
     };
 
     this.onMessage = function(event) {
         var message = JSON.parse(event.data);
+        console.log('Received message: ' + message);
 
         if(!message.messageType) {
             // TODO We don't have a message type for the game class yet
@@ -27,4 +32,11 @@ var GameResource = function(_onGameUpdate) {
         console.error(event);
     }
 
+    /**
+     *
+     * @param message {string}
+     */
+    var sendMessage = function (message) {
+        websocket.send(message);
+    }
 };
