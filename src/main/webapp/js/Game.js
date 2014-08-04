@@ -18,8 +18,6 @@ var Game = function(canvasId) {
             case 40: // DOWN
                 resource.move('DOWN');
                 break;
-            default:
-                console.log('We don\'t care about keycode: ' + event.keyCode);
         }
     };
 
@@ -37,14 +35,13 @@ var Game = function(canvasId) {
             case 40: // DOWN
                 resource.stopMove('DOWN');
                 break;
-            default:
-                console.log('We don\'t care about keycode: ' + event.keyCode);
         }
     };
 
-
-    window.addEventListener('keydown', doKeyDown, false);
-    window.addEventListener('keyup', doKeyUp, false);
+    $('#' + canvasId).bind({
+        keydown: doKeyDown,
+        keyup: doKeyUp
+    });
 
     var onJoin = function(_width, _height) {
         width = _width;

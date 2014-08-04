@@ -30,7 +30,6 @@ var GameResource = function(_onGameUpdate) {
 
     this.onMessage = function(event) {
         var message = JSON.parse(event.data);
-        console.log('Received message: ' + message);
 
         if(!message.messageType) {
             // TODO We don't have a message type for the game class yet
