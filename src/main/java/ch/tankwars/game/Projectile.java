@@ -1,8 +1,27 @@
 package ch.tankwars.game;
 
-public class Projectile extends Actor{
+import java.util.UUID;
 
-	public Projectile(ActorListener actorListener) {
+public class Projectile extends Actor{
+	
+	private String playerId;
+	private String projectileId;
+
+	public Projectile(ActorListener actorListener, String playerId) {
 		super(actorListener, ActorType.PROJECTILE);
+		this.playerId = playerId;
+		this.projectileId = generateNewProjectileId();
+	}
+	
+	public String getPlayerId() {
+		return playerId;
+	}
+	
+	public String getProjectileId() {
+		return projectileId;
+	}
+	
+	private String generateNewProjectileId() {
+		return UUID.randomUUID().toString();
 	}
 }

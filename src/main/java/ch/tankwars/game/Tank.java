@@ -86,7 +86,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		Projectile projectile = new Projectile(getActorListener());
+		Projectile projectile = new Projectile(getActorListener(), this.playerId);
 		// TODO beautify
 		projectile.setPosition(getX() + (getWidth() / 2) - 1, getY() - (getHeight() / 2) - 1);
 		projectile.setWidth(3);
