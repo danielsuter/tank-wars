@@ -1,6 +1,7 @@
 package ch.tankwars.game;
 
 public abstract class Actor {
+	private int id;
 	private int x;
 	private int y;
 	private int width;
@@ -13,9 +14,18 @@ public abstract class Actor {
 	private ActorType actorType;
 	private ActorListener actorListener;
 
-	public Actor(ActorListener actorListener, ActorType actorType) {
+	public Actor(ActorListener actorListener, ActorType actorType, int id) {
 		this.actorListener = actorListener;
 		this.actorType = actorType;
+		this.id = id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public ActorListener getActorListener() {

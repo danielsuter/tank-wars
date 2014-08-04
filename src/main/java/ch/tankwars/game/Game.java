@@ -3,7 +3,6 @@ package ch.tankwars.game;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -19,6 +18,7 @@ public class Game implements ActorListener {
 	
 	
 	private List<Actor> actors = new LinkedList<Actor>();
+	private int globalId;
 	
 	public synchronized void tick() {
 		Actor actorToAdd = null;
@@ -38,7 +38,7 @@ public class Game implements ActorListener {
 	}
 	
 	public Tank spawn(String playerName) {
-		final String playerId = generateNewPlayerId();
+		final int playerId = generateId();
 		final Tank tank = new Tank(this, playerName, playerId);
 		
 		final Random random = new Random();
@@ -55,8 +55,8 @@ public class Game implements ActorListener {
 		return actors;
 	}
 
-	private String generateNewPlayerId() {
-		return UUID.randomUUID().toString();
+	private int generateId() {
+		return ++globalId ;
 	}
 
 	@Override

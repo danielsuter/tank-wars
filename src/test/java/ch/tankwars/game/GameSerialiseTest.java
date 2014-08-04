@@ -49,8 +49,9 @@ public class GameSerialiseTest {
 		
 		
 		List<Actor> actors = game.getActors();
-		String response = mapper.map(actors);
+		String response = mapper.map(actors, GsonFactory.ACTOR_LIST_TYPE);
 		
+		System.out.println(response);
 		long actualSize = getSizeInBytes(response) * TICKS_PER_SECOND;
 		assertTrue("Expected size to be below " + MAX_SIZE_BYTES + " but was " + actualSize ,actualSize < MAX_SIZE_BYTES);
 	}

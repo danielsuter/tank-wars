@@ -7,17 +7,15 @@ public class Tank extends Actor {
 	public final static int DEFAULT_HEIGHT = 10;
 
 	private final String playerName;
-	private final String playerId; 
 	private int speed = 5;
 
-	public Tank(ActorListener actorListener, String playerName, String playerId) {
-		super(actorListener, ActorType.TANK);
+	public Tank(ActorListener actorListener, String playerName, int id) {
+		super(actorListener, ActorType.TANK, id);
 		this.playerName = playerName;
-		this.playerId = playerId;
 		setWidth(DEFAULT_WIDTH);
 		setHeight(DEFAULT_HEIGHT);
 	}
-
+	
 	public void move(Direction direction) {
 		setDirection(direction);
 		
@@ -55,10 +53,6 @@ public class Tank extends Actor {
 		this.speed = speed;
 	}
 
-	public String getPlayerId() {
-		return playerId;
-	}
-	
 	@Override
 	public void act() {
 		int newX = getX() + getVelocityX();
@@ -86,7 +80,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		Projectile projectile = new Projectile(getActorListener(), this.playerId);
+		Projectile projectile = new Projectile(getActorListener(), 1); // TODO does not work, game needs to create ids
 		// TODO beautify
 		projectile.setPosition(getX() + (getWidth() / 2) - 1, getY() - (getHeight() / 2) - 1);
 		projectile.setWidth(3);
@@ -95,15 +89,19 @@ public class Tank extends Actor {
 		switch(getDirection()) {
 		case DOWN:
 			projectile.setVelocity(0, DEFAULT_PROJECTILE_SPEED);
+			projectile.setDirection(getDirection());
 			break;
 		case UP:
 			projectile.setVelocity(0, -DEFAULT_PROJECTILE_SPEED);
+			projectile.setDirection(getDirection());
 			break;
 		case LEFT:
 			projectile.setVelocity(-DEFAULT_PROJECTILE_SPEED, 0);
+			projectile.setDirection(getDirection());
 			break;
 		case RIGHT:
 			projectile.setVelocity(DEFAULT_PROJECTILE_SPEED, 0);
+			projectile.setDirection(getDirection());
 			break;
 		}
 		getActorListener().createActor(projectile);
