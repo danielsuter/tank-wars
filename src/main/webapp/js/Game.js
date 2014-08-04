@@ -3,6 +3,7 @@ var Game = function(canvasId) {
     var width;
     var height;
     var resource;
+    var tanks = [];
 
     var doKeyDown = function(event) {
         switch(event.keyCode) {
@@ -49,8 +50,8 @@ var Game = function(canvasId) {
         drawBoard();
     };
 
-    var update = function(tanks) {
-        $.each(tanks, function() {
+    var update = function(_tanks) {
+        $.each(_tanks, function() {
             drawTank(this);
         });
     };
@@ -62,16 +63,26 @@ var Game = function(canvasId) {
         canvas.renderAll();
     };
 
-    var drawTank = function(player) {
-        var tank = new fabric.Rect({
-            left: player.x,
-            top: player.y,
-            fill: 'black',
-            width: player.width,
-            height: player.height
-        });
+    var drawTank = function(tank) {
+        var tankShape = tanks[tank.playerId];
 
-        canvas.add(tank);
+        if (!tankShape) {
+            tankShape = new fabric.Rect({
+                left: tank.x,
+                top: tank.y,
+                fill: 'black',
+                width: tank.width,
+                height: tank.height
+            });
+
+            tanks[tank.playerId] = tankShape;
+            canvas.add(tankShape);
+        } else {
+            tankShape.set({"left" : tank.x, "top" : tank.y});
+            tankShape.setCoords();
+        }
+
+        canvas.renderAll();
     };
 
     var registerEventListeners = function() {
