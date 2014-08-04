@@ -54,4 +54,9 @@ public class Tank extends Actor {
 	public String getPlayerId() {
 		return playerId;
 	}
+
+	public void moveStop(Direction direction) {
+		// TODO is the direction really necessary?
+		setVelocity(0, 0);
+	}
 }

@@ -7,6 +7,9 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ch.tankwars.game.Direction;
 
 /**
@@ -15,14 +18,15 @@ import ch.tankwars.game.Direction;
  */
 @ServerEndpoint("/game")
 public class GameEndpoint {
-
+	private final static Logger LOGGER = LoggerFactory.getLogger(GameEndpoint.class);
+	
 	private static GameController gameLoop = new GameController();
 	
 	private Session playerSession;
 	
 	@OnMessage
 	public void onMessage(String message, Session clientSession) {
-		System.out.println(message);
+		LOGGER.debug("Received message: {} ", message);
 		String[] fullCommand = message.split(" ");
 		String command = fullCommand[0];
 		
@@ -41,6 +45,11 @@ public class GameEndpoint {
 			String directionAsString = fullCommand[1];
 			Direction direction = Direction.valueOf(directionAsString);
 			gameLoop.move(playerSession, direction);
+			break;
+		case "MOVESTOP":
+			directionAsString = fullCommand[1];
+			direction = Direction.valueOf(directionAsString);
+			gameLoop.moveStop(playerSession, direction);
 			break;
 		default:
 			throw new RuntimeException("Cannot handle command: " + command);
@@ -70,7 +79,7 @@ public class GameEndpoint {
 	 */
 	private boolean isBrokenPipe(Throwable throwable) {
 		if ("java.io.IOException: Broken pipe".equals(throwable.getMessage())) {
-			System.out.println("Ignoring broken pipe");
+			LOGGER.warn("Ignoring broken pipe");
 			return true;
 		} else if (throwable.getCause() != null) {
 			return isBrokenPipe(throwable.getCause());

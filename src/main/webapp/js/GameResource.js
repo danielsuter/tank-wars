@@ -1,15 +1,31 @@
 var GameResource = function(_onGameUpdate) {
     var onGameUpdate = _onGameUpdate;
-
+    var websocket;
     var onJoined;
 
-    this.join = function(_onJoined) {
+    this.join = function(_onJoined, playerName) {
+        console.log("Joining game with player name " + playerName + ".");
+
         onJoined = _onJoined;
         var wsUri = TUtil.getWebsocketGameUrl();
-        var websocket = new WebSocket(wsUri);
+        websocket = new WebSocket(wsUri);
 
         websocket.onerror = this.onError;
         websocket.onmessage = this.onMessage;
+
+        websocket.onopen = function(event) {
+            sendMessage("JOIN " + playerName);
+        }
+    };
+
+    this.start = function() {
+        console.log("Starting game.");
+        sendMessage("START");
+    };
+
+    this.stop = function() {
+        console.log("Stopping game.");
+        sendMessage("STOP");
     };
 
     this.onMessage = function(event) {
@@ -27,4 +43,25 @@ var GameResource = function(_onGameUpdate) {
         console.error(event);
     }
 
+    /**
+     * @param direction {string} one of RIGHT, LEFT, TOP, DOWN
+     */
+    this.move = function(direction) {
+        sendMessage('MOVE ' + direction);
+    };
+
+    /**
+     * @param direction {string} one of RIGHT, LEFT, TOP, DOWN
+     */
+    this.stopMove = function(direction) {
+        sendMessage('MOVESTOP ' + direction);
+    };
+
+    /**
+     *
+     * @param message {string}
+     */
+    var sendMessage = function (message) {
+        websocket.send(message);
+    }
 };

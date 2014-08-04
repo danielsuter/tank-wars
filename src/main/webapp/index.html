@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Tank Wars</title>
+    <meta charset="UTF-8">
+    <title>Tank Wars</title>
+    <script src="js/lib/jquery-2.1.1.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 </head>
 <body>
-	Welcome live reload!!
 
-	<div id="output"></div>
+<div class="container">
+    <h1>Tank Wars</h1>
+    <div class="row-fluid">
+        <label for="playerName" class="span4" >Name</label>
+        <input class="span4" type="text" id="playerName"/>
+        <input class="span4" type="button" id="joinGame" value="Join"/>
+        <input class="span4" type="button" id="startGame" value="Start" style="display: none;"/>
+        <input class="span4" type="button" id="stopGame" value="Stop" style="display: none;"/>
+    </div>
 
-    <script type="text/javascript" src="js/websocket_example.js"></script>
+    <div class="row-fluid">
+        <canvas id="board" tabindex="1"></canvas>
+    </div>
+</div>
+
+    <script>
+        $(function() {
+            new Game('board');
+        });
+    </script>
+
+    <script src="js/lib/fabric.min.js"></script>
+    <script src="js/util/TUtil.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/GameResource.js"></script>
 </body>
+
 </html>
