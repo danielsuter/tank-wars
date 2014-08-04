@@ -1,7 +1,18 @@
 var GameResource = function(_onGameUpdate) {
     var onGameUpdate = _onGameUpdate;
 
+<<<<<<< HEAD
+    this.join = function(onJoined) {
+        onJoined(
+            {
+                width : 800,
+                height : 400
+            },
+            "abcdefghijklmnop"
+        );
+=======
     var onJoined;
+>>>>>>> 0de4abad6abc04265e7e911aaff8ec7b04bc7231
 
     this.join = function(_onJoined) {
         onJoined = _onJoined;
