@@ -28,6 +28,10 @@ var GameResource = function(_onGameUpdate) {
         sendMessage("STOP");
     };
 
+    this.shoot = function() {
+        sendMessage('SHOOT');
+    };
+
     this.onMessage = function(event) {
         var message = JSON.parse(event.data);
 

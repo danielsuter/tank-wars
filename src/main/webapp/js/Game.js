@@ -4,8 +4,14 @@ var Game = function(canvasId) {
     var height;
     var resource;
     var tanks = [];
+    var lastCode;
 
     var doKeyDown = function(event) {
+        if(event.keyCode === lastCode) {
+            return;
+        }
+        lastCode = event.keyCode;
+
         switch(event.keyCode) {
             case 37: // LEFT
                 event.preventDefault();
@@ -27,6 +33,7 @@ var Game = function(canvasId) {
     };
 
     var doKeyUp = function(event) {
+        lastCode = null;
         switch(event.keyCode) {
             case 37: // LEFT
                 event.preventDefault();
@@ -43,6 +50,9 @@ var Game = function(canvasId) {
             case 40: // DOWN
                 event.preventDefault();
                 resource.stopMove('DOWN');
+                break;
+            case 32: // Space
+                resource.shoot();
                 break;
         }
     };
@@ -67,7 +77,7 @@ var Game = function(canvasId) {
     var drawBoard = function() {
         canvas.setWidth(width);
         canvas.setHeight(height);
-        canvas.backgroundColor = 'grey';
+        canvas.backgroundColor = '#33FF33';
         canvas.renderAll();
     };
 
