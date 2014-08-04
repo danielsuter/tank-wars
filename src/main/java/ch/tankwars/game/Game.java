@@ -1,6 +1,5 @@
 package ch.tankwars.game;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +18,7 @@ public class Game implements ActorListener {
 	private ConcurrentLinkedQueue<Actor> actorsToRemove = new ConcurrentLinkedQueue<Actor>();
 	
 	
-	private List<Actor> actors = Collections.synchronizedList(new LinkedList<Actor>());
+	private List<Actor> actors = new LinkedList<Actor>();
 	
 	public void tick() {
 		Actor actorToAdd = null;

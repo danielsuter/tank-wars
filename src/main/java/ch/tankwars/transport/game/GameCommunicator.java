@@ -29,7 +29,6 @@ public class GameCommunicator {
 	private void sendResponse(Session session, String response) {
 		try {
 			session.getBasicRemote().sendText(response);
-			System.out.println(response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
