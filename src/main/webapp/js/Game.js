@@ -4,8 +4,10 @@ var Game = function(canvasId) {
     var height;
     var resource;
     var tank;
+    var wall;
     var projectile;
     var tanks = [];
+    var walls = [];
     var projectiles = [];
     var lastCode;
     var knownActors = [];
@@ -117,6 +119,15 @@ var Game = function(canvasId) {
                             projectileShape.setCoords();
                         }
                     }
+                    break;
+                case "WALL":
+                    var wallShape = walls[this.id];
+                    if (!wallShape) {
+                        wallShape = wall.drawWall(this);
+                        walls[this.id] = wallShape;
+                        canvas.add(wallShape);
+                    }
+                    break;
             }
         });
 
