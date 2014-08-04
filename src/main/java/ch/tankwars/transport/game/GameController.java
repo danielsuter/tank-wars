@@ -46,10 +46,12 @@ public class GameController {
 			public void run() {
 				double startTime = System.nanoTime();
 				game.tick();
+				double tickTime = System.nanoTime();
 				gameCommunicator.sendMessage(game.getActors(), peers);
 				double endTime = System.nanoTime();
 				double durationMilis = (endTime - startTime) / 1000000d;
-				LOGGER.info("LOOP TIME: {}", durationMilis);
+				double durationTick = (tickTime - startTime) / 1000000d;
+				LOGGER.info("LOOP TIME: {} TICK TIME: {}", durationMilis, durationTick);
 			}
 
 		}, 0, INTERVAL_MILIS);
