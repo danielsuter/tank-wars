@@ -1,6 +1,6 @@
 var Projectile = function() {
 
-    var drawProjectile = function(projectile) {
+    this.drawProjectile = function(projectile) {
         return new fabric.Circle({
             left: projectile.x,
             top: projectile.y,
