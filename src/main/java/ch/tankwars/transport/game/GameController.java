@@ -47,7 +47,7 @@ public class GameController {
 				double startTime = System.nanoTime();
 				game.tick();
 				double tickTime = System.nanoTime();
-				gameCommunicator.sendMessage(game.getActors(), peers);
+				gameCommunicator.sendMessage(game.getActors(), peers, GsonFactory.ACTOR_LIST_TYPE);
 				double endTime = System.nanoTime();
 				double durationMilis = (endTime - startTime) / 1000000d;
 				double durationTick = (tickTime - startTime) / 1000000d;

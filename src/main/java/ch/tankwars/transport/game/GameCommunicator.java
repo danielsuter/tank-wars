@@ -1,5 +1,6 @@
 package ch.tankwars.transport.game;
 
+import java.lang.reflect.Type;
 import java.util.Set;
 
 import javax.websocket.Session;
@@ -18,9 +19,9 @@ public class GameCommunicator {
 		responseMapper = new ResponseMapper();
 	}
 
-	public void sendMessage(Object objectToBroadcast, Set<Session> peers) {
+	public void sendMessage(Object objectToBroadcast, Set<Session> peers, Type type) {
 		long startTime = System.nanoTime();
-		String gameAsJson = responseMapper.map(objectToBroadcast);
+		String gameAsJson = responseMapper.map(objectToBroadcast, type);
 		long jsonTime = System.nanoTime();
 		for (Session session : peers) {
 			sendResponse(session, gameAsJson);
