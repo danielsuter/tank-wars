@@ -3,6 +3,8 @@ var Game = function(canvasId) {
     var width;
     var height;
     var resource;
+    var tank;
+    var projectile;
     var tanks = [];
     var projectiles = [];
     var lastCode;
@@ -74,10 +76,20 @@ var Game = function(canvasId) {
         $.each(actors, function() {
             switch (this.actorType) {
                 case "TANK":
-                    drawTank(this);
+                    var tankShape = tanks[this.playerId];
+                    if (!tankShape) {
+                        tankShape = tank.drawTank(this);
+                        tanks[this.playerId] = tankShape;
+                        canvas.add(tankShape);
+                    } else {
+                        tankShape.set({"left": this.x, "top": this.y});
+                        tankShape.setCoords();
+                    }
                     break;
                 case "PROJECTILE":
-                    drawProjectile(this);
+                    var projectileShape = projectile.drawProjectile(this);
+                    projectiles.push(projectileShape);
+                    canvas.add(projectileShape);
             }
         });
 
@@ -96,37 +108,6 @@ var Game = function(canvasId) {
             canvas.remove(this);
         });
         projectiles = [];
-    }
-
-
-    var drawProjectile = function(projectile) {
-        var projectileShape = new fabric.Circle({
-            left: projectile.x,
-            top: projectile.y,
-            fill: 'red',
-            radius: projectile.width
-        });
-        projectiles.push(projectileShape);
-        canvas.add(projectileShape);
-    };
-
-    var drawTank = function(tank) {
-        var tankShape = tanks[tank.playerId];
-        if (!tankShape) {
-            tankShape = new fabric.Rect({
-                left: tank.x,
-                top: tank.y,
-                fill: 'black',
-                width: tank.width,
-                height: tank.height
-            });
-
-            tanks[tank.playerId] = tankShape;
-            canvas.add(tankShape);
-        } else {
-            tankShape.set({"left" : tank.x, "top" : tank.y});
-            tankShape.setCoords();
-        }
     };
 
     var registerEventListeners = function() {
@@ -150,6 +131,8 @@ var Game = function(canvasId) {
         });
    };
 
-    var resource = new GameResource(update);
+    resource = new GameResource(update);
+    tank = new Tank();
+    projectile = new Projectile();
     registerEventListeners();
 };

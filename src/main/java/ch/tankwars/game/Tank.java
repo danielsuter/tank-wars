@@ -3,8 +3,8 @@ package ch.tankwars.game;
 public class Tank extends Actor {
 
 	private static final int DEFAULT_PROJECTILE_SPEED = 10;
-	public final static int DEFAULT_WIDTH = 10;
-	public final static int DEFAULT_HEIGHT = 10;
+	public final static int DEFAULT_WIDTH = 25;
+	public final static int DEFAULT_HEIGHT = 25;
 
 	private final String playerName;
 	private int speed = 5;
@@ -60,9 +60,9 @@ public class Tank extends Actor {
 	public void shoot() {
 		Projectile projectile = new Projectile(getActorListener(), 1); // TODO does not work, game needs to create ids
 		// TODO beautify
-		projectile.setPosition(getX() + (getWidth() / 2) - 1, getY() - (getHeight() / 2) - 1);
 		projectile.setWidth(3);
 		projectile.setHeight(3);
+		projectile.setPosition(getX() + (getWidth() / 2 ) - (projectile.getWidth() / 2), getY() + (getHeight() / 2) - (projectile.getHeight() / 2));
 		projectile.setVelocity(DEFAULT_PROJECTILE_SPEED);
 		
 		switch(getDirection()) {
