@@ -76,7 +76,7 @@ var Game = function(canvasId) {
                     drawTank(this);
                     break;
                 case "PROJECTILE":
-                    drawProjectile(this);
+//                    drawProjectile(this);
             }
         });
 
