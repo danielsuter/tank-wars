@@ -4,6 +4,8 @@ var GameResource = function(_onGameUpdate) {
     var onJoined;
 
     this.join = function(_onJoined, playerName) {
+        console.log("Joining game with player name " + playerName + ".");
+
         onJoined = _onJoined;
         var wsUri = TUtil.getWebsocketGameUrl();
         websocket = new WebSocket(wsUri);
@@ -14,6 +16,16 @@ var GameResource = function(_onGameUpdate) {
         websocket.onopen = function(event) {
             sendMessage("JOIN " + playerName);
         }
+    };
+
+    this.start = function() {
+        console.log("Starting game.");
+        sendMessage("START");
+    };
+
+    this.stop = function() {
+        console.log("Stopping game.");
+        sendMessage("STOP");
     };
 
     this.onMessage = function(event) {

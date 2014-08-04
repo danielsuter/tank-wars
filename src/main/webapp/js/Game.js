@@ -78,12 +78,25 @@ var Game = function(canvasId) {
     };
 
     var registerEventListeners = function() {
-      $("#submitName").click(function() {
-            var playerName = $("#playerName").val();
-            console.log("Starting game with player name " + playerName);
-            resource.join(onJoin, playerName);
-      });
-    };
+        $("#joinGame").click(function() {
+            $(this).hide();
+            $("#playerName").prop("disabled", true);
+            $("#startGame").show();
+            resource.join(onJoin, $("#playerName").val());
+        });
+
+        $("#startGame").click(function() {
+            $(this).hide();
+            $("#stopGame").show();
+            resource.start();
+        });
+
+        $("#stopGame").click(function() {
+            resource.stop();
+            $(this).hide();
+            $("#startGame").show();
+        });
+   };
 
     var resource = new GameResource(update);
     registerEventListeners();
