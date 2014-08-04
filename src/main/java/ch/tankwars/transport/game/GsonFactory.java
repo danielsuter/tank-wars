@@ -82,8 +82,8 @@ public class GsonFactory {
 						actorJson.addProperty("d", actor.getDirection().getIdentifier());
 					}
 					
-					if(cachedJson != null && cachedJson.getAsJsonPrimitive("v").getAsInt() != actor.getVelocityX()) {
-						actorJson.addProperty("v", actor.getVelocityX()); // TODO not working
+					if(cachedJson != null && cachedJson.getAsJsonPrimitive("v").getAsInt() != actor.getVelocity()) {
+						actorJson.addProperty("v", actor.getVelocity());
 					}
 					
 					return actorJson;

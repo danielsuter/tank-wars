@@ -18,27 +18,6 @@ public class Tank extends Actor {
 	
 	public void move(Direction direction) {
 		setDirection(direction);
-		
-		switch (direction) {
-		case DOWN:
-			setVelocityX(0);
-			setVelocityY(speed);
-			break;
-		case UP:
-			setVelocityX(0);
-			setVelocityY(-speed);
-			break;
-		case LEFT:
-			setVelocityX(-speed);
-			setVelocityY(0);
-			break;
-		case RIGHT:
-			setVelocityX(speed);
-			setVelocityY(0);
-			break;
-		default:
-			throw new RuntimeException("Cannot handle direction: " + direction);
-		}
 	}
 
 	public String getPlayerName() {
@@ -55,8 +34,8 @@ public class Tank extends Actor {
 
 	@Override
 	public void act() {
-		int newX = getX() + getVelocityX();
-		int newY = getY() + getVelocityY();
+		int newX = getX() + getDirection().calculateVelocityX(getVelocity());
+		int newY = getY() + getDirection().calculateVelocityY(getVelocity());
 		
 		if(newX > Game.GAME_WIDTH - getWidth()) {
 			newX = Game.GAME_WIDTH - getWidth();
@@ -75,8 +54,7 @@ public class Tank extends Actor {
 	}
 
 	public void moveStop(Direction direction) {
-		// TODO is the direction really necessary?
-		setVelocity(0, 0);
+		setVelocity(0);
 	}
 	
 	public void shoot() {
@@ -85,22 +63,19 @@ public class Tank extends Actor {
 		projectile.setPosition(getX() + (getWidth() / 2) - 1, getY() - (getHeight() / 2) - 1);
 		projectile.setWidth(3);
 		projectile.setHeight(3);
+		projectile.setVelocity(DEFAULT_PROJECTILE_SPEED);
 		
 		switch(getDirection()) {
 		case DOWN:
-			projectile.setVelocity(0, DEFAULT_PROJECTILE_SPEED);
 			projectile.setDirection(getDirection());
 			break;
 		case UP:
-			projectile.setVelocity(0, -DEFAULT_PROJECTILE_SPEED);
 			projectile.setDirection(getDirection());
 			break;
 		case LEFT:
-			projectile.setVelocity(-DEFAULT_PROJECTILE_SPEED, 0);
 			projectile.setDirection(getDirection());
 			break;
 		case RIGHT:
-			projectile.setVelocity(DEFAULT_PROJECTILE_SPEED, 0);
 			projectile.setDirection(getDirection());
 			break;
 		}

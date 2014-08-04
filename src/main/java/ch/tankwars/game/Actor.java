@@ -7,8 +7,7 @@ public abstract class Actor {
 	private int width;
 	private int height;
 
-	private int velocityX;
-	private int velocityY;
+	private int velocity;
 	private Direction direction;
 	
 	private ActorType actorType;
@@ -37,8 +36,8 @@ public abstract class Actor {
 	}
 	
 	public void act() {
-		x += velocityX;
-		y += velocityY;
+		x += direction.calculateVelocityX(velocity);
+		y += direction.calculateVelocityY(velocity);
 	}
 
 	public void setPosition(int x, int y) {
@@ -46,10 +45,7 @@ public abstract class Actor {
 		this.y = y;
 	}
 	
-	public void setVelocity(int velocityX, int velocityY) {
-		this.velocityX = velocityX;
-		this.velocityY = velocityY;
-	}
+	
 
 	public int getWidth() {
 		return width;
@@ -83,27 +79,19 @@ public abstract class Actor {
 		this.y = y;
 	}
 
-	public int getVelocityX() {
-		return velocityX;
-	}
-
-	public void setVelocityX(int velocityX) {
-		this.velocityX = velocityX;
-	}
-
-	public int getVelocityY() {
-		return velocityY;
-	}
-
-	public void setVelocityY(int velociyY) {
-		this.velocityY = velociyY;
-	}
-
 	public Direction getDirection() {
 		return direction;
 	}
 
 	public void setDirection(Direction direction) {
 		this.direction = direction;
+	}
+
+	public int getVelocity() {
+		return velocity;
+	}
+
+	public void setVelocity(int velocity) {
+		this.velocity = velocity;
 	}
 }

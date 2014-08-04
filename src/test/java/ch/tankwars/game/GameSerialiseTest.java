@@ -38,7 +38,7 @@ public class GameSerialiseTest {
 			Tank tank = game.spawn("player " + i);
 			tanks.add(tank);
 			tank.setPosition(i * tank.getWidth(), 0);
-			tank.setVelocity(0, 1);
+			tank.setVelocity(1);
 			tank.setDirection(Direction.DOWN);
 		}
 		

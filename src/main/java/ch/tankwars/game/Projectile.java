@@ -10,8 +10,8 @@ public class Projectile extends Actor{
 	
 	@Override
 	public void act() {
-		int newX = getX() + getVelocityX();
-		int newY = getY() + getVelocityY();
+		int newX = getX() + getDirection().calculateVelocityX(getVelocity());
+		int newY = getY() + getDirection().calculateVelocityY(getVelocity());
 		
 		if(newX > Game.GAME_WIDTH - getWidth() || newX < 0) {
 			getActorListener().removeActor(this);
