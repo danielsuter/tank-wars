@@ -1,4 +1,4 @@
-var Game = function(canvasId) {
+var Game = function (canvasId) {
     var canvas = new fabric.StaticCanvas(canvasId);
     var width;
     var height;
@@ -12,13 +12,13 @@ var Game = function(canvasId) {
     var lastCode;
     var knownActors = [];
 
-    var doKeyDown = function(event) {
-        if(event.keyCode === lastCode) {
+    var doKeyDown = function (event) {
+        if (event.keyCode === lastCode) {
             return;
         }
         lastCode = event.keyCode;
 
-        switch(event.keyCode) {
+        switch (event.keyCode) {
             case 37: // LEFT
                 event.preventDefault();
                 resource.move('LEFT');
@@ -38,9 +38,9 @@ var Game = function(canvasId) {
         }
     };
 
-    var doKeyUp = function(event) {
+    var doKeyUp = function (event) {
         lastCode = null;
-        switch(event.keyCode) {
+        switch (event.keyCode) {
             case 37: // LEFT
                 event.preventDefault();
                 resource.stopMove('LEFT');
@@ -68,15 +68,15 @@ var Game = function(canvasId) {
         keyup: doKeyUp
     });
 
-    var onJoin = function(_width, _height) {
+    var onJoin = function (_width, _height) {
         width = _width;
         height = _height;
         drawBoard();
     };
 
-    var update = function(actors) {
+    var update = function (actors) {
         var projectilesFromResponse = [];
-        $.each(actors, function() {
+        $.each(actors, function () {
             if (!knownActors[this.id]) {
                 knownActors[this.id] = this;
             }
@@ -119,54 +119,58 @@ var Game = function(canvasId) {
                             projectileShape.setCoords();
                         }
                     }
-					break; 
+                    break;
                 case "WALL":
-                    var wallShape = walls[this.wallId];
-                    if(!wallShape) {
+                    var wallShape = walls[this.id];
+                    if (!wallShape) {
                         wallShape = wall.drawWall(this);
-                        walls[this.wallId] = wallShape;
+                        walls[this.id] = wallShape;
                         canvas.add(wallShape);
                     }
                     break;
+            }
         });
-
+//        removeDeadProjectiles(projectilesFromResponse);
         canvas.renderAll();
     };
 
-    var drawBoard = function() {
+    var drawBoard = function () {
         canvas.setWidth(width);
         canvas.setHeight(height);
         canvas.backgroundColor = '#33FF33';
         canvas.renderAll();
     };
 
-    var removeProjectiles = function() {
-        $.each(projectiles, function() {
-            canvas.remove(this);
+    var removeDeadProjectiles = function (projectilesInGame) {
+        $.each(projectiles, function () {
+            if (!projectilesInGame[this.id]) {
+                projectiles[this.id] = undefined;
+                knownActors[this.id] = undefined;
+                canvas.remove(this);
+            }
         });
-        projectiles = [];
     };
 
-    var registerEventListeners = function() {
-        $("#joinGame").click(function() {
+    var registerEventListeners = function () {
+        $("#joinGame").click(function () {
             $(this).hide();
             $("#playerName").prop("disabled", true);
             $("#startGame").show();
             resource.join(onJoin, $("#playerName").val());
         });
 
-        $("#startGame").click(function() {
+        $("#startGame").click(function () {
             $(this).hide();
             $("#stopGame").show();
             resource.start();
         });
 
-        $("#stopGame").click(function() {
+        $("#stopGame").click(function () {
             resource.stop();
             $(this).hide();
             $("#startGame").show();
         });
-   };
+    };
 
     resource = new GameResource(update);
     tank = new Tank();
