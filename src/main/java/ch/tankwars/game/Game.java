@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * Contains all game logic.
  */
-public class Game {
+public class Game implements ActorListener {
 
 	private int width = 800;
 	private int height = 600;
@@ -25,7 +25,7 @@ public class Game {
 	
 	public Tank spawn(String playerName) {
 		final String playerId = generateNewPlayerId();
-		final Tank tank = new Tank(playerName, playerId);
+		final Tank tank = new Tank(this, playerName, playerId);
 		
 		final Random random = new Random();
 		final int x = random.nextInt(width + 1 - tank.getWidth());
@@ -55,5 +55,10 @@ public class Game {
 
 	public void remove(Tank tank) {
 		actors.remove(tank);
+	}
+
+	@Override
+	public void createActor(Actor actor) {
+		actors.add(actor);
 	}
 }

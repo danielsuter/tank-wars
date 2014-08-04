@@ -65,7 +65,7 @@ public class GameController {
 	}
 	
 	public void removePlayer(Session player) {
-		// TODO remove player from game
+		game.remove(tanksMap.get(player));
 		tanksMap.remove(player);
 		peers.remove(player);
 	}

@@ -8,7 +8,24 @@ public abstract class Actor {
 
 	private int velocityX;
 	private int velocityY;
+	private Direction direction;
+	
+	private ActorType actorType;
+	private ActorListener actorListener;
 
+	public Actor(ActorListener actorListener, ActorType actorType) {
+		this.actorListener = actorListener;
+		this.actorType = actorType;
+	}
+	
+	public ActorListener getActorListener() {
+		return actorListener;
+	}
+	
+	public ActorType getActorType() {
+		return actorType;
+	}
+	
 	public void act() {
 		x += velocityX;
 		y += velocityY;
@@ -70,5 +87,13 @@ public abstract class Actor {
 
 	public void setVelocityY(int velociyY) {
 		this.velocityY = velociyY;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
 	}
 }

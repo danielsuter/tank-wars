@@ -9,7 +9,8 @@ public class Tank extends Actor {
 	private final String playerId; 
 	private int speed = 5;
 
-	public Tank(String playerName, String playerId) {
+	public Tank(ActorListener actorListener, String playerName, String playerId) {
+		super(actorListener, ActorType.TANK);
 		this.playerName = playerName;
 		this.playerId = playerId;
 		setWidth(DEFAULT_WIDTH);
@@ -17,6 +18,8 @@ public class Tank extends Actor {
 	}
 
 	public void move(Direction direction) {
+		setDirection(direction);
+		
 		switch (direction) {
 		case DOWN:
 			setVelocityX(0);
@@ -58,5 +61,24 @@ public class Tank extends Actor {
 	public void moveStop(Direction direction) {
 		// TODO is the direction really necessary?
 		setVelocity(0, 0);
+	}
+	
+	public void shoot() {
+		Projectile projectile = new Projectile(getActorListener());
+		switch(getDirection()) {
+		case DOWN:
+			projectile.setVelocity(0, 1);
+			break;
+		case UP:
+			projectile.setVelocity(0, -1);
+			break;
+		case LEFT:
+			projectile.setVelocity(-1, 0);
+			break;
+		case RIGHT:
+			projectile.setVelocity(1, 0);
+			break;
+		}
+		
 	}
 }
