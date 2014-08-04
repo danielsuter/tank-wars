@@ -66,6 +66,11 @@ public class Tank extends Actor {
 	
 	public void shoot() {
 		Projectile projectile = new Projectile(getActorListener());
+		// TODO beautify
+		projectile.setPosition(getX() + (getWidth() / 2) - 1, getY() - (getHeight() / 2) - 1);
+		projectile.setWidth(3);
+		projectile.setHeight(3);
+		
 		switch(getDirection()) {
 		case DOWN:
 			projectile.setVelocity(0, DEFAULT_PROJECTILE_SPEED);
@@ -80,6 +85,6 @@ public class Tank extends Actor {
 			projectile.setVelocity(DEFAULT_PROJECTILE_SPEED, 0);
 			break;
 		}
-		
+		getActorListener().createActor(projectile);
 	}
 }

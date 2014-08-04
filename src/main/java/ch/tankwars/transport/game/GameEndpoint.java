@@ -51,6 +51,9 @@ public class GameEndpoint {
 			direction = Direction.valueOf(directionAsString);
 			gameLoop.moveStop(playerSession, direction);
 			break;
+		case "SHOOT":
+			gameLoop.shoot(playerSession);
+			break;
 		default:
 			throw new RuntimeException("Cannot handle command: " + command);
 		}

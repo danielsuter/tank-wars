@@ -4,8 +4,14 @@ var Game = function(canvasId) {
     var height;
     var resource;
     var tanks = [];
+    var lastCode;
 
     var doKeyDown = function(event) {
+        if(event.keyCode === lastCode) {
+            return;
+        }
+        lastCode = event.keyCode;
+
         switch(event.keyCode) {
             case 37: // LEFT
                 resource.move('LEFT');
@@ -23,6 +29,7 @@ var Game = function(canvasId) {
     };
 
     var doKeyUp = function(event) {
+        lastCode = null;
         switch(event.keyCode) {
             case 37: // LEFT
                 resource.stopMove('LEFT');
@@ -35,6 +42,9 @@ var Game = function(canvasId) {
                 break;
             case 40: // DOWN
                 resource.stopMove('DOWN');
+                break;
+            case 32: // Space
+                resource.shoot();
                 break;
         }
     };

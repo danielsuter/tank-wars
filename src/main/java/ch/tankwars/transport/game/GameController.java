@@ -70,5 +70,7 @@ public class GameController {
 		peers.remove(player);
 	}
 
-
+	public void shoot(Session playerSession) {
+		tanksMap.get(playerSession).shoot();
+	}
 }
