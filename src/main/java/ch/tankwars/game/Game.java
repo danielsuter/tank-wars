@@ -45,12 +45,13 @@ public class Game implements ActorListener {
 		return UUID.randomUUID().toString();
 	}
 
-	public void remove(Tank tank) {
-		actors.remove(tank);
-	}
-
 	@Override
 	public void createActor(Actor actor) {
 		actors.add(actor);
+	}
+
+	@Override
+	public void removeActor(Actor actor) {
+		actors.remove(actor);
 	}
 }
