@@ -62,6 +62,7 @@ var Game = function(canvasId) {
         canvas.setWidth(width);
         canvas.setHeight(height);
         canvas.backgroundColor = 'rgba(0,0,255,0.3)';
+        canvas.renderAll();
     };
 
     var drawTank = function(player) {
@@ -76,6 +77,14 @@ var Game = function(canvasId) {
         canvas.add(tank);
     };
 
-    resource = new GameResource(update);
-    resource.join(onJoin, 'Sepp');
+    var registerEventListeners = function() {
+      $("#submitName").click(function() {
+            var playerName = $("#playerName").val();
+            console.log("Starting game with player name " + playerName);
+            resource.join(onJoin, playerName);
+      });
+    };
+
+    var resource = new GameResource(update);
+    registerEventListeners();
 };
