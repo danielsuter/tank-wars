@@ -69,14 +69,15 @@ var Game = function(canvasId) {
         drawBoard();
     };
 
-    var update = function(_tanks) {
-        $.each(_tanks, function() {
+    var update = function(actors) {
+        removeProjectiles();
+        $.each(actors, function() {
             switch (this.actorType) {
                 case "TANK":
                     drawTank(this);
                     break;
                 case "PROJECTILE":
-//                    drawProjectile(this);
+                    drawProjectile(this);
             }
         });
 
@@ -90,23 +91,23 @@ var Game = function(canvasId) {
         canvas.renderAll();
     };
 
+    var removeProjectiles = function() {
+        $.each(projectiles, function() {
+            canvas.remove(this);
+        });
+        projectiles = [];
+    }
+
+
     var drawProjectile = function(projectile) {
-        var projectileShape = projectiles[projectile.projectileId];
-
-        if (!projectileShape) {
-            projectileShape = new fabric.Circle({
-                left: projectile.x,
-                top: projectile.y,
-                fill: 'red',
-                radius: projectile.width
-            });
-
-            projectiles[projectile.projectileId] = projectileShape;
-            canvas.add(projectileShape);
-        } else {
-            projectileShape.set({"left" : projectile.x, "top" : projectile.y});
-            projectileShape.setCoords();
-        }
+        var projectileShape = new fabric.Circle({
+            left: projectile.x,
+            top: projectile.y,
+            fill: 'red',
+            radius: projectile.width
+        });
+        projectiles.push(projectileShape);
+        canvas.add(projectileShape);
     };
 
     var drawTank = function(tank) {
