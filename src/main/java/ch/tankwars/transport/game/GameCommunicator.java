@@ -1,6 +1,5 @@
 package ch.tankwars.transport.game;
 
-import java.io.IOException;
 import java.util.Set;
 
 import javax.websocket.Session;
@@ -37,9 +36,7 @@ public class GameCommunicator {
 	}
 
 	private void sendResponse(Session session, String response) {
-		session.getAsyncRemote().setSendTimeout(10);
 		session.getAsyncRemote().sendText(response);
-		// session.getBasicRemote().sendText(response);
 	}
 
 }
