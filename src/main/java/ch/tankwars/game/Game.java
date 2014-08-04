@@ -1,10 +1,10 @@
 package ch.tankwars.game;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Contains all game logic.
@@ -14,9 +14,23 @@ public class Game implements ActorListener {
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 	
-	private List<Actor> actors = Collections.synchronizedList(new LinkedList<Actor>());
+	private ConcurrentLinkedQueue<Actor> actorsToAdd = new ConcurrentLinkedQueue<Actor>();
+	private ConcurrentLinkedQueue<Actor> actorsToRemove = new ConcurrentLinkedQueue<Actor>();
 	
-	public void tick() {
+	
+	private List<Actor> actors = new LinkedList<Actor>();
+	
+	public synchronized void tick() {
+		Actor actorToAdd = null;
+		while((actorToAdd = actorsToAdd.poll()) != null){
+			actors.add(actorToAdd);
+		}
+		
+		Actor actorToRemove = null;
+		while((actorToRemove = actorsToRemove.poll()) != null){
+			actors.remove(actorToRemove);
+		}
+		
 		for (Actor actor : actors) {
 			actor.act();
 		}
@@ -45,12 +59,13 @@ public class Game implements ActorListener {
 		return UUID.randomUUID().toString();
 	}
 
-	public void remove(Tank tank) {
-		actors.remove(tank);
+	@Override
+	public void removeActor(Actor actor) {
+		actorsToRemove.add(actor);
 	}
 
 	@Override
 	public void createActor(Actor actor) {
-		actors.add(actor);
+		actorsToAdd.add(actor);
 	}
 }

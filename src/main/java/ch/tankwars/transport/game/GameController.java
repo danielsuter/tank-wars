@@ -29,15 +29,29 @@ public class GameController {
 	private static GameCommunicator gameCommunicator = new GameCommunicator();
 	private final Map<Session, Tank> tanksMap = new HashMap<Session, Tank>();
 
-	public void start() {
+	private boolean isStarted;
+
+	public synchronized void start() {
+		if(isStarted) {
+			LOGGER.warn("Already started! Aborting...");
+			return;
+		}
+		isStarted = true;
 		LOGGER.info("game started");
+		
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
+				double startTime = System.nanoTime();
 				game.tick();
+				double tickTime = System.nanoTime();
 				gameCommunicator.sendMessage(game.getActors(), peers);
+				double endTime = System.nanoTime();
+				double durationMilis = (endTime - startTime) / 1000000d;
+				double durationTick = (tickTime - startTime) / 1000000d;
+				LOGGER.info("LOOP TIME: {} TICK TIME: {}", durationMilis, durationTick);
 			}
 
 		}, 0, INTERVAL_MILIS);
@@ -65,7 +79,7 @@ public class GameController {
 	}
 	
 	public void removePlayer(Session player) {
-		game.remove(tanksMap.get(player));
+		game.removeActor(tanksMap.get(player));
 		tanksMap.remove(player);
 		peers.remove(player);
 	}
