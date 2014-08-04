@@ -28,6 +28,4 @@ public class JoinResponse extends Response {
 	public int getFieldHeight() {
 		return fieldHeight;
 	}
-	
-
 }
