@@ -93,7 +93,6 @@ var GameResource = function(_onGameUpdate) {
             for (var property in this) {
                 var viewPropertyName = protocolToViewMap[property];
                 if (property === "t") {
-                    console.log("bla");
                     actor[viewPropertyName]  = actorTypeMap[this[property]];
                 } else {
                     actor[viewPropertyName] = this[property];
