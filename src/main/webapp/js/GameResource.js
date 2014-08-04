@@ -1,46 +1,30 @@
 var GameResource = function(_onGameUpdate) {
     var onGameUpdate = _onGameUpdate;
 
-    this.join = function(onJoined) {
-        onJoined(
-            {
-                width : 800,
-                height : 600
-            },
-            "abcdefghijklmnop"
-        );
+    var onJoined;
 
-        onGameUpdate(
-            [
-                {
-                    playerName : "hugo",
-                    speed : 5,
-                    x : 10,
-                    y : 10,
-                    width : 10,
-                    height : 10
-                },
-                {
-                    playerName : "peter",
-                    speed : 5,
-                    x : 50,
-                    y : 50,
-                    width : 10,
-                    height : 10
-                },
-                {
-                    playerName : "fritz",
-                    speed : 5,
-                    x : 5,
-                    y : 150,
-                    width : 10,
-                    height : 10
-                }
-            ]
-        );
+    this.join = function(_onJoined) {
+        onJoined = _onJoined;
+        var wsUri = TUtil.getWebsocketGameUrl();
+        var websocket = new WebSocket(wsUri);
 
+        websocket.onerror = this.onError;
+        websocket.onmessage = this.onMessage;
     };
 
+    this.onMessage = function(event) {
+        var message = JSON.parse(event.data);
 
+        if(!message.messageType) {
+            // TODO We don't have a message type for the game class yet
+            onGameUpdate(message);
+        } else if(message.messageType === 'JOIN') {
+            onJoined(message.fieldWidth, message.fieldHeight);
+        }
+    };
+
+    this.onError = function(event) {
+        console.error(event);
+    }
 
 };

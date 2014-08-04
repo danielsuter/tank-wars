@@ -7,7 +7,7 @@ $(function() {
     });
 
 
-    var wsUri = TUtil.getWebsocketUrl();
+    var wsUri = TUtil.getWebsocketLobbyUrl();
 
 
     var output = document.getElementById("messages");
