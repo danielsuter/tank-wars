@@ -25,14 +25,13 @@ public class GameController {
 	private final Map<Session, Tank> tanksMap = new HashMap<Session, Tank>();
 
 	public void start() {
-		System.out.println("starting loop...");
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
 				game.tick();
-				gameCommunicator.sendMessage(game, peers);
+				gameCommunicator.sendMessage(game.getActors(), peers);
 			}
 
 		}, 0, INTERVAL_MILIS);
