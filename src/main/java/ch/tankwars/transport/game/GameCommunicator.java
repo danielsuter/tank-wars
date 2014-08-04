@@ -37,11 +37,9 @@ public class GameCommunicator {
 	}
 
 	private void sendResponse(Session session, String response) {
-		try {
-			session.getBasicRemote().sendText(response);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		session.getAsyncRemote().setSendTimeout(10);
+		session.getAsyncRemote().sendText(response);
+		// session.getBasicRemote().sendText(response);
 	}
 
 }
