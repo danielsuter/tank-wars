@@ -83,7 +83,7 @@ public class Tank extends Actor {
 	public void collision(Actor actor) {
 		if(actor instanceof Projectile) {
 			Projectile projectile = (Projectile) actor;
-			if(projectile.getId() != getId()) {
+			if(projectile.getOwningTankId() != getId()) {
 				damage(projectile.getPower());
 			}
 		}
