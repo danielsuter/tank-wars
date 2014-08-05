@@ -111,7 +111,7 @@ public class GameSerialiseTest {
 		game.tick();
 		
 		String response = mapper.map(game.getActors(), ActorListSerializer.TYPE);
-		assertEquals("[0,{\"t\":0,\"i\":1,\"x\":0,\"y\":1,\"w\":35,\"h\":35,\"d\":\"S\",\"v\":1,\"f\":1,\"l\":100,\"s\":0,\"k\":0,\"g\":0},"
+		assertEquals("[0,{\"t\":0,\"i\":1,\"x\":0,\"y\":1,\"w\":35,\"h\":35,\"d\":\"S\",\"v\":1,\"f\":1,\"l\":100,\"s\":0,\"k\":0,\"g\":0,\"b\":-1},"
 				+ "{\"t\":1,\"i\":2,\"x\":16,\"y\":26,\"w\":3,\"h\":3,\"r\":3,\"d\":\"S\",\"v\":10}]", response);
 	}
 }
