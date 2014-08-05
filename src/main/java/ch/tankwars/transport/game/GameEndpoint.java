@@ -62,6 +62,9 @@ public class GameEndpoint {
 		case "CLEAR":
 			gameController.clear();
 			break;
+		case "LOADMAP":
+			
+			break;
 		default:
 			throw new RuntimeException("Cannot handle command: " + command);
 		}

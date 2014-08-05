@@ -40,7 +40,8 @@ public class GameController {
 	public GameController() {
 		initPlayground();
 	}
-
+	
+	// TODO will be replaced by loadMap
 	private void initPlayground() {
 		PlayGround playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		game.setPlayGround(playGround);
@@ -127,11 +128,13 @@ public class GameController {
 		playerPeers.remove(playerPeer);
 	}
 	
-	public void addHealthPowerUp(int x, int y) {
+	// TODO remove
+	private void addHealthPowerUp(int x, int y) {
 		game.createActor(new HealthPowerUp(game, x, y));
 	}
 	
-	public void addFireRatePowerUp(int x, int y) {
+	// TODO remove
+	private void addFireRatePowerUp(int x, int y) {
 		game.createActor(new FireRatePowerUp(game, x, y));
 	}
 
@@ -149,5 +152,10 @@ public class GameController {
 		playerPeers.clear();
 		gameCommunicator = new GameCommunicator();
 		initPlayground();
+	}
+
+	public void loadMap(String mapName) {
+		// TODO
+		throw new RuntimeException("not implemented");
 	}
 }
