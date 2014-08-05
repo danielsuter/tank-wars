@@ -4,10 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class WallTest {
 
 	private ActorListener al;
@@ -58,23 +56,23 @@ public class WallTest {
 	}
 	
 	@Test
-	public void wallHitTankWidthCausesCollision() {
-		wall.setX(5);
-		
-		tank.setPosition(1, 1);
-		tank.setWidth(5);
-		tank.setHeight(1);
-		
-		assertTrue(wall.collidesWith(tank));
-	}
-	
-	@Test
 	public void wallHitTankWidthCausesCollision2() {
 		wall.setX(4);
 		
 		tank.setPosition(1, 1);
 		tank.setWidth(4);
 		tank.setHeight(1);
+		
+		assertTrue(wall.collidesWith(tank));
+	}
+	
+	@Test
+	public void wallHitTankHeightCausesCollision2() {
+		wall.setY(4);
+		
+		tank.setPosition(1, 1);
+		tank.setWidth(1);
+		tank.setHeight(4);
 		
 		assertTrue(wall.collidesWith(tank));
 	}

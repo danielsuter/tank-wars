@@ -20,7 +20,7 @@ public class Wall extends Actor {
 			return true;
 		}
 		
-		if (actor.getX() + actor.getWidth() - this.getX() <= 1) {
+		if (actor.getX() + actor.getWidth() - this.getX() <= 1 && actor.getY() + actor.getHeight() - this.getY() <= 1 ) {
 			return true;
 		}
 		
