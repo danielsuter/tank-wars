@@ -2,6 +2,9 @@ package ch.tankwars.game;
 
 public abstract class Actor implements Cloneable {
 	
+	//FIXME: Replace x,y,width,height with Dimension 
+	// see Wall.Dimension
+	
 	private int id;
 	private int x;
 	private int y;

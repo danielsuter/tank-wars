@@ -32,7 +32,7 @@ public class Wall extends Actor {
 	}
 
 	private boolean topLeftCornerEqual(Actor actor) {
-		return actor.getX() == getX() && actor.getY() == this.getY();
+		return actor.getX() == this.getX() && actor.getY() == this.getY();
 	};
 	
 	class Dimensions {
