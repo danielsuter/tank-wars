@@ -32,6 +32,24 @@ var ShapeRenderer = function(_canvas) {
             throw "This shape does not exist, cannot update it!";
         }
 
+//        if (actor.direction && actor.direction !== shape.direction) {
+//            var currentAngle = shape.getAngle();
+//
+//            switch (actor.direction) {
+//                case "N":
+//                    shape.setAngle(-90);
+//                    break;
+//                case "S":
+//                    shape.setAngle(90);
+//                    break;
+//                case "W":
+//                    shape.setAngle(-180);
+//                    break;
+//                default:
+//                    shape.setAngle(0);
+//            }
+//        }
+
         if (actor.x) {
             shape.set({"left" : actor.x});
         }
@@ -40,23 +58,6 @@ var ShapeRenderer = function(_canvas) {
             shape.set({"top" : actor.y});
         }
 
-        if (actor.direction && actor.direction !== shape.direction) {
-            var currentAngle = shape.getAngle();
-
-            switch (actor.direction) {
-                case "N":
-                    shape.setAngle(-90);
-                    break;
-                case "S":
-                    shape.setAngle(90);
-                    break;
-                case "W":
-                    shape.setAngle(-180);
-                    break;
-                default:
-                    shape.setAngle(0);
-            }
-        }
 
         shape.setCoords();
     };
