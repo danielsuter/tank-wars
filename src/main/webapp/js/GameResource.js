@@ -39,6 +39,7 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
         var message = JSON.parse(event.data);
 
         if(!message.messageType) {
+            $("#startGame").hide();
             message.splice(0, 1); // return value -> message type
             var actors = mapToActorArray(message);
             var then = $.now();
