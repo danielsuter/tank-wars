@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.mapper.ActorListDeserializer;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 import ch.tankwars.transport.game.mapper.ResponseMapper;
@@ -75,12 +74,14 @@ public class GameSerialiseTest {
 		tank.setPosition(0, 0);
 		tank.setVelocity(1);
 		tank.setDirection(Direction.DOWN);
+		game.tick();
+		
 		mapper.map(game.getActors(), ActorListDeserializer.TYPE);
 		
 		game.tick();
 
 		String response2 = mapper.map(game.getActors(), ActorListDeserializer.TYPE);
-		assertEquals("[0,{\"i\":1,\"y\":1}]", response2);
+		assertEquals("[0,{\"i\":1,\"y\":2}]", response2);
 		
 	}
 }

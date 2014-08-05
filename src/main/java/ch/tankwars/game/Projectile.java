@@ -5,10 +5,12 @@ public class Projectile extends Actor {
 	
 	private static final int DEFAULT_PROJECTILE_SPEED = 10;
 	private static final int DEFAULT_PROJECTILE_DIMENSION = 3; 
-	private int projectileDimension; 
+	private int projectileDimension;
+	private int owningTankId; 
 
-	public Projectile(ActorListener actorListener) {
+	public Projectile(ActorListener actorListener, int owningTankId) {
 		super(actorListener, ActorType.PROJECTILE);
+		this.owningTankId = owningTankId;
 		setProjectileDimension(DEFAULT_PROJECTILE_DIMENSION);
 		setVelocity(DEFAULT_PROJECTILE_SPEED);
 	}
@@ -27,6 +29,10 @@ public class Projectile extends Actor {
 			return;
 		}
 		super.act();
+	}
+	
+	public int getOwningTankId() {
+		return owningTankId;
 	}
 
 	public int getProjectileDimension() {
@@ -49,6 +55,8 @@ public class Projectile extends Actor {
 
 	@Override
 	public void collision(Actor actor) {
-		setRemove(true);
+		if(actor.getId() != owningTankId) {
+			setRemove(true);
+		}
 	}
 }

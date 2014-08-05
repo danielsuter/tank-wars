@@ -57,7 +57,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		final Projectile projectile = new Projectile(getActorListener());
+		final Projectile projectile = new Projectile(getActorListener(), getId());
 		// TODO beautify
 		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2));
 		
@@ -81,7 +81,10 @@ public class Tank extends Actor {
 	@Override
 	public void collision(Actor actor) {
 		if(actor instanceof Projectile) {
-			System.out.println("got killed uaaarrrghh");
+			Projectile projectile = (Projectile) actor;
+			if(projectile.getId() != getId()) {
+				System.out.println("got killed uaaarrrghh");
+			}
 		}
 	}
 }
