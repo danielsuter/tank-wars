@@ -20,16 +20,27 @@ public class GameSerialiseTest {
 	private static final int TICKS_PER_SECOND = 10;
 	private static final int MAX_SIZE_BYTES = 4000;
 
-	ResponseMapper mapper = new ResponseMapper();
+	private ResponseMapper mapper = new ResponseMapper();
+	private Gson gson = GsonFactory.create();
 	
 	@Test
 	public void actorMapping() {
-		Gson gson = GsonFactory.create();
 		
 		Game game = new Game();
 		Tank tank = game.spawn("Tristana");
 		
 		gson.toJson(tank);
+	}
+	
+	@Test
+	public void wallMapping() {
+		Game game = new Game();
+		Wall wall = new Wall(game, 0, 0, 0, 10, 10);
+		
+		TankMap tankMap = new TankMap();
+		tankMap.addWall(wall);
+		
+		gson.toJson(tankMap);
 	}
 
 	@Test
