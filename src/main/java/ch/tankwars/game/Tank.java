@@ -95,14 +95,17 @@ public class Tank extends Actor {
 	public void shoot() {
 		// TODO strategy pattern
 		final Projectile projectile = new Projectile(getId());
+		projectile.setDirection(getDirection());
 		switch (weapon) {
 			case STANDARD_CANON:
 				// Use default projectile
 				break;
 			case LASER_GUN:
+				projectile.setProjectileDimension(0);
 				projectile.setPower(Weapon.LASER_GUN.getPower());
-				projectile.setProjectileDimension(Weapon.LASER_GUN.getDimension());
 				projectile.setVelocity(Weapon.LASER_GUN.getVelocity());
+				projectile.setWidth(Weapon.LASER_GUN.getDimension());
+				calculateProjectileDimension(projectile);
 				break;
 			case ROCKET_LAUNCHER:
 				projectile.setPower(Weapon.ROCKET_LAUNCHER.getPower());
@@ -114,21 +117,28 @@ public class Tank extends Actor {
 		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), 
 				this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2));
 		
+		actorListener.createActor(projectile);
+	}
+
+	private void calculateProjectileDimension(final Projectile projectile) {
 		switch(getDirection()) {
 			case DOWN:
-				projectile.setDirection(getDirection());
+				projectile.setWidth(Weapon.LASER_GUN.getDimension());
+				projectile.setHeight(2);
 				break;
 			case UP:
-				projectile.setDirection(getDirection());
+				projectile.setWidth(Weapon.LASER_GUN.getDimension());
+				projectile.setHeight(2);
 				break;
 			case LEFT:
-				projectile.setDirection(getDirection());
+				projectile.setWidth(2);
+				projectile.setHeight(Weapon.LASER_GUN.getDimension());
 				break;
 			case RIGHT:
-				projectile.setDirection(getDirection());
+				projectile.setWidth(2);
+				projectile.setHeight(Weapon.LASER_GUN.getDimension());
 				break;
 		}
-		actorListener.createActor(projectile);
 	}
 
 	@Override

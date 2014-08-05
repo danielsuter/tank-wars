@@ -72,6 +72,7 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 					Projectile cachedProjectile = (Projectile) cachedActor;
 					if (cachedProjectile == null || cachedProjectile.getProjectileDimension() != projectile.getProjectileDimension()) {
 						actorJson.addProperty(RADIUS, projectile.getProjectileDimension());
+						actorJson.addProperty(WIDTH, projectile.getWidth());
 					}
 				} else {
 					if (cachedActor == null || cachedActor.getWidth() != actor.getWidth()) {
