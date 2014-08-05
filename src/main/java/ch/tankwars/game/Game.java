@@ -18,11 +18,13 @@ public class Game implements ActorListener {
 
 	private List<Actor> actors = new LinkedList<Actor>();
 	private int globalId;
+	private static int roundCounter = 0; 
 
 	private BattlefieldMap battlefieldMap;
 	private Referee referee = new Referee();
 
 	public synchronized void tick() {
+		roundCounter++;
 		addActorsInQueue();
 
 		removeDeadActors();
@@ -44,8 +46,33 @@ public class Game implements ActorListener {
 				}
 			}
 		}
-		
+		if(roundCounter % 50 == 0) {
+			reSpawnNewPowerUps();
+		}
 		removeDeadActors();
+	}
+
+	private void reSpawnNewPowerUps() {
+		PowerUp powerUp = null;
+		final Random random = new Random();
+		final int type = random.nextInt(3);
+		
+		switch (type) {
+		case 0: 
+			powerUp = new HealthPowerUp(0, 0);
+			break;
+		case 1: 
+			powerUp = new FireRatePowerUp(0, 0);
+			break;
+		case 2: 
+			powerUp = new LaserGunPowerUp(0, 0);
+			break;
+		case 3: 
+			powerUp = new RocketLauncherPowerUp(0, 0);
+			break;
+		}
+		computeRandomActorPoisition(powerUp);
+		createActor(powerUp);
 	}
 
 	private void addActorsInQueue() {
