@@ -14,11 +14,11 @@ var FireRatePowerUp = {
         });
 
         orangeX = new fabric.Rect({
-            left: powerUp.x + (powerUp.width / 2) - 2,
-            top: powerUp.y,
+            left: powerUp.x,
+            top: powerUp.y + (powerUp.height/ 2)- 2,
             fill: 'orange',
-            width: 4,
-            height: powerUp.height
+            width: powerUp.width,
+            height: 4
         });
 
         return new fabric.Group([background, orangeX], {
