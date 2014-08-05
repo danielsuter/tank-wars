@@ -12,9 +12,9 @@ var ShapeRenderer = function(_canvas) {
                 shape = Tank.drawTank(actor);
                 shape.direction = actor.direction;
                 break;
-            /*case "PROJECTILE":
+            case "PROJECTILE":
                 shape = Projectile.drawProjectile(actor);
-                break;*/
+                break;
             case "WALL":
                 shape = Wall.drawWall(actor);
                 break;
