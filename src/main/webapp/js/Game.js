@@ -84,9 +84,11 @@ var Game = function(canvasId) {
             var actorType = knownActors[this.id].actorType;
             switch (actorType) {
                 case "TANK":
+                    // FIXME: Rename knownActors -> knownShapes etc.
                     var tankShape = tanks[this.id];
                     if (!tankShape) {
                         tankShape = tank.drawTank(this);
+                        // FIXME: Remove tanks and use knownActors
                         tanks[this.id] = tankShape;
                         canvas.add(tankShape);
                     } else {
@@ -106,6 +108,7 @@ var Game = function(canvasId) {
                     var projectileShape = projectiles[this.id];
                     if (!projectileShape) {
                         projectileShape = projectile.drawProjectile(this);
+                        // FIXME: Remove projectiles and use knownActors
                         projectiles[this.id] = projectileShape;
                         canvas.add(projectileShape);
                     } else {
@@ -124,6 +127,7 @@ var Game = function(canvasId) {
                     var wallShape = walls[this.id];
                     if (!wallShape) {
                         wallShape = wall.drawWall(this);
+                        // FIXME: Remove walls and use knownActors
                         walls[this.id] = wallShape;
                         canvas.add(wallShape);
                     }
@@ -131,7 +135,7 @@ var Game = function(canvasId) {
             }
         });
 
-//        removeDeadProjectiles(projectilesFromResponse);
+        removeDeadProjectiles(projectilesFromResponse);
         canvas.renderAll();
     };
 
@@ -142,14 +146,15 @@ var Game = function(canvasId) {
         canvas.renderAll();
     };
 
-    var removeDeadProjectiles = function(projectilesInGame) {
-        $.each(projectiles, function() {
-            if (!projectilesInGame[this.id]) {
-                projectiles[this.id] = undefined;
-                knownActors[this.id] = undefined;
-                canvas.remove(this);
+    var removeDeadProjectiles = function(projectilesFromResponse) {
+        for (var id in projectiles) {
+            if (!projectilesFromResponse[id]) {
+                canvas.remove(projectiles[id]);
+                // FIXME: Remove projectiles and use knownActors
+                projectiles[id] = undefined;
+                knownActors[id] = undefined;
             }
-        });
+        }
     };
 
     var registerEventListeners = function() {
