@@ -56,7 +56,7 @@ public class WallTest {
 	}
 	
 	@Test
-	public void wallHitTankWidthCausesCollision2() {
+	public void wallHitTankWidthCausesCollision() {
 		wall.setX(4);
 		
 		tank.setPosition(1, 1);
@@ -67,12 +67,62 @@ public class WallTest {
 	}
 	
 	@Test
-	public void wallHitTankHeightCausesCollision2() {
+	public void wallHitTankHeightCausesCollision() {
 		wall.setY(4);
 		
 		tank.setPosition(1, 1);
 		tank.setWidth(1);
 		tank.setHeight(4);
+		
+		assertTrue(wall.collidesWith(tank));
+	}
+	
+	@Test
+	public void wallWidthHitTankCausesCollision() {
+		wall.setWidth(4);
+		
+		tank.setPosition(2, 1);
+		tank.setWidth(1);
+		tank.setHeight(1);
+		
+		assertTrue(wall.collidesWith(tank));
+	}
+	
+	@Test
+	public void tankSizeCausesCollision() {
+		wall.setWidth(3);
+		wall.setHeight(4);
+		wall.setPosition(4, 3);
+		
+		tank.setPosition(3, 2);
+		tank.setWidth(2);
+		tank.setHeight(2);
+		
+		assertTrue(wall.collidesWith(tank));
+	}
+	
+	@Test
+	public void wallSizeCausesCollisionBottomRight() {
+		wall.setWidth(3);
+		wall.setHeight(4);
+		wall.setPosition(4, 3);
+		
+		tank.setPosition(6, 5);
+		tank.setWidth(2);
+		tank.setHeight(2);
+		
+		assertTrue(wall.collidesWith(tank));
+	}
+	
+	@Test
+	public void wallSizeCausesCollisionTopRight() {
+		wall.setWidth(3);
+		wall.setHeight(4);
+		wall.setPosition(4, 3);
+		
+		tank.setPosition(3, 5);
+		tank.setWidth(2);
+		tank.setHeight(2);
 		
 		assertTrue(wall.collidesWith(tank));
 	}
