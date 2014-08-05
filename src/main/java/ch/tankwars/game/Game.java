@@ -56,14 +56,14 @@ public class Game implements ActorListener {
 	
 	public Tank spawn(String playerName) {
 		final Tank tank = new Tank(this, playerName);
-		tank.setId(generateId());
 		
 		final Random random = new Random();
 		final int x = random.nextInt(GAME_WIDTH + 1 - tank.getWidth());
 		final int y = random.nextInt(GAME_HEIGHT + 1 - tank.getHeight());
 		
 		tank.setPosition(x, y);
-		actors.add(tank);
+		
+		createActor(tank);
 		
 		return tank;
 	}
