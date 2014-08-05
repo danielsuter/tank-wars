@@ -36,6 +36,8 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 	private static final String ACTOR_TYPE = "t";
 	private static final String FIRE_RATE = "f";
 	private static final String HEALTH = "l";
+	private static final String KILLS = "k";
+	private static final String HITS = "s";
 	
 	private static final int GAME_UPDATE = 0;
 
@@ -94,9 +96,19 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 					if (cachedTank == null || cachedTank.getFireRatePerSecond() != tank.getFireRatePerSecond()) {
 						actorJson.addProperty(FIRE_RATE, tank.getFireRatePerSecond());
 					}
+					
 					if(cachedTank == null || cachedTank.getHealth() != tank.getHealth()) {
 						actorJson.addProperty(HEALTH, tank.getHealth());
 					}
+					
+					if (cachedTank == null || cachedTank.getHitsMade() != tank.getHitsMade()) {
+						actorJson.addProperty(HITS, tank.getHitsMade());
+					}
+					
+					if (cachedTank == null || cachedTank.getKillsMade() != tank.getKillsMade()) {
+						actorJson.addProperty(KILLS, tank.getKillsMade());
+					}
+					
 				}
 				
 				putToCache(actor);

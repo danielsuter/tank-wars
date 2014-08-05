@@ -20,6 +20,7 @@ public class Game implements ActorListener {
 	private int globalId;
 
 	private PlayGround playGround;
+	private Referee referee = new Referee();
 
 	public synchronized void tick() {
 		addActorsInQueue();
@@ -27,22 +28,16 @@ public class Game implements ActorListener {
 		removeDeadActors();
 
 		for (Actor actor : actors) {
-			if (!actor.isRemove()) {
+			if (!(actor instanceof Obstacle) && !actor.isDead()) {
 				actor.act();
-				for (Wall wall : playGround.getWalls()) {
-					if(actor.collidesWith(wall)) {
-						wall.collision(actor);
-						actor.collision(wall);
-					}
-				}
 				for (Actor otherActor : actors) {
 					if (actor != otherActor && actor.collidesWith(otherActor)) {
-						actor.collision(otherActor);
-						otherActor.collision(actor);
+						actor.onCollision(otherActor, referee);
 					}
 				}
 			}
 		}
+		
 		removeDeadActors();
 	}
 
@@ -57,7 +52,7 @@ public class Game implements ActorListener {
 		Iterator<Actor> iterator = actors.iterator();
 		while (iterator.hasNext()) {
 			Actor actor = iterator.next();
-			if (actor.isRemove()) {
+			if (actor.isDead()) {
 				iterator.remove();
 			}
 		}
@@ -73,6 +68,7 @@ public class Game implements ActorListener {
 		tank.setPosition(x, y);
 
 		createActor(tank);
+		referee.addTank(tank);
 
 		return tank;
 	}
@@ -91,9 +87,16 @@ public class Game implements ActorListener {
 		actorsToAdd.add(actor);
 	}
 
-	public Wall addWall(int x, int y, int height, int width) {
-		final Wall wall = new Wall(this, generateId(), x, y, height, width);
+	public Wall addWall(int x, int y, int width, int height) {
+		final Wall wall = new Wall(this, generateId(), x, y, width, height);
 		playGround.addWall(wall);
+		createActor(wall);
+		return wall;
+	}
+	
+	public Wall addWall(Wall wall) {
+		playGround.addWall(wall);
+		createActor(wall);
 		return wall;
 	}
 

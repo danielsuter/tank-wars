@@ -92,7 +92,7 @@ public class GameSerialiseTest {
 	}
 	
 	@Test
-	public void assertReponse() {
+	public void assertResponse() {
 		Tank tank = game.spawn("Lux");
 		tank.setPosition(0, 0);
 		tank.setVelocity(1);
@@ -101,7 +101,7 @@ public class GameSerialiseTest {
 		game.tick();
 		
 		String response = mapper.map(game.getActors(), ActorListSerializer.TYPE);
-		assertEquals("[0,{\"t\":0,\"i\":1,\"x\":0,\"y\":1,\"w\":25,\"h\":25,\"d\":\"S\",\"v\":1,\"f\":1,\"l\":100},"
+		assertEquals("[0,{\"t\":0,\"i\":1,\"x\":0,\"y\":1,\"w\":25,\"h\":25,\"d\":\"S\",\"v\":1,\"f\":1,\"l\":100,\"s\":0,\"k\":0},"
 				+ "{\"t\":1,\"i\":2,\"x\":11,\"y\":21,\"r\":3,\"d\":\"S\",\"v\":10}]", response);
 	}
 }

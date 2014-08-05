@@ -18,4 +18,5 @@ public class FireRatePowerUp extends PowerUp {
 	public void setFireRateGain(int fireRateGain) {
 		this.fireRateGain = fireRateGain;
 	}
+
 }
