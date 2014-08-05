@@ -129,7 +129,7 @@ var Game = function(canvasId) {
 
     var checkOwnDeath = function() {
         var myPlayer = knownActors[myId];
-        if(myPlayer.health <= 0) {
+        if(!myPlayer) {
             isDead = true;
             renderer.renderDeath();
         }
