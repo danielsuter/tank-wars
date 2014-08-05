@@ -29,7 +29,7 @@ public class GameTest {
 	
 	@Test
 	public void tankCollisionWithWallsRight() {
-		int expectedPositionX = Game.GAME_WIDTH - tank.getWidth();
+		int expectedPositionX = Game.getGameWidth() - tank.getWidth();
 		tank.setPosition(expectedPositionX - 2, 0);
 		tank.setVelocity(5);
 		
@@ -41,7 +41,7 @@ public class GameTest {
 	
 	@Test
 	public void tankCollisionWithWallsDown() {
-		int expectedPositionY = Game.GAME_HEIGHT - tank.getHeight();
+		int expectedPositionY = Game.getGameHeight() - tank.getHeight();
 		tank.setPosition(0, expectedPositionY - 2);
 		tank.setVelocity(5);
 		tank.move(Direction.DOWN);

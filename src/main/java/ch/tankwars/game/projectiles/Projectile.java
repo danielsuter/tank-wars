@@ -28,11 +28,11 @@ public abstract class Projectile extends Actor {
 		int newX = getX() + getDirection().calculateVelocityX(getVelocity());
 		int newY = getY() + getDirection().calculateVelocityY(getVelocity());
 		
-		if(newX > Game.GAME_WIDTH - getProjectileDimension()  || newX < 0) {
+		if(newX > Game.getGameWidth() - getProjectileDimension()  || newX < 0) {
 			this.setRemove(true);
 			return;
 		} 
-		if(newY > Game.GAME_HEIGHT - getProjectileDimension()  || newY < 0) {
+		if(newY > Game.getGameHeight() - getProjectileDimension()  || newY < 0) {
 			this.setRemove(true);
 			return;
 		}

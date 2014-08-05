@@ -93,14 +93,14 @@ public class Tank extends Actor {
 		int newX = getX() + getDirection().calculateVelocityX(getVelocity());
 		int newY = getY() + getDirection().calculateVelocityY(getVelocity());
 		
-		if(newX > Game.GAME_WIDTH - getWidth()) {
-			newX = Game.GAME_WIDTH - getWidth();
+		if(newX > Game.getGameWidth() - getWidth()) {
+			newX = Game.getGameWidth() - getWidth();
 		} else if(newX < 0) {
 			newX = 0;
 		}
 		
-		if (newY > Game.GAME_HEIGHT - getHeight()) {
-			newY = Game.GAME_HEIGHT - getHeight(); 
+		if (newY > Game.getGameHeight() - getHeight()) {
+			newY = Game.getGameHeight() - getHeight(); 
 		} else if(newY < 0) {
 			newY = 0;
 		}

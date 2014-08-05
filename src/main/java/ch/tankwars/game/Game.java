@@ -17,8 +17,8 @@ import ch.tankwars.game.powerup.RocketLauncherPowerUp;
  */
 public class Game implements ActorListener {
 
-	public static final int GAME_WIDTH = 800;
-	public static final int GAME_HEIGHT = 600;
+	private static int gameWidth = 800;
+	private static int gameHeight = 600;
 
 	private ConcurrentLinkedQueue<Actor> actorsToAdd = new ConcurrentLinkedQueue<Actor>();
 
@@ -119,8 +119,8 @@ public class Game implements ActorListener {
 
 	private void computeRandomActorPosition(final Actor actor) {
 		final Random random = new Random();
-		final int x = random.nextInt(GAME_WIDTH + 1 - actor.getWidth());
-		final int y = random.nextInt(GAME_HEIGHT + 1 - actor.getHeight());
+		final int x = random.nextInt(gameWidth + 1 - actor.getWidth());
+		final int y = random.nextInt(gameHeight + 1 - actor.getHeight());
 		actor.setPosition(x, y);
 		checkForCollisions(actor);
 	}
@@ -156,5 +156,21 @@ public class Game implements ActorListener {
 		
 		battlefieldMap.getWalls().forEach(wall -> wall.setId(generateId()));
 		battlefieldMap.getPowerUps().forEach(powerup -> createActor(powerup));
+	}
+
+	public static int getGameWidth() {
+		return gameWidth;
+	}
+
+	public static void setGameWidth(int gameWidth) {
+		Game.gameWidth = gameWidth;
+	}
+
+	public static int getGameHeight() {
+		return gameHeight;
+	}
+
+	public static void setGameHeight(int gameHeight) {
+		Game.gameHeight = gameHeight;
 	}
 }
