@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import ch.tankwars.game.Direction;
 import ch.tankwars.game.Game;
+import ch.tankwars.game.HealthPowerUp;
 import ch.tankwars.game.PlayGround;
 import ch.tankwars.game.Tank;
 import ch.tankwars.performance.PerformanceCounter;
@@ -46,6 +47,7 @@ public class GameController {
 		game.addWall(50, 89, 200, 10);
 		game.addWall(600, 411, 50, 50);
 		game.addWall(555, 44, 80, 20);
+		game.createActor(new HealthPowerUp(game, 100, 100));
 	}
 
 	public synchronized void start() {

@@ -18,6 +18,9 @@ var ShapeRenderer = function(_canvas) {
             case "WALL":
                 shape = Wall.drawWall(actor);
                 break;
+            case "HealthPowerUp":
+                shape = PowerUp.drawHealthPowerUp(actor);
+                break;
         }
 
         // optimize

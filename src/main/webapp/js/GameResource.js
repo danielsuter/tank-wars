@@ -100,7 +100,8 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
     var actorTypeMap = {
         0 : "TANK",
         1 : "PROJECTILE",
-        2 : "WALL"
+        2 : "WALL",
+        3 : "HealthPowerUp"
     };
 
     var mapToActorArray = function(protocol) {
