@@ -11,8 +11,6 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
         onConnect = _onConnect;
         var wsUri = TUtil.getWebsocketGameUrl();
 
-        onJoined = _onJoined;
-        var wsUri = TUtil.getWebsocketGameUrl();
         websocket = new WebSocket(wsUri);
 
         websocket.onerror = this.onError;
