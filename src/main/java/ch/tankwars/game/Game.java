@@ -1,5 +1,6 @@
 package ch.tankwars.game;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -12,9 +13,8 @@ public class Game implements ActorListener {
 
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
-
+	
 	private ConcurrentLinkedQueue<Actor> actorsToAdd = new ConcurrentLinkedQueue<Actor>();
-	private ConcurrentLinkedQueue<Actor> actorsToRemove = new ConcurrentLinkedQueue<Actor>();
 	
 	private PlayGround playGround; 
 
@@ -30,16 +30,10 @@ public class Game implements ActorListener {
 	}
 
 	public synchronized void tick() {
-		Actor actorToAdd = null;
-		while ((actorToAdd = actorsToAdd.poll()) != null) {
-			actors.add(actorToAdd);
-		}
-
-		Actor actorToRemove = null;
-		while ((actorToRemove = actorsToRemove.poll()) != null) {
-			actors.remove(actorToRemove);
-		}
-
+		addActorsInQueue();
+		
+		removeDeadActors();
+		
 		for (Actor actor : actors) {
 			actor.act();
 		}
@@ -48,6 +42,23 @@ public class Game implements ActorListener {
 		// detect collisions
 	}
 
+	private void addActorsInQueue() {
+		Actor actorToAdd = null;
+		while((actorToAdd = actorsToAdd.poll()) != null){
+			actors.add(actorToAdd);
+		}
+	}
+
+	private void removeDeadActors() {
+		Iterator<Actor> iterator = actors.iterator();
+		while(iterator.hasNext()) {
+			Actor actor = iterator.next();
+			if(actor.isRemove()) {
+				iterator.remove();
+			}
+		}
+	}
+	
 	public Tank spawn(String playerName) {
 		final Tank tank = new Tank(this, playerName, generateId());
 

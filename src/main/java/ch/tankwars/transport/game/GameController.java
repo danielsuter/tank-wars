@@ -94,7 +94,7 @@ public class GameController {
 	}
 	
 	public void removePlayer(Session player) {
-		game.removeActor(tanksMap.get(player));
+		tanksMap.get(player).setRemove(true);
 		tanksMap.remove(player);
 		peers.remove(player);
 	}
