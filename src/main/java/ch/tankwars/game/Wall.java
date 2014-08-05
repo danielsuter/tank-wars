@@ -15,25 +15,6 @@ public class Wall extends Actor {
 		// I'm a wall...
 	}
 	
-	public boolean collidesWith(Actor actor) {
-		if (topLeftCornerEqual(actor)) {
-			return true;
-		}
-		
-		if (actor.getX() + actor.getWidth() - this.getX() <= 1 && actor.getY() + actor.getHeight() - this.getY() <= 1 ) {
-			return true;
-		}
-		
-		if (this.getX() + this.getWidth() - actor.getX() >= 1 && this.getY() + this.getHeight() - actor.getY() >= 1 ) {
-			return true;
-		}
-		
-		return false;
-	}
-
-	private boolean topLeftCornerEqual(Actor actor) {
-		return actor.getX() == this.getX() && actor.getY() == this.getY();
-	};
 	
 	class Dimensions {
 		private int x;
