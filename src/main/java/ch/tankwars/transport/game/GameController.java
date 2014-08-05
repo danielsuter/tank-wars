@@ -12,13 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.tankwars.game.Direction;
-import ch.tankwars.game.FireRatePowerUp;
 import ch.tankwars.game.Game;
-import ch.tankwars.game.HealthPowerUp;
-import ch.tankwars.game.LaserGunPowerUp;
-import ch.tankwars.game.PlayGround;
-import ch.tankwars.game.RocketLauncherPowerUp;
+import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Tank;
+import ch.tankwars.maps.MapReader;
 import ch.tankwars.performance.PerformanceCounter;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.dto.PlayersChangedResponse;
@@ -32,7 +29,7 @@ public class GameController {
 	private static Game game = new Game();
 	private Timer timer;
 	private static GameCommunicator gameCommunicator = new GameCommunicator();
-	
+	private MapReader mapReader = new MapReader();
 	private final Set<PlayerPeer> playerPeers = Collections.synchronizedSet(new HashSet<PlayerPeer>());
 	
 	private boolean isStarted;
@@ -45,20 +42,7 @@ public class GameController {
 	
 	// TODO will be replaced by loadMap
 	private void initPlayground() {
-		PlayGround playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
-		game.setPlayGround(playGround);
-		game.addWall(5, 5, 20, 100);
-		game.addWall(50, 89, 200, 10);
-		game.addWall(600, 411, 50, 50);
-		game.addWall(555, 44, 80, 20);
-
-		addHealthPowerUp(200, 200);
-		addHealthPowerUp(400, 300);
-		addFireRatePowerUp(100, 100);
-		addFireRatePowerUp(500, 580);
-		
-		game.createActor(new RocketLauncherPowerUp(game, 250, 250));
-		game.createActor(new LaserGunPowerUp(game, 430, 70));
+		loadMap("default.json");
 	}
 
 	public synchronized void start() {
@@ -134,15 +118,6 @@ public class GameController {
 		playerPeers.remove(playerPeer);
 	}
 	
-	// TODO remove
-	private void addHealthPowerUp(int x, int y) {
-		game.createActor(new HealthPowerUp(game, x, y));
-	}
-	
-	// TODO remove
-	private void addFireRatePowerUp(int x, int y) {
-		game.createActor(new FireRatePowerUp(game, x, y));
-	}
 
 	public void shoot(PlayerPeer playerPeer) {
 		Tank tank = playerPeer.getTank();
@@ -161,7 +136,7 @@ public class GameController {
 	}
 
 	public void loadMap(String mapName) {
-		// TODO
-		throw new RuntimeException("not implemented");
+		BattlefieldMap battlefieldMap = mapReader.load(mapName);
+		game.setPlayGround(battlefieldMap);
 	}
 }

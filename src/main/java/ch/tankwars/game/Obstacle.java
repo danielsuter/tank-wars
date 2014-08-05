@@ -3,8 +3,8 @@ package ch.tankwars.game;
 
 public abstract class Obstacle extends Actor {
 	
-	public Obstacle(ActorListener actorListener, ActorType actorType) {
-		super(actorListener, actorType);
+	public Obstacle(ActorType actorType) {
+		super(actorType);
 	}
 	
 	@Override

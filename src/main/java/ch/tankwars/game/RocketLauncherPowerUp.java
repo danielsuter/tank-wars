@@ -4,8 +4,8 @@ public class RocketLauncherPowerUp extends PowerUp {
 	
 	private Weapon weapon;
 
-	public RocketLauncherPowerUp(ActorListener actorListener, int x, int y) {
-		super(actorListener, ActorType.ROCKETLAUNCHERPOWERUP);
+	public RocketLauncherPowerUp(int x, int y) {
+		super(ActorType.ROCKETLAUNCHERPOWERUP);
 		setX(x);
 		setY(y);
 		weapon = Weapon.ROCKET_LAUNCHER;

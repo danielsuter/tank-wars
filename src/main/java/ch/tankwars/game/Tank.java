@@ -15,8 +15,11 @@ public class Tank extends Actor {
 	private int hitsMade = 0;
 	private int killsMade = 0;
 	
+	private ActorListener actorListener;
+	
 	public Tank(ActorListener actorListener, String playerName) {
-		super(actorListener, ActorType.TANK);
+		super(ActorType.TANK);
+		this.actorListener = actorListener;
 		this.playerName = playerName;
 		setWidth(DEFAULT_WIDTH);
 		setHeight(DEFAULT_HEIGHT);
@@ -89,7 +92,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		final Projectile projectile = new Projectile(getActorListener(), getId());
+		final Projectile projectile = new Projectile(getId());
 		switch (weapon) {
 			case STANDARD_CANON:
 				// Use default projectile
@@ -123,7 +126,7 @@ public class Tank extends Actor {
 				projectile.setDirection(getDirection());
 				break;
 		}
-		getActorListener().createActor(projectile);
+		actorListener.createActor(projectile);
 	}
 
 	@Override

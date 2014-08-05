@@ -19,7 +19,7 @@ public class GameCollisionTest {
 		Tank tank = game.spawn("Chief");
 		tank.setPosition(0, 0);
 		
-		Projectile projectile = new Projectile(game, -1);
+		Projectile projectile = new Projectile(-1);
 		projectile.setPosition(24, 0);
 		
 		assertTrue(projectile.collidesWith(tank));
@@ -27,11 +27,11 @@ public class GameCollisionTest {
 	
 	@Test
 	public void collisionTankProjectileWithSpeed() {
-		game.setPlayGround(new PlayGround(100, 100));
+		game.setPlayGround(new BattlefieldMap(100, 100));
 		Tank tank = game.spawn("Chief");
 		tank.setPosition(0, 0);
 		
-		Projectile projectile = new Projectile(game, -1);
+		Projectile projectile = new Projectile(-1);
 		projectile.setPosition(27, 0);
 		projectile.setDirection(Direction.LEFT);
 		projectile.setVelocity(10);
@@ -45,12 +45,12 @@ public class GameCollisionTest {
 	
 	@Test
 	public void noCollisionBetweenProjectiles() {
-		Projectile projectile1 = new Projectile(game, -1);
+		Projectile projectile1 = new Projectile(-1);
 		projectile1.setPosition(0, 0);
 		projectile1.setDirection(Direction.LEFT);
 		projectile1.setVelocity(10);
 		
-		Projectile projectile2 = new Projectile(game, -2);
+		Projectile projectile2 = new Projectile(-2);
 		projectile2.setPosition(30, 0);
 		projectile2.setDirection(Direction.LEFT);
 		projectile2.setVelocity(10);
@@ -62,12 +62,12 @@ public class GameCollisionTest {
 	
 	@Test
 	public void collisionProjectileWall() throws Exception {
-		PlayGround playGround = new PlayGround(1000, 1000);
-		Wall wall = new Wall(game, 1, 1, 1, 200, 10);
-		playGround.addWall(wall);
-		game.setPlayGround(playGround);
+		BattlefieldMap battlefieldMap = new BattlefieldMap(1000, 1000);
+		Wall wall = new Wall(1, 1, 200, 10);
+		battlefieldMap.addWall(wall);
+		game.setPlayGround(battlefieldMap);
 		
-		Projectile projectile = new Projectile(game, -1);
+		Projectile projectile = new Projectile(-1);
 		projectile.setPosition(15, 15);
 		projectile.setDirection(Direction.UP);
 		projectile.setVelocity(10);
@@ -79,10 +79,10 @@ public class GameCollisionTest {
 	
 	@Test
 	public void collisionWallTank() throws Exception {
-		PlayGround playGround = new PlayGround(1000, 1000);
-		game.setPlayGround(playGround);
-		Wall wall = new Wall(game, 1, 1, 1, 200, 15);
-		playGround.addWall(wall);
+		BattlefieldMap battlefieldMap = new BattlefieldMap(1000, 1000);
+		game.setPlayGround(battlefieldMap);
+		Wall wall = new Wall(1, 1, 200, 15);
+		battlefieldMap.addWall(wall);
 		
 		Tank tank = game.spawn("Support Veigar");
 		tank.setPosition(15, 20);
