@@ -5,7 +5,7 @@ var Game = function(canvasId) {
     var knownActors = [];
     var renderer;
     var lastFired = 0;
-    var myId;
+    var myId; // player id = tank id
     var ignoreNextKeyUp = false;
 
     var doKeyDown = function(event) {
@@ -100,18 +100,39 @@ var Game = function(canvasId) {
         removeDeadActors(actorsFromResponse);
 
         $.each(actorsFromResponse, function() {
-            var actor = this;
+            var actorUpdate = this;
 
-            if (isNewActor(actor)) {
-                knownActors[actor.id] = actor;
-                renderer.createShape(actor);
+            if (isNewActor(actorUpdate)) {
+                knownActors[actorUpdate.id] = actorUpdate;
+                renderer.createShape(actorUpdate);
             } else {
-                renderer.updateShape(actor);
+                updateActor(actorUpdate);
+                renderer.updateShape(knownActors[actorUpdate.id]);
             }
         });
 
+        // update health
+        renderer.renderStatusBar(knownActors[myId]);
+
         renderer.render();
     };
+
+    var updateActor= function(actorUpdate) {
+        var cachedActor = knownActors[actorUpdate.id];
+
+        if(actorUpdate.x) {
+            cachedActor.x = actorUpdate.x;
+        }
+        if(actorUpdate.y) {
+            cachedActor.y = actorUpdate.y;
+        }
+        if(actorUpdate.health) {
+            cachedActor.health = actorUpdate.health;
+        }
+        if(actorUpdate.fireRate) {
+            cachedActor.fireRate = actorUpdate.fireRate;
+        }
+    }
 
     var isNewActor = function(actor) {
         return typeof knownActors[actor.id] === "undefined";

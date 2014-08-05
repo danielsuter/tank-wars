@@ -18,7 +18,7 @@ import ch.tankwars.game.Tank;
 import ch.tankwars.performance.PerformanceCounter;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.dto.PlayersChangedResponse;
-import ch.tankwars.transport.game.mapper.ActorListDeserializer;
+import ch.tankwars.transport.game.mapper.ActorListSerializer;
 
 public class GameController {
 	private static final long INTERVAL_MILIS = 50L;
@@ -67,7 +67,7 @@ public class GameController {
 				
 				perf.lap("tick");
 				
-				gameCommunicator.sendMessage(game.getActors(), playerPeers, ActorListDeserializer.TYPE);
+				gameCommunicator.sendMessage(game.getActors(), playerPeers, ActorListSerializer.TYPE);
 				
 				perf.stop("COMPLETE LOOP");
 			}

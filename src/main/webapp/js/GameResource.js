@@ -94,7 +94,8 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
         "h" : "height",
         "d" : "direction",
         "v" : "velocity",
-        "f" : "fireRate"
+        "f" : "fireRate",
+        "l" : "health"
     };
 
     var actorTypeMap = {
