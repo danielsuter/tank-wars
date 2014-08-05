@@ -36,4 +36,19 @@ public class Projectile extends Actor {
 	public void setProjectileDimension(int dimension) {
 		this.projectileDimension = dimension;
 	}
+	
+	@Override
+	public int getWidth() {
+		return projectileDimension;
+	}
+	
+	@Override
+	public int getHeight() {
+		return projectileDimension;
+	}
+
+	@Override
+	public void collision(Actor actor) {
+		setRemove(true);
+	}
 }

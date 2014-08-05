@@ -26,11 +26,16 @@ public class Game implements ActorListener {
 		removeDeadActors();
 		
 		for (Actor actor : actors) {
-			actor.act();
+			if(!actor.isRemove()) {
+				actor.act();
+				for (Actor otherActor : actors) {
+					if(actor != otherActor && actor.collidesWith(otherActor)) {
+						actor.collision(otherActor);
+						otherActor.collision(actor);
+					}
+				}
+			}
 		}
-		
-		
-		// detect collisions
 	}
 
 	private void addActorsInQueue() {

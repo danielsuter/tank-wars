@@ -77,4 +77,11 @@ public class Tank extends Actor {
 		}
 		getActorListener().createActor(projectile);
 	}
+
+	@Override
+	public void collision(Actor actor) {
+		if(actor instanceof Projectile) {
+			System.out.println("got killed uaaarrrghh");
+		}
+	}
 }

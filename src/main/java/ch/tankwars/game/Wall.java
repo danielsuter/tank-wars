@@ -57,4 +57,10 @@ public class Wall extends Actor {
 		
 	}
 
+
+	@Override
+	public void collision(Actor actor) {
+		// I'm wall and undestructible
+	}
+
 }

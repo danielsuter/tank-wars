@@ -41,6 +41,8 @@ public abstract class Actor implements Cloneable {
 		return false;
 	}
 	
+	public abstract void collision(Actor actor);
+	
 	private boolean topLeftCornerEqual(Actor actor) {
 		return actor.getX() == this.getX() && actor.getY() == this.getY();
 	};
