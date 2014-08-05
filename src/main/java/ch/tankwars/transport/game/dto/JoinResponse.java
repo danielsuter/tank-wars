@@ -1,23 +1,27 @@
 package ch.tankwars.transport.game.dto;
 
-import ch.tankwars.game.PlayGround;
-
 public class JoinResponse extends Response {
 	
 	private final int playerId; 
-	private final PlayGround playGround;
+	private final int fieldWidth;
+	private final int fieldHeight; 
 	
-	public JoinResponse(int playerId, PlayGround playGround) {
+	public JoinResponse(int playerId, int fieldWidth, int fieldHeight) {
 		super(MessageType.JOIN.getType());
 		this.playerId = playerId;
-		this.playGround = playGround;
+		this.fieldWidth = fieldWidth; 
+		this.fieldHeight = fieldHeight; 
 	}
 
 	public int getPlayerId() {
 		return playerId;
 	}
 
-	public PlayGround getPlayGround() {
-		return playGround;
+	public int getFieldWidth() {
+		return fieldWidth;
+	}
+
+	public int getFieldHeight() {
+		return fieldHeight;
 	}
 }

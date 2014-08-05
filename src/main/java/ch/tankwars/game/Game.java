@@ -16,18 +16,8 @@ public class Game implements ActorListener {
 	
 	private ConcurrentLinkedQueue<Actor> actorsToAdd = new ConcurrentLinkedQueue<Actor>();
 	
-	private PlayGround playGround; 
-
 	private List<Actor> actors = new LinkedList<Actor>();
 	private int globalId;
-	
-	public PlayGround getPlayGround() {
-		return playGround;
-	}
-	
-	public void setPlayGround(PlayGround playGround) {
-		this.playGround = playGround;
-	}
 
 	public synchronized void tick() {
 		addActorsInQueue();
@@ -60,29 +50,25 @@ public class Game implements ActorListener {
 	}
 	
 	public Tank spawn(String playerName) {
-		final Tank tank = new Tank(this, playerName, generateId());
-
+		final Tank tank = new Tank(this, playerName);
+		tank.setId(generateId());
+		
 		final Random random = new Random();
 		final int x = random.nextInt(GAME_WIDTH + 1 - tank.getWidth());
 		final int y = random.nextInt(GAME_HEIGHT + 1 - tank.getHeight());
-
+		
 		tank.setPosition(x, y);
 		actors.add(tank);
-
+		
 		return tank;
 	}
-
+	
 	public List<Actor> getActors() {
 		return actors;
 	}
 
 	private int generateId() {
-		return ++globalId;
-	}
-
-	@Override
-	public void removeActor(Actor actor) {
-		actorsToRemove.add(actor);
+		return ++globalId ;
 	}
 
 	@Override

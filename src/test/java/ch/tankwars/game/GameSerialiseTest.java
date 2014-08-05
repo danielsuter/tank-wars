@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.mapper.ActorListDeserializer;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 import ch.tankwars.transport.game.mapper.ResponseMapper;
@@ -30,17 +31,6 @@ public class GameSerialiseTest {
 		Tank tank = game.spawn("Tristana");
 		
 		gson.toJson(tank);
-	}
-	
-	@Test
-	public void wallMapping() {
-		Game game = new Game();
-		Wall wall = new Wall(game, 0, 0, 0, 10, 10);
-		
-		TankMap tankMap = new TankMap();
-		tankMap.addWall(wall);
-		
-		gson.toJson(tankMap);
 	}
 
 	@Test

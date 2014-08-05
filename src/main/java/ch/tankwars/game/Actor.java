@@ -50,12 +50,12 @@ public abstract class Actor implements Cloneable {
 		return (Actor)super.clone();
 	}
 	
-	public int getId() {
-		return id;
-	}
-	
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public ActorListener getActorListener() {

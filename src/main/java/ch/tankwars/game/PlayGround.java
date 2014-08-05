@@ -3,17 +3,13 @@ package ch.tankwars.game;
 import java.util.HashSet;
 import java.util.Set;
 
-import ch.tankwars.transport.game.dto.MessageType;
-import ch.tankwars.transport.game.dto.Response;
-
-public class PlayGround extends Response {
+public class PlayGround{
 	
 	private int fieldWidth;
 	private int fieldHeight;
 	private Set<Wall> walls = new HashSet<Wall>();
 	
 	public PlayGround(int fieldWidth, int fieldHeight) {
-		super(MessageType.INIT.getType());
 		this.setFieldWidth(fieldWidth);
 		this.setFieldHeight(fieldHeight);
 	}

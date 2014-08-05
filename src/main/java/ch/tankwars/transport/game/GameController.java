@@ -16,8 +16,6 @@ import org.slf4j.LoggerFactory;
 import ch.tankwars.game.Direction;
 import ch.tankwars.game.Game;
 import ch.tankwars.game.Tank;
-import ch.tankwars.game.PlayGround;
-import ch.tankwars.game.Wall;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.mapper.ActorListDeserializer;
 
@@ -34,10 +32,6 @@ public class GameController {
 
 	private boolean isStarted;
 
-	public GameController() {
-		game.setPlayGround(initPlayGround());
-	}
-	
 	public synchronized void start() {
 		if(isStarted) {
 			LOGGER.warn("Already started! Aborting...");
@@ -74,17 +68,10 @@ public class GameController {
 		Tank spawnedTank = game.spawn(playerName);
 		tanksMap.put(player, spawnedTank);
 		
-		JoinResponse joinResponse = new JoinResponse(spawnedTank.getId(), null);
+		JoinResponse joinResponse = new JoinResponse(spawnedTank.getId(), Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		gameCommunicator.sendMessage(joinResponse, player);
 	}
 
-	private PlayGround initPlayGround() {
-		PlayGround playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
-		Wall wall = game.addWall(1, 1, 1, 1);
-		playGround.addWall(wall); 
-		return playGround;
-	}
-	
 	public void move(Session player, Direction direction) {
 		tanksMap.get(player).move(direction);
 	}

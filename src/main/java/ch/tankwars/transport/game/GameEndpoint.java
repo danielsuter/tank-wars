@@ -18,18 +18,18 @@ import ch.tankwars.game.Direction;
  */
 @ServerEndpoint("/game")
 public class GameEndpoint {
-
 	private final static Logger LOGGER = LoggerFactory.getLogger(GameEndpoint.class);
+	
 	private final static GameController gameController = new GameController();
-
+	
 	private Session playerSession;
-
+	
 	@OnMessage
 	public void onMessage(String message, Session clientSession) {
 		LOGGER.debug("Received message: {} ", message);
 		String[] fullCommand = message.split(" ");
 		String command = fullCommand[0];
-
+		
 		switch (command) {
 		case "JOIN":
 			final String playerName = fullCommand[1];
