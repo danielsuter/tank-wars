@@ -2,6 +2,7 @@ package ch.tankwars.game;
 
 public class Tank extends Actor {
 
+	private static final int LASERGUN_SIZE = 2;
 	private final static int DEFAULT_WIDTH = 35;
 	private final static int DEFAULT_HEIGHT = 35;
 	private final static int DEFAULT_SPEED = 6;
@@ -94,51 +95,41 @@ public class Tank extends Actor {
 	
 	public void shoot() {
 		// TODO strategy pattern
-		final Projectile projectile = new Projectile(getId());
-		projectile.setDirection(getDirection());
+		Projectile projectile = null; 
 		switch (weapon) {
 			case STANDARD_CANON:
-				// Use default projectile
+				projectile = new Projectile(getId());
 				break;
 			case LASER_GUN:
-				projectile.setProjectileDimension(0);
+				// FIXME: Extract to own subclass
+				projectile = new Projectile(getId()) {
+					@Override
+					public int getHeight() {
+						return getDirection() == Direction.LEFT || getDirection() == Direction.RIGHT ? LASERGUN_SIZE : Weapon.LASER_GUN.getDimension();
+					}
+					
+					@Override
+					public int getWidth() {
+						return getDirection() == Direction.DOWN || getDirection() == Direction.UP ? LASERGUN_SIZE : Weapon.LASER_GUN.getDimension();
+					}
+				};
+				projectile.setProjectileDimension(LASERGUN_SIZE);
 				projectile.setPower(Weapon.LASER_GUN.getPower());
 				projectile.setVelocity(Weapon.LASER_GUN.getVelocity());
-				projectile.setWidth(Weapon.LASER_GUN.getDimension());
-				calculateProjectileDimension(projectile);
 				break;
 			case ROCKET_LAUNCHER:
+				projectile = new Projectile(getId());
 				projectile.setPower(Weapon.ROCKET_LAUNCHER.getPower());
 				projectile.setProjectileDimension(Weapon.ROCKET_LAUNCHER.getDimension());
 				projectile.setVelocity(Weapon.ROCKET_LAUNCHER.getVelocity());
 				break;
 		}
+		projectile.setDirection(getDirection());
 		// TODO beautify
 		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), 
 				this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2));
 		
 		actorListener.createActor(projectile);
-	}
-
-	private void calculateProjectileDimension(final Projectile projectile) {
-		switch(getDirection()) {
-			case DOWN:
-				projectile.setWidth(Weapon.LASER_GUN.getDimension());
-				projectile.setHeight(2);
-				break;
-			case UP:
-				projectile.setWidth(Weapon.LASER_GUN.getDimension());
-				projectile.setHeight(2);
-				break;
-			case LEFT:
-				projectile.setWidth(2);
-				projectile.setHeight(Weapon.LASER_GUN.getDimension());
-				break;
-			case RIGHT:
-				projectile.setWidth(2);
-				projectile.setHeight(Weapon.LASER_GUN.getDimension());
-				break;
-		}
 	}
 
 	@Override
