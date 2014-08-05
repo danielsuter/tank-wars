@@ -10,7 +10,7 @@ public class HealthPowerUp extends PowerUp {
 		super(ActorType.HEALTHPOWERUP);
 		setX(x);
 		setY(y);
-		healthGain = 50;
+		healthGain = 30;
 	}
 
 	public int getHealthGain() {
