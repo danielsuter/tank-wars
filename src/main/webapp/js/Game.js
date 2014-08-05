@@ -124,7 +124,7 @@ var Game = function(canvasId) {
         canvas.setWidth(playGround.fieldWidth);
         canvas.setHeight(playGround.fieldHeight);
         drawWalls(playGround.walls);
-        canvas.backgroundColor = '#33FF33';
+        canvas.backgroundColor = '#85a923';
         canvas.renderAll();
     };
 
