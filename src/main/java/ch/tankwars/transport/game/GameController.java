@@ -1,9 +1,7 @@
 package ch.tankwars.transport.game;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,14 +26,12 @@ public class GameController {
 	private final static Logger LOGGER = LoggerFactory.getLogger(GameController.class);
 	
 	private static Game game = new Game();
-	private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
 	private Timer timer;
 	private static GameCommunicator gameCommunicator = new GameCommunicator();
-	private final Map<Session, Tank> tanksMap = new HashMap<Session, Tank>();
-
-	private boolean isStarted;
 	
-	private PlayGround playGround; 
+	private final Set<PlayerPeer> playerPeers = Collections.synchronizedSet(new HashSet<PlayerPeer>());
+	
+	private boolean isStarted;
 	
 	private PerformanceCounter perf = new PerformanceCounter(10);
 	
@@ -44,7 +40,7 @@ public class GameController {
 	}
 
 	private void initPlayground() {
-		playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
+		PlayGround playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		game.setPlayGround(playGround);
 		game.addWall(5, 5, 20, 100);
 		game.addWall(50, 89, 200, 10);
@@ -71,7 +67,7 @@ public class GameController {
 				
 				perf.lap("tick");
 				
-				gameCommunicator.sendMessage(game.getActors(), peers, ActorListDeserializer.TYPE);
+				gameCommunicator.sendMessage(game.getActors(), playerPeers, ActorListDeserializer.TYPE);
 				
 				perf.stop("COMPLETE LOOP");
 			}
@@ -84,46 +80,48 @@ public class GameController {
 		isStarted = false;
 	}
 
-	public void join(Session player, String playerName) {
-		peers.add(player);
+	public PlayerPeer join(Session player, String playerName) {
+		PlayerPeer playerPeer = new PlayerPeer(player, playerName);
+		playerPeers.add(playerPeer);
+		
 		Tank spawnedTank = game.spawn(playerName);
-		tanksMap.put(player, spawnedTank);
+		playerPeer.setTank(spawnedTank);
 		
 		JoinResponse joinResponse = new JoinResponse(spawnedTank.getId(), game.getPlayGround());
-		gameCommunicator.sendMessage(joinResponse, player);
+		gameCommunicator.sendMessage(joinResponse, playerPeer);
 		updatePlayers();
+		return playerPeer;
 	}
 	
 	public void updatePlayers() {
-		PlayersChangedResponse response = new PlayersChangedResponse(tanksMap.values());
-		gameCommunicator.sendMessage(response, peers);
+		PlayersChangedResponse response = new PlayersChangedResponse(playerPeers);
+		gameCommunicator.sendMessage(response, playerPeers);
 	}
 
-	public void move(Session player, Direction direction) {
-		Tank tank = tanksMap.get(player);
+	public void move(PlayerPeer playerPeer, Direction direction) {
+		Tank tank = playerPeer.getTank();
 		if(tank != null) {
 			tank.move(direction);
 		}
 	}
 	
-	public void moveStop(Session player, Direction direction) {
-		Tank tank = tanksMap.get(player);
+	public void moveStop(PlayerPeer playerPeer, Direction direction) {
+		Tank tank = playerPeer.getTank();
 		if(tank != null) {
 			tank.moveStop(direction);
 		}
 	}
 	
-	public void removePlayer(Session player) {
-		Tank tank = tanksMap.get(player);
+	public void removePlayer(PlayerPeer playerPeer) {
+		Tank tank = playerPeer.getTank();
 		if(tank != null) {
 			tank.setRemove(true);
-			tanksMap.remove(player);
 		}
-		peers.remove(player);
+		playerPeers.remove(playerPeer);
 	}
 
-	public void shoot(Session playerSession) {
-		Tank tank = tanksMap.get(playerSession);
+	public void shoot(PlayerPeer playerPeer) {
+		Tank tank = playerPeer.getTank();
 		if(tank != null) {
 			tank.shoot();
 		}
@@ -133,8 +131,7 @@ public class GameController {
 		game = new Game();
 		timer.cancel();
 		isStarted = false;
-		tanksMap.clear();
-		peers.clear();
+		playerPeers.clear();
 		initPlayground();
 	}
 }

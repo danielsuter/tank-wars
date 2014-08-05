@@ -4,17 +4,17 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import ch.tankwars.game.Tank;
+import ch.tankwars.transport.game.PlayerPeer;
 
 public class PlayersChangedResponse extends Response {
 	
 	private List<Player> players = new LinkedList<>();
 	
-	public PlayersChangedResponse(Collection<Tank> players) {
+	public PlayersChangedResponse(Collection<PlayerPeer> players) {
 		super(MessageType.PLAYERS_CHANGED.getType());
 		
-		for (Tank tank : players) {
-			this.players.add(new Player(tank.getId(), tank.getPlayerName()));
+		for (PlayerPeer player : players) {
+			this.players.add(new Player(player.getTank().getId(), player.getName()));
 		}
 	}
 	

@@ -22,7 +22,7 @@ public class GameEndpoint {
 	
 	private final static GameController gameController = new GameController();
 	
-	private Session playerSession;
+	private PlayerPeer playerSession;
 	
 	@OnMessage
 	public void onMessage(String message, Session clientSession) {
@@ -33,7 +33,7 @@ public class GameEndpoint {
 		switch (command) {
 		case "JOIN":
 			final String playerName = fullCommand[1];
-			gameController.join(playerSession, playerName);
+			playerSession = gameController.join(clientSession, playerName);
 			break;
 		case "START":
 			gameController.start();
@@ -64,12 +64,12 @@ public class GameEndpoint {
 
 	@OnOpen
 	public void onOpen(Session peer) {
-		playerSession = peer;
+		LOGGER.info("Client connected to websocket");
 	}
 
 	@OnClose
 	public void onClose(Session peer) {
-		gameController.removePlayer(peer);
+		gameController.removePlayer(playerSession);
 	}
 
 	@OnError
