@@ -79,9 +79,16 @@ var Game = function(canvasId) {
         keyup: doKeyUp
     });
 
-    var onJoin = function(id, playGround) {
-		myId = id;
+<<<<<<< Updated upstream
+    var onJoin = function(playGround) {
         drawBoard(playGround);
+=======
+    var onJoin = function(id, _width, _height) {
+        width = _width;
+        height = _height;
+        myId = id;
+        drawBoard();
+>>>>>>> Stashed changes
     };
 
     var update = function(actorsFromResponse) {
@@ -98,7 +105,7 @@ var Game = function(canvasId) {
             }
         });
 
-        renderer.render();
+//        renderer.render();
     };
 
     var isNewActor = function(actor) {
@@ -123,15 +130,8 @@ var Game = function(canvasId) {
     var drawBoard = function(playGround) {
         canvas.setWidth(playGround.fieldWidth);
         canvas.setHeight(playGround.fieldHeight);
-        drawWalls(playGround.walls);
         canvas.backgroundColor = '#33FF33';
         canvas.renderAll();
-    };
-
-    var drawWalls = function(walls) {
-        $.each(walls, function() {
-            renderer.createShape(this);
-        });
     };
 
     var registerEventListeners = function() {

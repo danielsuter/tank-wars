@@ -40,7 +40,11 @@ var GameResource = function(_onGameUpdate) {
             var actors = mapToActorArray(message);
             onGameUpdate(actors);
         } else if(message.messageType === 'JOIN') {
-            onJoined(message.playerId, message.playGround);
+<<<<<<< Updated upstream
+            onJoined(message.playGround);
+=======
+            onJoined(message.playerId, message.fieldWidth, message.fieldHeight);
+>>>>>>> Stashed changes
         }
     };
 

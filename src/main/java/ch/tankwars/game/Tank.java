@@ -4,7 +4,9 @@ public class Tank extends Actor {
 
 	private final static int DEFAULT_WIDTH = 25;
 	private final static int DEFAULT_HEIGHT = 25;
-	private static final int DEFAULT_SPEED = 5;
+	private final static int DEFAULT_SPEED = 5;
+	
+	private int fireRatePerSecond = 1;
 
 	private final String playerName;
 	private int health = 100;
@@ -22,6 +24,14 @@ public class Tank extends Actor {
 
 	public String getPlayerName() {
 		return playerName;
+	}
+	
+	public void setFireRatePerSecond(int fIRE_RATE_PER_SECOND) {
+		fireRatePerSecond = fIRE_RATE_PER_SECOND;
+	}
+	
+	public int getFireRatePerSecond() {
+		return fireRatePerSecond;
 	}
 	
 	@Override
