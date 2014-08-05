@@ -52,14 +52,30 @@ var ShapeRenderer = function(_canvas) {
         shape.set({"top" : actor.y});
 
         shape.setCoords();
-    }
-
-
+    };
 
     this.removeShape = function(id) {
         var shape = shapes[id];
         canvas.remove(shape);
         delete shapes[id];
+    };
+
+    this.renderDeath = function() {
+        statusBarShape = new fabric.Text('<<< Game over >>>', {
+            left: 110,
+            top: 250,
+            fontSize: 60,
+            fill: 'red',
+            stroke: '#c3bfbf',
+            strokeWidth: 3,
+            fontFamily: 'Arial',
+            fontWeight: 'bold'});
+
+        // optimize
+        statusBarShape.selectable = false;
+        statusBarShape.hasRotatingPoint = false;
+
+        canvas.add(statusBarShape);
     };
 
     this.render = function() {
@@ -68,7 +84,7 @@ var ShapeRenderer = function(_canvas) {
 
     var generateStatusbarText = function(player) {
         return 'Health:' + player.health + '   Fire rate: ' + player.fireRate;
-    }
+    };
 
     this.renderStatusBar= function(player) {
         if(!statusBarShape) {

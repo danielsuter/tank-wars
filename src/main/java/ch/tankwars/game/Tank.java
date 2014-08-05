@@ -129,7 +129,7 @@ public class Tank extends Actor {
 	public void damage(int amount) {
 		health -= amount;
 		if(health <= 0) {
-			System.out.println("got killed uaaarrrgh");
+			setRemove(true);
 		}
 	}
 	
