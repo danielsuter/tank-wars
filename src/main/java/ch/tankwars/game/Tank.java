@@ -2,8 +2,8 @@ package ch.tankwars.game;
 
 public class Tank extends Actor {
 
-	private final static int DEFAULT_WIDTH = 25;
-	private final static int DEFAULT_HEIGHT = 25;
+	private final static int DEFAULT_WIDTH = 40;
+	private final static int DEFAULT_HEIGHT = 30;
 	private final static int DEFAULT_SPEED = 5;
 	private final static int DEFAULT_HEALTH = 100;
 	
