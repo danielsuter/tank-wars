@@ -1,10 +1,16 @@
 var ShapeRenderer = function(_canvas) {
 
     var shapes = [];
+    var healthBars = [];
     var canvas = _canvas;
 
     var statusBarShape;
     var cachedStatusBarText;
+
+    var optimizeShape = function (shape) {
+        shape.hasRotatingPoint = false;
+        shape.selectable = false;
+    };
 
     this.createShape = function(actor) {
         var shape;
@@ -13,6 +19,11 @@ var ShapeRenderer = function(_canvas) {
                 actor.color = getColor();
                 shape = Tank.drawTank(actor);
                 shape.direction = actor.direction;
+
+                var healthBar = HealthBar.drawHealthBar(actor);
+                optimizeShape(healthBar);
+                healthBars[actor.id] = healthBar;
+                canvas.add(healthBar);
                 break;
             case "PROJECTILE":
                 shape = Projectile.drawProjectile(actor);
@@ -36,8 +47,7 @@ var ShapeRenderer = function(_canvas) {
 
         // optimize
         if(shape) {
-            shape.hasRotatingPoint = false;
-            shape.selectable = false;
+            optimizeShape(shape);
             shapes[actor.id] = shape;
             canvas.add(shape);
         }
@@ -55,11 +65,20 @@ var ShapeRenderer = function(_canvas) {
         return '#'+Math.floor(Math.random()*16777215).toString(16);
     };
 
+    var updateHealthBar = function (tank) {
+        var healthBar = healthBars[tank.id];
+        healthBar.updateLocation(tank);
+    };
+
     this.updateShape = function(actor) {
         var shape = shapes[actor.id];
 
         if (!shape) {
             throw "This shape does not exist, cannot update it!";
+        }
+
+        if(actor.actorType === 'TANK') {
+            updateHealthBar(actor);
         }
 
         shape.set({"left" : actor.x});
@@ -80,6 +99,12 @@ var ShapeRenderer = function(_canvas) {
         var shape = shapes[id];
         canvas.remove(shape);
         delete shapes[id];
+
+        var healthBar = healthBars[id];
+        if(healthBar) {
+            delete healthBars[id];
+            canvas.remove(healthBar);
+        }
     };
 
     this.renderDeath = function() {
