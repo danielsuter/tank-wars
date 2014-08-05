@@ -105,6 +105,8 @@ var Game = function(canvasId) {
     };
 
     var update = function(actorsFromResponse) {
+        if(isDead) return;
+
         removeDeadActors(actorsFromResponse);
 
         $.each(actorsFromResponse, function() {
@@ -129,8 +131,8 @@ var Game = function(canvasId) {
         var myPlayer = knownActors[myId];
         if(myPlayer.health <= 0) {
             isDead = true;
+            renderer.renderDeath();
         }
-        renderer.renderDeath();
     }
 
     var updateActor= function(actorUpdate) {
