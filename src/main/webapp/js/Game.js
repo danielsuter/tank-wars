@@ -6,11 +6,17 @@ var Game = function(canvasId) {
     var renderer;
     var lastFired = 0;
     var myId;
+    var ignoreNextKeyUp = false;
 
     var doKeyDown = function(event) {
         if(event.keyCode === lastCode) {
             return;
         }
+
+        if (lastCode) {
+            ignoreNextKeyUp = true;
+        }
+
         lastCode = event.keyCode;
 
         switch(event.keyCode) {
@@ -34,6 +40,11 @@ var Game = function(canvasId) {
     };
 
     var doKeyUp = function(event) {
+        if (ignoreNextKeyUp) {
+            ignoreNextKeyUp = false;
+            return;
+        }
+
         lastCode = null;
         switch(event.keyCode) {
             case 37: // LEFT
