@@ -43,6 +43,8 @@ public class Game implements ActorListener {
 		for (Actor actor : actors) {
 			actor.act();
 		}
+		
+		
 		// detect collisions
 	}
 

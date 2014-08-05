@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import ch.tankwars.game.Actor;
 import ch.tankwars.game.Projectile;
@@ -40,7 +41,7 @@ public class ActorListDeserializer implements JsonSerializer<List<Actor>> {
 		JsonArray returnValue = new JsonArray();
 
 		returnValue.add(new JsonPrimitive(GAME_UPDATE));
-		toSerialize.parallelStream().map(new Function<Actor, JsonObject>() {
+		Stream<JsonObject> stream = toSerialize.stream().map(new Function<Actor, JsonObject>() {
 			@Override
 			public JsonObject apply(Actor actor) {
 				Actor cachedActor = CACHE.get(actor.getId());
@@ -96,8 +97,9 @@ public class ActorListDeserializer implements JsonSerializer<List<Actor>> {
 					throw new RuntimeException(e);
 				}
 			}
-		}).forEach(json -> returnValue.add(json));
-
+		});
+		
+		stream.forEach(json -> returnValue.add(json));
 		return returnValue;
 	}
 }
