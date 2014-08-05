@@ -19,7 +19,6 @@ import ch.tankwars.game.LaserGunPowerUp;
 import ch.tankwars.game.PlayGround;
 import ch.tankwars.game.RocketLauncherPowerUp;
 import ch.tankwars.game.Tank;
-import ch.tankwars.game.Wall;
 import ch.tankwars.performance.PerformanceCounter;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.dto.PlayersChangedResponse;
@@ -42,10 +41,6 @@ public class GameController {
 	
 	public GameController() {
 		initPlayground();
-		addHealthPowerUp(200, 200);
-		addHealthPowerUp(400, 300);
-		addFireRatePowerUp(100, 100);
-		addFireRatePowerUp(500, 580);
 	}
 	
 	// TODO will be replaced by loadMap
@@ -57,11 +52,6 @@ public class GameController {
 		game.addWall(600, 411, 50, 50);
 		game.addWall(555, 44, 80, 20);
 
-		// FIXME: walls on playGround or game??
-		for (Wall wall : playGround.getWalls()) {
-			game.createActor(wall);
-		}
-		
 		addHealthPowerUp(200, 200);
 		addHealthPowerUp(400, 300);
 		addFireRatePowerUp(100, 100);
