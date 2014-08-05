@@ -6,13 +6,13 @@ import java.util.Set;
 import ch.tankwars.transport.game.dto.MessageType;
 import ch.tankwars.transport.game.dto.Response;
 
-public class TankMap extends Response {
+public class PlayGround extends Response {
 	
 	private int fieldWidth;
 	private int fieldHeight;
 	private Set<Wall> walls = new HashSet<Wall>();
 	
-	public TankMap(int fieldWidth, int fieldHeight) {
+	public PlayGround(int fieldWidth, int fieldHeight) {
 		super(MessageType.INIT.getType());
 		this.setFieldWidth(fieldWidth);
 		this.setFieldHeight(fieldHeight);

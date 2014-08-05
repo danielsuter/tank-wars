@@ -37,7 +37,6 @@ public class GameCommunicator {
 
 	public void sendMessage(Object objectToBroadcast, Session session) {
 		sendResponse(session, responseMapper.map(objectToBroadcast));
-
 	}
 	
 	private void sendResponse(Session session, String response) {

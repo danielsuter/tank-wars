@@ -31,9 +31,6 @@ public class GameEndpoint {
 		String command = fullCommand[0];
 
 		switch (command) {
-		case "INIT":
-			gameController.init(clientSession);
-			break; 
 		case "JOIN":
 			final String playerName = fullCommand[1];
 			gameController.join(playerSession, playerName);
@@ -69,7 +66,7 @@ public class GameEndpoint {
 
 	@OnClose
 	public void onClose(Session peer) {
-		gameLoop.removePlayer(peer);
+		gameController.removePlayer(peer);
 	}
 
 	@OnError
