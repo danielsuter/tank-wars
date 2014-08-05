@@ -145,19 +145,6 @@ var Game = function(canvasId) {
                 cachedActor[property] = actorUpdate[property];
             }
         }
-
-//        if(actorUpdate.x) {
-//            cachedActor.x = actorUpdate.x;
-//        }
-//        if(actorUpdate.y) {
-//            cachedActor.y = actorUpdate.y;
-//        }
-//        if(actorUpdate.health) {
-//            cachedActor.health = actorUpdate.health;
-//        }
-//        if(actorUpdate.fireRate) {
-//            cachedActor.fireRate = actorUpdate.fireRate;
-//        }
     }
 
     var isNewActor = function(actor) {

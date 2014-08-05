@@ -18,7 +18,6 @@ var ShapeRenderer = function(_canvas) {
             case "TANK":
                 actor.color = getColor();
                 shape = Tank.drawTankEast(actor);
-
 				var healthBar = HealthBar.drawHealthBar(actor);
                 optimizeShape(healthBar);
                 healthBars[actor.id] = healthBar;
