@@ -98,6 +98,14 @@ var Game = function(canvasId) {
         keyup: doKeyUp
     });
 
+    var onConnect = function() {
+        $("#connectGame").hide();
+        $("#connectionInfo").hide();
+        $("#connectionSuccess").show();
+        $("#joinGame").show();
+        $("#playerName").show();
+    };
+
     var onJoin = function(id, playGround) {
 		myId = id;
         drawBoard(playGround);
@@ -146,7 +154,7 @@ var Game = function(canvasId) {
                 cachedActor[property] = actorUpdate[property];
             }
         }
-    }
+    };
 
     var isNewActor = function(actor) {
         return typeof knownActors[actor.id] === "undefined";
@@ -182,6 +190,9 @@ var Game = function(canvasId) {
     };
 
     var registerEventListeners = function() {
+        $("#connectGame").click(function() {
+            resource.connect(onConnect);
+        });
         $("#joinGame").click(function() {
             $(this).hide();
             $("#playerName").prop("disabled", true);

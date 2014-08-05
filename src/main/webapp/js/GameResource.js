@@ -1,4 +1,4 @@
-var GameResource = function(_onGameUpdate, _onPlayersChanged) {
+var GameResource = function (_onGameUpdate, _onPlayersChanged) {
     var onGameUpdate = _onGameUpdate;
     var websocket;
     var onJoined;
@@ -6,39 +6,39 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
 
     var lastMessageTime = 0;
 
-    this.join = function(_onJoined, playerName) {
-        console.log("Joining game with player name " + playerName + ".");
-
-        onJoined = _onJoined;
+    this.connect = function (onConnect) {
         var wsUri = TUtil.getWebsocketGameUrl();
         websocket = new WebSocket(wsUri);
 
         websocket.onerror = this.onError;
         websocket.onmessage = this.onMessage;
 
-        websocket.onopen = function(event) {
-            sendMessage("JOIN " + playerName);
+        websocket.onopen = function (event) {
+            onConnect();
         }
     };
 
-    this.start = function() {
-        console.log("Starting game.");
+    this.join = function (_onJoined, playerName) {
+        onJoined = _onJoined;
+        sendMessage("JOIN " + playerName);
+    };
+
+    this.start = function () {
         sendMessage("START");
     };
 
-    this.stop = function() {
-        console.log("Stopping game.");
+    this.stop = function () {
         sendMessage("STOP");
     };
 
-    this.shoot = function() {
+    this.shoot = function () {
         sendMessage('SHOOT');
     };
 
-    this.onMessage = function(event) {
+    this.onMessage = function (event) {
         var message = JSON.parse(event.data);
 
-        if(!message.messageType) {
+        if (!message.messageType) {
             $("#startGame").hide();
             message.splice(0, 1); // return value -> message type
             var actors = mapToActorArray(message);
@@ -48,28 +48,30 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
             if (time > 50) {
                 console.log("processing time unusually high: " + time + "ms");
             }
-        } else if(message.messageType === 'JOIN') {
+        } else if (message.messageType === 'JOIN') {
             onJoined(message.playerId, message.battlefieldMap);
-        } else if(message.messageType === "PLAYERS_CHANGED") {
+        } else if (message.messageType === "PLAYERS_CHANGED") {
             onPlayersChanged(message.players);
         }
     };
 
-    this.onError = function(event) {
+    this.onError = function (event) {
+        $("#connectionInfo").hide();
+        $("#connectionWarning").show();
         console.error(event);
     };
 
     /**
      * @param direction {string} one of RIGHT, LEFT, TOP, DOWN
      */
-    this.move = function(direction) {
+    this.move = function (direction) {
         sendMessage('MOVE ' + direction);
     };
 
     /**
      * @param direction {string} one of RIGHT, LEFT, TOP, DOWN
      */
-    this.stopMove = function(direction) {
+    this.stopMove = function (direction) {
         sendMessage('MOVESTOP ' + direction);
     };
 
@@ -81,45 +83,45 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
         websocket.send(message);
     };
 
-    this.clear = function() {
+    this.clear = function () {
         sendMessage('CLEAR');
     };
 
     var protocolToViewMap = {
-        "t" : "actorType",
-        "i" : "id",
-        "x" : "x",
-        "y" : "y",
-        "r" : "radius",
-        "w" : "width",
-        "h" : "height",
-        "d" : "direction",
-        "v" : "velocity",
-        "f" : "fireRate",
-		"k" : "kills",
-        "s" : "hits",
-		"l" : "health"
+        "t": "actorType",
+        "i": "id",
+        "x": "x",
+        "y": "y",
+        "r": "radius",
+        "w": "width",
+        "h": "height",
+        "d": "direction",
+        "v": "velocity",
+        "f": "fireRate",
+        "k": "kills",
+        "s": "hits",
+        "l": "health"
     };
 
     var actorTypeMap = {
-        0 : "TANK",
-        1 : "PROJECTILE",
-        2 : "WALL",
-        3 : "HealthPowerUp",
-        4:  "FireRatePowerUp",
-        5:  "LaserGunPowerUp",
-        6:  "RocketLauncherPowerUp"
+        0: "TANK",
+        1: "PROJECTILE",
+        2: "WALL",
+        3: "HealthPowerUp",
+        4: "FireRatePowerUp",
+        5: "LaserGunPowerUp",
+        6: "RocketLauncherPowerUp"
     };
 
-    var mapToActorArray = function(protocol) {
+    var mapToActorArray = function (protocol) {
         var actors = [];
-        $.each(protocol, function() {
+        $.each(protocol, function () {
             var actor = {};
 
             for (var property in this) {
                 var viewPropertyName = protocolToViewMap[property];
                 if (viewPropertyName === "actorType") {
-                    actor[viewPropertyName]  = actorTypeMap[this[property]];
+                    actor[viewPropertyName] = actorTypeMap[this[property]];
                 } else {
                     actor[viewPropertyName] = this[property];
                 }

@@ -13,13 +13,17 @@
     <div class="container">
         <h1>Tank Wars</h1>
         <p class="lead">Welcome and have fun shooting</p>
+        <span class="label label-info" id="connectionInfo">Please connect first!</span>
+        <span class="label label-warning" id="connectionWarning" style="display: none;">Connection failed! Reload page and retry!</span>
+        <span class="label label-success" id="connectionSuccess" style="display: none;">Successfully connected</span>
 
         <div class="row">
         <form action="" class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <input id="playerName" type="text" class="form-control" placeholder="Your Name">
+                <input id="playerName" type="text" class="form-control" placeholder="Your Name" autofocus style="display: none;" >
             </div>
-            <button id="joinGame" class="btn btn-default" type="button" autofocus>Join Game</button>
+            <button id="connectGame" class="btn btn-default" type="button" >Connect to Gameserver</button>
+            <button id="joinGame" class="btn btn-default" type="button" style="display: none;">Join Game</button>
             <button id="startGame" class="btn btn-default" type="button" style="display: none;">Start</button>
             <button id="stopGame" class="btn btn-default" type="button" style="display: none;">Stop</button>
             <button id="clearGame" class="btn btn-default" type="button" style="display: none;">Clear</button>
