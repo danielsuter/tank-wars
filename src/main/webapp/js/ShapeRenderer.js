@@ -2,7 +2,6 @@ var ShapeRenderer = function(_canvas) {
 
     var shapes = [];
     var canvas = _canvas;
-    var availableColors = ['white', 'red', 'black', 'blue', 'orange'];
 
     this.createShape = function(actor) {
         var shape;
