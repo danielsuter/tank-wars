@@ -7,9 +7,13 @@ var Game = function(canvasId) {
     var lastFired = 0;
     var myId; // player id = tank id
     var ignoreNextKeyUp = false;
+    /**
+     * @type {boolean} true if the player is dead
+     */
+    var isDead = false;
 
     var doKeyDown = function(event) {
-        if(event.keyCode === lastCode) {
+        if(event.keyCode === lastCode || isDead) {
             return;
         }
 
@@ -40,6 +44,10 @@ var Game = function(canvasId) {
     };
 
     var doKeyUp = function(event) {
+        if(isDead) {
+            return;
+        }
+
         if (ignoreNextKeyUp) {
             ignoreNextKeyUp = false;
             return;
@@ -111,11 +119,19 @@ var Game = function(canvasId) {
             }
         });
 
-        // update health
         renderer.renderStatusBar(knownActors[myId]);
+        checkOwnDeath();
 
         renderer.render();
     };
+
+    var checkOwnDeath = function() {
+        var myPlayer = knownActors[myId];
+        if(myPlayer.health <= 0) {
+            isDead = true;
+        }
+        renderer.renderDeath();
+    }
 
     var updateActor= function(actorUpdate) {
         var cachedActor = knownActors[actorUpdate.id];
