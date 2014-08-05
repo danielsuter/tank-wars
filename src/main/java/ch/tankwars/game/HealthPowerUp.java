@@ -4,8 +4,8 @@ public class HealthPowerUp extends PowerUp {
 	
 	private int healthGain;
 
-	public HealthPowerUp(ActorListener actorListener, int x, int y) {
-		super(actorListener, ActorType.HEALTHPOWERUP);
+	public HealthPowerUp(int x, int y) {
+		super(ActorType.HEALTHPOWERUP);
 		setX(x);
 		setY(y);
 		healthGain = 50;

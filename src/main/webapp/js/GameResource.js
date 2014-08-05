@@ -48,7 +48,7 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
                 console.log("processing time unusually high: " + time + "ms");
             }
         } else if(message.messageType === 'JOIN') {
-            onJoined(message.playerId, message.playGround);
+            onJoined(message.playerId, message.battlefieldMap);
         } else if(message.messageType === "PLAYERS_CHANGED") {
             onPlayersChanged(message.players);
         }

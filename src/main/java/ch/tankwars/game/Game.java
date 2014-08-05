@@ -19,7 +19,7 @@ public class Game implements ActorListener {
 	private List<Actor> actors = new LinkedList<Actor>();
 	private int globalId;
 
-	private PlayGround playGround;
+	private BattlefieldMap battlefieldMap;
 	private Referee referee = new Referee();
 
 	public synchronized void tick() {
@@ -30,7 +30,7 @@ public class Game implements ActorListener {
 		for (Actor actor : actors) {
 			if (!actor.isDead()) {
 				actor.act();
-				for (Wall wall : playGround.getWalls()) {
+				for (Wall wall : battlefieldMap.getWalls()) {
 					if(actor.collidesWith(wall)) {
 //						wall.onCollision(actor, referee);
 						actor.onCollision(wall, referee);
@@ -94,17 +94,14 @@ public class Game implements ActorListener {
 		actorsToAdd.add(actor);
 	}
 
-	public Wall addWall(int x, int y, int width, int height) {
-		final Wall wall = new Wall(this, generateId(), x, y, width, height);
-		playGround.addWall(wall);
-		return wall;
+	public BattlefieldMap getPlayGround() {
+		return battlefieldMap;
 	}
-	
-	public PlayGround getPlayGround() {
-		return playGround;
-	}
-
-	public void setPlayGround(PlayGround playGround) {
-		this.playGround = playGround;
+	// TODO should become load playground
+	public void setPlayGround(BattlefieldMap battlefieldMap) {
+		this.battlefieldMap = battlefieldMap;
+		
+		battlefieldMap.getWalls().forEach(wall -> wall.setId(generateId()));
+		battlefieldMap.getPowerUps().forEach(powerup -> createActor(powerup));
 	}
 }

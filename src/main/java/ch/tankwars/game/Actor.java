@@ -18,12 +18,10 @@ public abstract class Actor implements Cloneable {
 	private Direction direction = Direction.RIGHT;
 	
 	private ActorType actorType;
-	private ActorListener actorListener;
 
 	private boolean remove;
 	
-	public Actor(ActorListener actorListener, ActorType actorType) {
-		this.actorListener = actorListener;
+	public Actor(ActorType actorType) {
 		this.actorType = actorType;
 	}
 	
@@ -49,10 +47,6 @@ public abstract class Actor implements Cloneable {
 	
 	public int getId() {
 		return id;
-	}
-	
-	public ActorListener getActorListener() {
-		return actorListener;
 	}
 	
 	public ActorType getActorType() {
