@@ -16,10 +16,9 @@ public class Game implements ActorListener {
 	
 	private ConcurrentLinkedQueue<Actor> actorsToAdd = new ConcurrentLinkedQueue<Actor>();
 	
-	
 	private List<Actor> actors = new LinkedList<Actor>();
 	private int globalId;
-	
+
 	public synchronized void tick() {
 		addActorsInQueue();
 		
@@ -76,5 +75,11 @@ public class Game implements ActorListener {
 	public void createActor(Actor actor) {
 		actor.setId(generateId());
 		actorsToAdd.add(actor);
+	}
+
+	public Wall addWall(int x, int y, int height, int width) {
+		final Wall wall = new Wall(this, generateId(), x, y, height, width);
+		actors.add(wall);
+		return wall;
 	}
 }

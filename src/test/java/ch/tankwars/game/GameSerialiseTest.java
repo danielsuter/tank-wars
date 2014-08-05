@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.mapper.ActorListDeserializer;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 import ch.tankwars.transport.game.mapper.ResponseMapper;
@@ -20,11 +21,11 @@ public class GameSerialiseTest {
 	private static final int TICKS_PER_SECOND = 10;
 	private static final int MAX_SIZE_BYTES = 4000;
 
-	ResponseMapper mapper = new ResponseMapper();
+	private ResponseMapper mapper = new ResponseMapper();
+	private Gson gson = GsonFactory.create();
 	
 	@Test
 	public void actorMapping() {
-		Gson gson = GsonFactory.create();
 		
 		Game game = new Game();
 		Tank tank = game.spawn("Tristana");
