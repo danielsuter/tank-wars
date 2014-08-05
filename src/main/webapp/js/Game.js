@@ -210,6 +210,7 @@ var Game = function(canvasId) {
             resource.clear();
             $("#stopGame").hide();
             $("#joinGame").show();
+            $("#playerName").prop('disabled', false);
         });
    };
 
