@@ -13,10 +13,8 @@ public class PerformanceCounterTest {
 			
 			perf.lap("test");
 			
-			perf.stop("Complete");
+			perf.stop("Complete {0,number}", 100.1232d);
 		}
 		
-
 	}
-
 }

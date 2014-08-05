@@ -32,7 +32,7 @@ public class GameCommunicator {
 		
 		peers.parallelStream().forEach(peer -> sendResponse(peer, gameAsJson));
 		
-		perf.stop("COMPLETE TIME (" + gameAsJson.length() + " characters)");
+		perf.stop("COMPLETE TIME ({0,number} characters)", gameAsJson.length());
 	}
 
 	public void sendMessage(Object objectToBroadcast, Session session) {

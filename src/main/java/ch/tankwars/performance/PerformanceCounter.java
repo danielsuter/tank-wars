@@ -1,5 +1,6 @@
 package ch.tankwars.performance;
 
+import java.text.MessageFormat;
 import java.util.LinkedList;
 
 import org.slf4j.Logger;
@@ -29,13 +30,13 @@ public class PerformanceCounter {
 	}
 
 
-	public void stop(String finalMessage) {
+	public void stop(String finalMessage, Object... arguments) {
 		long stop = System.nanoTime();
 		if(threshholdExceeded(stop)) {
 			double completeTimeMillis = (stop - start) / NANOS_TO_MILLIS_FACTOR;
 			
 			StringBuilder builder = new StringBuilder();
-			builder.append(finalMessage).append(": ").append(completeTimeMillis);
+			builder.append(MessageFormat.format(finalMessage, arguments)).append(": ").append(completeTimeMillis);
 			
 			long lastTimeNanos = start;
 			for (PerfEntry perfEntry : measuredTimes) {
