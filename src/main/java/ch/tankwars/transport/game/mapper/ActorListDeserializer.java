@@ -23,7 +23,7 @@ public class ActorListDeserializer implements JsonSerializer<List<Actor>> {
 	public final static Type TYPE = new TypeToken<List<Actor>>() {
 	}.getType();
 
-	private final static Map<Integer, Actor> CACHE = new HashMap<Integer, Actor>();
+	private final Map<Integer, Actor> CACHE = new HashMap<Integer, Actor>();
 	
 	private static final String VELOCITY = "v";
 	private static final String DIRECTION = "d";

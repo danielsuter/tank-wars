@@ -21,8 +21,8 @@ public class GameSerialiseTest {
 	private static final int TICKS_PER_SECOND = 10;
 	private static final int MAX_SIZE_BYTES = 4000;
 
-	private ResponseMapper mapper = new ResponseMapper();
-	private Gson gson = GsonFactory.create();
+	private ResponseMapper mapper;
+	private Gson gson;
 	
 	private Game game;
 	
@@ -30,6 +30,8 @@ public class GameSerialiseTest {
 	public void setUp() {
 		game = new Game();
 		game.setPlayGround(new PlayGround(1000, 1000));
+		mapper = new ResponseMapper();
+		gson = GsonFactory.create();
 	}
 	
 	@Test
@@ -87,5 +89,19 @@ public class GameSerialiseTest {
 		String response2 = mapper.map(game.getActors(), ActorListDeserializer.TYPE);
 		assertEquals("[0,{\"i\":1,\"y\":2}]", response2);
 		
+	}
+	
+	@Test
+	public void assertReponse() {
+		Tank tank = game.spawn("Lux");
+		tank.setPosition(0, 0);
+		tank.setVelocity(1);
+		tank.setDirection(Direction.DOWN);
+		tank.shoot();
+		game.tick();
+		
+		String response = mapper.map(game.getActors(), ActorListDeserializer.TYPE);
+		assertEquals("[0,{\"t\":0,\"i\":1,\"x\":0,\"y\":1,\"w\":25,\"h\":25,\"d\":\"S\",\"v\":1,\"f\":1},"
+				+ "{\"t\":1,\"i\":2,\"x\":11,\"y\":21,\"r\":3,\"d\":\"S\",\"v\":10}]", response);
 	}
 }
