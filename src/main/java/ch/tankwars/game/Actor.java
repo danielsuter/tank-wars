@@ -1,5 +1,7 @@
 package ch.tankwars.game;
 
+import java.awt.Rectangle;
+
 public abstract class Actor implements Cloneable {
 	
 	//FIXME: Replace x,y,width,height with Dimension 
@@ -26,26 +28,15 @@ public abstract class Actor implements Cloneable {
 	}
 	
 	public boolean collidesWith(Actor actor) {
-		if (topLeftCornerEqual(actor)) {
-			return true;
-		}
-		
-		if (actor.getX() + actor.getWidth() - this.getX() <= 1 && actor.getY() + actor.getHeight() - this.getY() <= 1 ) {
-			return true;
-		}
-		
-		if (this.getX() + this.getWidth() - actor.getX() >= 1 && this.getY() + this.getHeight() - actor.getY() >= 1 ) {
-			return true;
-		}
-		
-		return false;
+		return getBounds().intersects(actor.getBounds());
 	}
 	
 	public abstract void collision(Actor actor);
 	
-	private boolean topLeftCornerEqual(Actor actor) {
-		return actor.getX() == this.getX() && actor.getY() == this.getY();
-	};
+	
+	public Rectangle getBounds() {
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
+	}
 	
 	@Override
 	public Actor clone() throws CloneNotSupportedException {
