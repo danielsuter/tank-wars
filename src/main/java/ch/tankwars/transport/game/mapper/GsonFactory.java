@@ -11,7 +11,7 @@ public class GsonFactory {
 	public static Gson create() {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 
-		gsonBuilder.registerTypeAdapter(ActorListDeserializer.TYPE, new ActorListDeserializer());
+		gsonBuilder.registerTypeAdapter(ActorListSerializer.TYPE, new ActorListSerializer());
 		
 		gsonBuilder.setExclusionStrategies(new ExclusionStrategy() {
 			

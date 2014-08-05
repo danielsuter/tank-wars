@@ -19,7 +19,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 
-public class ActorListDeserializer implements JsonSerializer<List<Actor>> {
+public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 	public final static Type TYPE = new TypeToken<List<Actor>>() {
 	}.getType();
 
@@ -35,6 +35,7 @@ public class ActorListDeserializer implements JsonSerializer<List<Actor>> {
 	private static final String ID = "i";
 	private static final String ACTOR_TYPE = "t";
 	private static final String FIRE_RATE = "f";
+	private static final String HEALTH = "l";
 	
 	private static final int GAME_UPDATE = 0;
 
@@ -92,6 +93,9 @@ public class ActorListDeserializer implements JsonSerializer<List<Actor>> {
 					Tank cachedTank = (Tank) cachedActor;
 					if (cachedTank == null || cachedTank.getFireRatePerSecond() != tank.getFireRatePerSecond()) {
 						actorJson.addProperty(FIRE_RATE, tank.getFireRatePerSecond());
+					}
+					if(cachedTank == null || cachedTank.getHealth() != tank.getHealth()) {
+						actorJson.addProperty(HEALTH, tank.getHealth());
 					}
 				}
 				
