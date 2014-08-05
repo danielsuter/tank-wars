@@ -3,7 +3,7 @@ package ch.tankwars.game;
 public enum Weapon {
 
 	STANDARD_CANON(Projectile.DEFAULT_PROJECTILE_SPEED, Projectile.DEFAULT_PROJECTILE_POWER, Projectile.DEFAULT_PROJECTILE_DIMENSION),
-	LASER_GUN(25, 7, 10),
+	LASER_GUN(55, 100, 25),
 	ROCKET_LAUNCHER(8, 25, 4);
 
 	private int velocity;
