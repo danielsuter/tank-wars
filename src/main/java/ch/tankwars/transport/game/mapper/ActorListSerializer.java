@@ -108,7 +108,6 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 					if (cachedTank == null || cachedTank.getKillsMade() != tank.getKillsMade()) {
 						actorJson.addProperty(KILLS, tank.getKillsMade());
 					}
-					
 				}
 				
 				putToCache(actor);

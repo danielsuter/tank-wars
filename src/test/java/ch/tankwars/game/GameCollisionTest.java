@@ -75,7 +75,6 @@ public class GameCollisionTest {
 		game.tick();
 		
 		assertTrue(projectile.collidesWith(wall));
-		assertTrue(wall.collidesWith(projectile));
 	}
 	
 	@Test
@@ -83,12 +82,11 @@ public class GameCollisionTest {
 		PlayGround playGround = new PlayGround(1000, 1000);
 		game.setPlayGround(playGround);
 		Wall wall = new Wall(game, 1, 1, 1, 200, 15);
-		game.addWall(wall);
+		playGround.addWall(wall);
 		
 		Tank tank = game.spawn("Support Veigar");
 		tank.setPosition(15, 20);
 		tank.move(Direction.UP);
-		System.out.println("Y:" + tank.getY());
 		game.tick();
 		
 		assertEquals(tank.getY(), wall.getY() + wall.getHeight());
