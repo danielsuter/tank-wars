@@ -8,7 +8,7 @@ public class FireRatePowerUp extends PowerUp {
 		super(actorListener, ActorType.FIRERATEPOWERUP);
 		setX(x);
 		setY(y);
-		fireRateGain = 10;
+		fireRateGain = 4;
 	}
 
 	public int getFireRateGain() {
