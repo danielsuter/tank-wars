@@ -8,6 +8,7 @@ var ShapeRenderer = function(_canvas) {
         switch (actor.actorType) {
             case "TANK":
                 shape = Tank.drawTank(actor);
+                shape.direction = actor.direction;
                 break;
             case "PROJECTILE":
                 shape = Projectile.drawProjectile(actor);
@@ -37,6 +38,24 @@ var ShapeRenderer = function(_canvas) {
 
         if (actor.y) {
             shape.set({"top" : actor.y});
+        }
+
+        if (actor.direction && actor.direction !== shape.direction) {
+            var currentAngle = shape.getAngle();
+
+            switch (actor.direction) {
+                case "N":
+                    shape.setAngle(-90);
+                    break;
+                case "S":
+                    shape.setAngle(90);
+                    break;
+                case "W":
+                    shape.setAngle(-180);
+                    break;
+                default:
+                    shape.setAngle(0);
+            }
         }
 
         shape.setCoords();
