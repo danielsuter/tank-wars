@@ -3,12 +3,9 @@ var Game = function(canvasId) {
     var width;
     var height;
     var resource;
-    var tank;
-    var wall;
-    var projectile;
     var lastCode;
     var knownActors = [];
-    var knownShapes = [];
+    var renderer;
 
     var doKeyDown = function(event) {
         if(event.keyCode === lastCode) {
@@ -72,66 +69,40 @@ var Game = function(canvasId) {
         drawBoard();
     };
 
-    var update = function(actors) {
-        var actorsFromResponse = [];
-        $.each(actors, function() {
-            if (!knownActors[this.id]) {
-                knownActors[this.id] = this;
-            }
+    var update = function(actorsFromResponse) {
+        removeDeadActors(actorsFromResponse);
 
-            actorsFromResponse[this.id] = this;
+        $.each(actorsFromResponse, function() {
+            var actor = this;
 
-            var actorType = knownActors[this.id].actorType;
-            switch (actorType) {
-                case "TANK":
-                    var tankShape = knownShapes[this.id];
-                    if (!tankShape) {
-                        tankShape = tank.drawTank(this);
-                        knownShapes[this.id] = tankShape;
-                        canvas.add(tankShape);
-                    } else {
-                        if (this.x) {
-                            tankShape.set({"left": this.x});
-                        }
-                        if (this.y) {
-                            tankShape.set({"top": this.y});
-                        }
-                        if (this.x || this.y) {
-                            tankShape.setCoords();
-                        }
-                    }
-                    break;
-                case "PROJECTILE":
-                    var projectileShape = knownShapes[this.id];
-                    if (!projectileShape) {
-                        projectileShape = projectile.drawProjectile(this);
-                        knownShapes[this.id] = projectileShape;
-                        canvas.add(projectileShape);
-                    } else {
-                        if (this.x) {
-                            projectileShape.set({"left": this.x});
-                        }
-                        if (this.y) {
-                            projectileShape.set({"top": this.y});
-                        }
-                        if (this.x || this.y) {
-                            projectileShape.setCoords();
-                        }
-                    }
-                    break;
-                case "WALL":
-                    var wallShape = knownShapes[this.id];
-                    if (!wallShape) {
-                        wallShape = wall.drawWall(this);
-                        knownShapes[this.id] = wallShape;
-                        canvas.add(wallShape);
-                    }
-                    break;
+            if (isNewActor(actor)) {
+                knownActors[actor.id] = actor;
+                renderer.createShape(actor);
+            } else {
+                renderer.updateShape(actor);
             }
         });
 
-        removeDeadActors(actorsFromResponse);
-        canvas.renderAll();
+        renderer.render();
+    };
+
+    var isNewActor = function(actor) {
+        return typeof knownActors[actor.id] === "undefined";
+    };
+
+    var removeDeadActors = function(actorsFromResponse) {
+        var ids = [];
+
+        $.each(actorsFromResponse, function() {
+            ids.push(parseInt(this.id));
+        });
+
+        for (var id in knownActors) {
+            if (ids.indexOf(parseInt(id)) === -1) {
+                renderer.removeShape(id);
+                knownActors[id] = undefined;
+            }
+        }
     };
 
     var drawBoard = function() {
@@ -139,16 +110,6 @@ var Game = function(canvasId) {
         canvas.setHeight(height);
         canvas.backgroundColor = '#33FF33';
         canvas.renderAll();
-    };
-
-    var removeDeadActors = function(actorsFromResponse) {
-        for (var id in knownActors) {
-            if (!actorsFromResponse[id]) {
-                canvas.remove(knownShapes[id]);
-                knownActors[id] = undefined;
-                knownShapes[id] = undefined;
-            }
-        }
     };
 
     var registerEventListeners = function() {
@@ -173,7 +134,6 @@ var Game = function(canvasId) {
    };
 
     resource = new GameResource(update);
-    tank = new Tank();
-    projectile = new Projectile();
+    renderer = new ShapeRenderer(canvas);
     registerEventListeners();
 };

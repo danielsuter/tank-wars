@@ -1,6 +1,6 @@
-var Wall = function() {
+var Wall = {
 
-    this.drawWall = function(wall) {
+    drawWall : function(wall) {
         return new fabric.Rect({
             left: wall.x,
             top: wall.y,
@@ -8,5 +8,5 @@ var Wall = function() {
             width: wall.width,
             height: wall.height
         });
-    };
+    }
 };
