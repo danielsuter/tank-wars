@@ -9,7 +9,7 @@ var HealthPowerUp =  {
         background = new fabric.Rect({
             left: powerUp.x,
             top: powerUp.y,
-            fill: 'red',
+            fill: 'white',
             width: powerUp.width,
             height: powerUp.height
         });
@@ -17,7 +17,7 @@ var HealthPowerUp =  {
         healthCrossX = new fabric.Rect({
             left: powerUp.x + (powerUp.width/ 2) - 2,
             top: powerUp.y + 3,
-            fill: 'white',
+            fill: 'red',
             width: 4,
             height: powerUp.height - 6
         });
@@ -25,7 +25,7 @@ var HealthPowerUp =  {
         healthCrossY = new fabric.Rect({
             left: powerUp.x + 3,
             top: powerUp.y + (powerUp.height/ 2)- 2,
-            fill: 'white',
+            fill: 'red',
             width: powerUp.width - 6,
             height: 4
         });
