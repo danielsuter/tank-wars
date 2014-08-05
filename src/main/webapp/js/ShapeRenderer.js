@@ -44,6 +44,13 @@ var ShapeRenderer = function(_canvas) {
 
     };
 
+    var directionToAngleMap = {
+        "E"     : 0,
+        "S"     : 90,
+        "W"     : 180,
+        "N"     : -90
+    };
+
     var getColor = function() {
         return '#'+Math.floor(Math.random()*16777215).toString(16);
     };
@@ -57,6 +64,14 @@ var ShapeRenderer = function(_canvas) {
 
         shape.set({"left" : actor.x});
         shape.set({"top" : actor.y});
+
+//        if (actor.direction) {
+//            var angle = directionToAngleMap[actor.direction];
+//
+//            if (shape.getAngle() !== angle) {
+//                shape.setAngle(angle);
+//            }
+//        }
 
         shape.setCoords();
     };
