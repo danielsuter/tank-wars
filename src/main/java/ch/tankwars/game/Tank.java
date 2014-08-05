@@ -116,6 +116,9 @@ public class Tank extends Actor {
 		} else if (actor instanceof HealthPowerUp) {
 			HealthPowerUp healthPowerUp = (HealthPowerUp) actor;
 			increaseHealth(healthPowerUp);
+		} else if (actor instanceof FireRatePowerUp) {
+			FireRatePowerUp fireRatePowerUp = (FireRatePowerUp) actor;
+			increaseFireRate(fireRatePowerUp);
 		}
 	}
 
@@ -132,5 +135,8 @@ public class Tank extends Actor {
 	
 	private void increaseHealth(HealthPowerUp healthPowerUp) {
 		health =  Math.max(DEFAULT_HEALTH, health + healthPowerUp.getHealthGain());
+	}
+	private void increaseFireRate(FireRatePowerUp fireRatePowerUp) {
+		fireRatePerSecond += fireRatePowerUp.getFireRateGain();
 	}
 }

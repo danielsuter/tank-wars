@@ -18,16 +18,21 @@ var ShapeRenderer = function(_canvas) {
                 shape = Wall.drawWall(actor);
                 break;
             case "HealthPowerUp":
-                shape = PowerUp.drawHealthPowerUp(actor);
+                shape = HealthPowerUp.drawHealthPowerUp(actor);
+                break;
+            case "FireRatePowerUp":
+                shape = FireRatePowerUp.drawFireRatePowerUp(actor);
                 break;
         }
 
         // optimize
-        shape.selectable = false;
-        shape.hasRotatingPoint = false;
+        if(shape) {
+            shape.hasRotatingPoint = false;
+            shape.selectable = false;
+            shapes[actor.id] = shape;
+            canvas.add(shape);
+        }
 
-        shapes[actor.id] = shape;
-        canvas.add(shape);
     };
 
     var getColor = function() {

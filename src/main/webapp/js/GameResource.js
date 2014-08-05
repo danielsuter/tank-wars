@@ -101,7 +101,8 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
         0 : "TANK",
         1 : "PROJECTILE",
         2 : "WALL",
-        3 : "HealthPowerUp"
+        3 : "HealthPowerUp",
+        4:  "FireRatePowerUp"
     };
 
     var mapToActorArray = function(protocol) {

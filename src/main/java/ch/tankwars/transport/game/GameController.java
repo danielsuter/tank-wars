@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.tankwars.game.Direction;
+import ch.tankwars.game.FireRatePowerUp;
 import ch.tankwars.game.Game;
 import ch.tankwars.game.HealthPowerUp;
 import ch.tankwars.game.PlayGround;
@@ -38,6 +39,10 @@ public class GameController {
 	
 	public GameController() {
 		initPlayground();
+		addHealthPowerUp(200, 200);
+		addHealthPowerUp(400, 300);
+		addFireRatePowerUp(100, 100);
+		addFireRatePowerUp(500, 580);
 	}
 
 	private void initPlayground() {
@@ -47,7 +52,6 @@ public class GameController {
 		game.addWall(50, 89, 200, 10);
 		game.addWall(600, 411, 50, 50);
 		game.addWall(555, 44, 80, 20);
-		game.createActor(new HealthPowerUp(game, 100, 100));
 	}
 
 	public synchronized void start() {
@@ -120,6 +124,14 @@ public class GameController {
 			tank.setRemove(true);
 		}
 		playerPeers.remove(playerPeer);
+	}
+	
+	public void addHealthPowerUp(int x, int y) {
+		game.createActor(new HealthPowerUp(game, x, y));
+	}
+	
+	public void addFireRatePowerUp(int x, int y) {
+		game.createActor(new FireRatePowerUp(game, x, y));
 	}
 
 	public void shoot(PlayerPeer playerPeer) {
