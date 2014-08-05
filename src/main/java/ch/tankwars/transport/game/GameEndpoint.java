@@ -18,9 +18,9 @@ import ch.tankwars.game.Direction;
  */
 @ServerEndpoint("/game")
 public class GameEndpoint {
-	private final static Logger LOGGER = LoggerFactory.getLogger(GameEndpoint.class);
 	
-	private final static GameController gameLoop = new GameController();
+	private final static Logger LOGGER = LoggerFactory.getLogger(GameEndpoint.class);
+	private final static GameController gameController = new GameController();
 	
 	private Session playerSession;
 	
@@ -33,26 +33,26 @@ public class GameEndpoint {
 		switch (command) {
 		case "JOIN":
 			final String playerName = fullCommand[1];
-			gameLoop.join(playerSession, playerName);
+			gameController.join(playerSession, playerName);
 			break;
 		case "START":
-			gameLoop.start();
+			gameController.start();
 			break;
 		case "STOP":
-			gameLoop.stop();
+			gameController.stop();
 			break;
 		case "MOVE":
 			String directionAsString = fullCommand[1];
 			Direction direction = Direction.valueOf(directionAsString);
-			gameLoop.move(playerSession, direction);
+			gameController.move(playerSession, direction);
 			break;
 		case "MOVESTOP":
 			directionAsString = fullCommand[1];
 			direction = Direction.valueOf(directionAsString);
-			gameLoop.moveStop(playerSession, direction);
+			gameController.moveStop(playerSession, direction);
 			break;
 		case "SHOOT":
-			gameLoop.shoot(playerSession);
+			gameController.shoot(playerSession);
 			break;
 		default:
 			throw new RuntimeException("Cannot handle command: " + command);
@@ -66,7 +66,7 @@ public class GameEndpoint {
 
 	@OnClose
 	public void onClose(Session peer) {
-		gameLoop.removePlayer(peer);
+		gameController.removePlayer(peer);
 	}
 
 	@OnError
