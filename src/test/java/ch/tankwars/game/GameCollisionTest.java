@@ -12,7 +12,7 @@ public class GameCollisionTest {
 		Tank tank = game.spawn("Chief");
 		tank.setPosition(0, 0);
 		
-		Projectile projectile = new Projectile(game);
+		Projectile projectile = new Projectile(game, -1);
 		projectile.setPosition(25, 0);
 		
 		assertTrue(projectile.collidesWith(tank));
@@ -24,7 +24,7 @@ public class GameCollisionTest {
 		Tank tank = game.spawn("Chief");
 		tank.setPosition(0, 0);
 		
-		Projectile projectile = new Projectile(game);
+		Projectile projectile = new Projectile(game, -1);
 		projectile.setPosition(27, 0);
 		projectile.setDirection(Direction.LEFT);
 		projectile.setVelocity(10);
