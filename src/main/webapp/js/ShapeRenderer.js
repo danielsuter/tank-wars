@@ -17,13 +17,15 @@ var ShapeRenderer = function(_canvas) {
                 break;
             case "WALL":
                 shape = Wall.drawWall(actor);
+                break;
         }
-
         shapes[actor.id] = shape;
         canvas.add(shape);
     };
 
     var getColor = function() {
+        // TODO: Render random colors:
+        //  '#'+Math.floor(Math.random()*16777215).toString(16);
         return availableColors.splice(0, 1);
     };
 
@@ -35,7 +37,7 @@ var ShapeRenderer = function(_canvas) {
         var shape = shapes[actor.id];
 
         if (!shape) {
-            throw "This shape does not exist, cannot update it!";
+            return "This shape does not exist, cannot update it!";
         }
 
 //        if (actor.direction && actor.direction !== shape.direction) {
