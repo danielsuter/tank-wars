@@ -1,6 +1,6 @@
-var Tank = function () {
+var Tank = {
 
-    this.drawTank = function (tank) {
+    drawTank : function (tank) {
         var raupeLeft;
         var raupeRight;
         var tower;
@@ -51,5 +51,5 @@ var Tank = function () {
             left: tank.x,
             top: tank.y
         });
-    };
+    }
 };
