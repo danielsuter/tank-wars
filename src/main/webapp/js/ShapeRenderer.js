@@ -12,13 +12,13 @@ var ShapeRenderer = function(_canvas) {
                 shape = Tank.drawTank(actor);
                 shape.direction = actor.direction;
                 break;
-            case "PROJECTILE":
+            /*case "PROJECTILE":
                 shape = Projectile.drawProjectile(actor);
-                break;
+                break;*/
             case "WALL":
                 shape = Wall.drawWall(actor);
+                break;
         }
-
         shapes[actor.id] = shape;
         canvas.add(shape);
     };
@@ -37,7 +37,7 @@ var ShapeRenderer = function(_canvas) {
         var shape = shapes[actor.id];
 
         if (!shape) {
-            throw "This shape does not exist, cannot update it!";
+            return "This shape does not exist, cannot update it!";
         }
 
 //        if (actor.direction && actor.direction !== shape.direction) {
