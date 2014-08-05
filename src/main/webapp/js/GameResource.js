@@ -40,7 +40,7 @@ var GameResource = function(_onGameUpdate) {
             var actors = mapToActorArray(message);
             onGameUpdate(actors);
         } else if(message.messageType === 'JOIN') {
-            onJoined(message.fieldWidth, message.fieldHeight);
+            onJoined(message.playGround);
         }
     };
 

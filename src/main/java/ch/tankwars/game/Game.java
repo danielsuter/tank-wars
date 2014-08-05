@@ -18,6 +18,8 @@ public class Game implements ActorListener {
 	
 	private List<Actor> actors = new LinkedList<Actor>();
 	private int globalId;
+	
+	private PlayGround playGround;
 
 	public synchronized void tick() {
 		addActorsInQueue();
@@ -84,7 +86,15 @@ public class Game implements ActorListener {
 
 	public Wall addWall(int x, int y, int height, int width) {
 		final Wall wall = new Wall(this, generateId(), x, y, height, width);
-		actors.add(wall);
+		playGround.addWall(wall);
 		return wall;
+	}
+
+	public PlayGround getPlayGround() {
+		return playGround;
+	}
+
+	public void setPlayGround(PlayGround playGround) {
+		this.playGround = playGround;
 	}
 }

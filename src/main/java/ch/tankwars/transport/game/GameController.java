@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import ch.tankwars.game.Direction;
 import ch.tankwars.game.Game;
+import ch.tankwars.game.PlayGround;
 import ch.tankwars.game.Tank;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.mapper.ActorListDeserializer;
@@ -31,6 +32,14 @@ public class GameController {
 	private final Map<Session, Tank> tanksMap = new HashMap<Session, Tank>();
 
 	private boolean isStarted;
+	
+	private PlayGround playGround; 
+	
+	public GameController() {
+		playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
+		game.setPlayGround(playGround);
+		game.addWall(1, 1, 1, 1);
+	}
 
 	public synchronized void start() {
 		if(isStarted) {
@@ -68,7 +77,7 @@ public class GameController {
 		Tank spawnedTank = game.spawn(playerName);
 		tanksMap.put(player, spawnedTank);
 		
-		JoinResponse joinResponse = new JoinResponse(spawnedTank.getId(), Game.GAME_WIDTH, Game.GAME_HEIGHT);
+		JoinResponse joinResponse = new JoinResponse(spawnedTank.getId(), game.getPlayGround());
 		gameCommunicator.sendMessage(joinResponse, player);
 	}
 

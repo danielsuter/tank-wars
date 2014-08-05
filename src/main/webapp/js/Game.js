@@ -1,7 +1,5 @@
 var Game = function(canvasId) {
     var canvas = new fabric.StaticCanvas(canvasId);
-    var width;
-    var height;
     var resource;
     var lastCode;
     var knownActors = [];
@@ -63,10 +61,8 @@ var Game = function(canvasId) {
         keyup: doKeyUp
     });
 
-    var onJoin = function(_width, _height) {
-        width = _width;
-        height = _height;
-        drawBoard();
+    var onJoin = function(playGround) {
+        drawBoard(playGround);
     };
 
     var update = function(actorsFromResponse) {
@@ -105,9 +101,9 @@ var Game = function(canvasId) {
         }
     };
 
-    var drawBoard = function() {
-        canvas.setWidth(width);
-        canvas.setHeight(height);
+    var drawBoard = function(playGround) {
+        canvas.setWidth(playGround.fieldWidth);
+        canvas.setHeight(playGround.fieldHeight);
         canvas.backgroundColor = '#33FF33';
         canvas.renderAll();
     };
