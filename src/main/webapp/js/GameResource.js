@@ -75,6 +75,7 @@ var GameResource = function(_onGameUpdate) {
         "i" : "id",
         "x" : "x",
         "y" : "y",
+        "r" : "radius",
         "w" : "width",
         "h" : "height",
         "d" : "direction",
@@ -82,7 +83,8 @@ var GameResource = function(_onGameUpdate) {
     };
 
     var actorTypeMap = {
-        0 : "TANK"
+        0 : "TANK",
+        1 : "PROJECTILE"
     };
 
     var mapToActorArray = function(protocol) {
