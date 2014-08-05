@@ -8,6 +8,7 @@ public class Tank extends Actor {
 	private final static int DEFAULT_HEALTH = 100;
 	
 	private int fireRatePerSecond = 1;
+	private Weapon weapon;
 
 	private final String playerName;
 	private int health = DEFAULT_HEALTH;
@@ -17,6 +18,7 @@ public class Tank extends Actor {
 		this.playerName = playerName;
 		setWidth(DEFAULT_WIDTH);
 		setHeight(DEFAULT_HEIGHT);
+		this.weapon = Weapon.STANDARD_CANON;
 	}
 	
 	public void move(Direction direction) {
@@ -70,22 +72,38 @@ public class Tank extends Actor {
 	
 	public void shoot() {
 		final Projectile projectile = new Projectile(getActorListener(), getId());
+		switch (weapon) {
+			case STANDARD_CANON:
+				// Use default projectile
+				break;
+			case LASER_GUN:
+				projectile.setPower(Weapon.LASER_GUN.getPower());
+				projectile.setProjectileDimension(Weapon.LASER_GUN.getDimension());
+				projectile.setVelocity(Weapon.LASER_GUN.getVelocity());
+				break;
+			case ROCKET_LAUNCHER:
+				projectile.setPower(Weapon.ROCKET_LAUNCHER.getPower());
+				projectile.setProjectileDimension(Weapon.ROCKET_LAUNCHER.getDimension());
+				projectile.setVelocity(Weapon.ROCKET_LAUNCHER.getVelocity());
+				break;
+		}
 		// TODO beautify
-		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2));
+		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), 
+				this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2));
 		
 		switch(getDirection()) {
-		case DOWN:
-			projectile.setDirection(getDirection());
-			break;
-		case UP:
-			projectile.setDirection(getDirection());
-			break;
-		case LEFT:
-			projectile.setDirection(getDirection());
-			break;
-		case RIGHT:
-			projectile.setDirection(getDirection());
-			break;
+			case DOWN:
+				projectile.setDirection(getDirection());
+				break;
+			case UP:
+				projectile.setDirection(getDirection());
+				break;
+			case LEFT:
+				projectile.setDirection(getDirection());
+				break;
+			case RIGHT:
+				projectile.setDirection(getDirection());
+				break;
 		}
 		getActorListener().createActor(projectile);
 	}
@@ -119,6 +137,12 @@ public class Tank extends Actor {
 		} else if (actor instanceof FireRatePowerUp) {
 			FireRatePowerUp fireRatePowerUp = (FireRatePowerUp) actor;
 			increaseFireRate(fireRatePowerUp);
+		} else if (actor instanceof LaserGunPowerUp) {
+			LaserGunPowerUp laserGunPowerUp = (LaserGunPowerUp) actor;
+			setWeapon(laserGunPowerUp.getWeapon());
+		} else if (actor instanceof RocketLauncherPowerUp) {
+			RocketLauncherPowerUp rocketLauncherPowerUp = (RocketLauncherPowerUp) actor;
+			setWeapon(rocketLauncherPowerUp.getWeapon());
 		}
 	}
 
@@ -138,5 +162,13 @@ public class Tank extends Actor {
 	}
 	private void increaseFireRate(FireRatePowerUp fireRatePowerUp) {
 		fireRatePerSecond += fireRatePowerUp.getFireRateGain();
+	}
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
 	}
 }

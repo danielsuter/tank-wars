@@ -15,7 +15,9 @@ import ch.tankwars.game.Direction;
 import ch.tankwars.game.FireRatePowerUp;
 import ch.tankwars.game.Game;
 import ch.tankwars.game.HealthPowerUp;
+import ch.tankwars.game.LaserGunPowerUp;
 import ch.tankwars.game.PlayGround;
+import ch.tankwars.game.RocketLauncherPowerUp;
 import ch.tankwars.game.Tank;
 import ch.tankwars.performance.PerformanceCounter;
 import ch.tankwars.transport.game.dto.JoinResponse;
@@ -53,6 +55,9 @@ public class GameController {
 		addHealthPowerUp(400, 300);
 		addFireRatePowerUp(100, 100);
 		addFireRatePowerUp(500, 580);
+		
+		game.createActor(new RocketLauncherPowerUp(game, 250, 250));
+		game.createActor(new LaserGunPowerUp(game, 430, 70));
 	}
 
 	public synchronized void start() {
@@ -127,14 +132,14 @@ public class GameController {
 		playerPeers.remove(playerPeer);
 	}
 	
-	public void addHealthPowerUp(int x, int y) {
+	private void addHealthPowerUp(int x, int y) {
 		game.createActor(new HealthPowerUp(game, x, y));
 	}
 	
-	public void addFireRatePowerUp(int x, int y) {
+	private void addFireRatePowerUp(int x, int y) {
 		game.createActor(new FireRatePowerUp(game, x, y));
 	}
-
+	
 	public void shoot(PlayerPeer playerPeer) {
 		Tank tank = playerPeer.getTank();
 		if(tank != null) {

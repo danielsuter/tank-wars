@@ -5,7 +5,9 @@ public enum ActorType {
 	PROJECTILE(1),
 	WALL(2),
 	HEALTHPOWERUP(3),
-	FIRERATEPOWERUP(4);
+	FIRERATEPOWERUP(4),
+	LASERGUNPOWERUP(5),
+	ROCKETLAUNCHERPOWERUP(6);
 	
 	private int identifier;
 

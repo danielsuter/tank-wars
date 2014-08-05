@@ -3,17 +3,19 @@ package ch.tankwars.game;
 
 public class Projectile extends Actor {
 	
-	private static final int DEFAULT_PROJECTILE_SPEED = 10;
-	private static final int DEFAULT_PROJECTILE_DIMENSION = 3; 
+	public static final int DEFAULT_PROJECTILE_SPEED = 10;
+	public static final int DEFAULT_PROJECTILE_DIMENSION = 4; 
+	public static final int DEFAULT_PROJECTILE_POWER = 10; 
 	private int projectileDimension;
 	private int owningTankId; 
-	private int power = 10;
-
+	private int power;
+	
 	public Projectile(ActorListener actorListener, int owningTankId) {
 		super(actorListener, ActorType.PROJECTILE);
 		this.owningTankId = owningTankId;
 		setProjectileDimension(DEFAULT_PROJECTILE_DIMENSION);
 		setVelocity(DEFAULT_PROJECTILE_SPEED);
+		setPower(DEFAULT_PROJECTILE_POWER);
 	}
 	
 	@Override

@@ -26,6 +26,12 @@ var ShapeRenderer = function(_canvas) {
             case "FireRatePowerUp":
                 shape = FireRatePowerUp.drawFireRatePowerUp(actor);
                 break;
+            case "LaserGunPowerUp":
+                shape = LaserGunPowerUp.drawLaserGunPowerUp(actor);
+                break;
+            case "RocketLauncherPowerUp":
+                shape = RocketLauncherPowerUp.drawRocketLauncherPowerUp(actor);
+                break;
         }
 
         // optimize
