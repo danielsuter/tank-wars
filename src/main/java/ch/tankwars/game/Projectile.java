@@ -4,7 +4,7 @@ package ch.tankwars.game;
 public class Projectile extends Actor {
 	
 	public static final int DEFAULT_PROJECTILE_SPEED = 10;
-	public static final int DEFAULT_PROJECTILE_DIMENSION = 4; 
+	public static final int DEFAULT_PROJECTILE_DIMENSION = 3; 
 	public static final int DEFAULT_PROJECTILE_POWER = 10; 
 	private int projectileDimension;
 	private int owningTankId; 

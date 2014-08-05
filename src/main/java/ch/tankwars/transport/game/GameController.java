@@ -57,6 +57,7 @@ public class GameController {
 		game.addWall(600, 411, 50, 50);
 		game.addWall(555, 44, 80, 20);
 
+		// FIXME: walls on playGround or game??
 		for (Wall wall : playGround.getWalls()) {
 			game.createActor(wall);
 		}
