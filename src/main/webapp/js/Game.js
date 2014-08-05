@@ -104,8 +104,15 @@ var Game = function(canvasId) {
     var drawBoard = function(playGround) {
         canvas.setWidth(playGround.fieldWidth);
         canvas.setHeight(playGround.fieldHeight);
+        drawWalls(playGround.walls);
         canvas.backgroundColor = '#33FF33';
         canvas.renderAll();
+    };
+
+    var drawWalls = function(walls) {
+        $.each(walls, function() {
+            renderer.createShape(this);
+        });
     };
 
     var registerEventListeners = function() {

@@ -38,7 +38,7 @@ public class GameController {
 	public GameController() {
 		playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		game.setPlayGround(playGround);
-		game.addWall(1, 1, 1, 1);
+		game.addWall(5, 5, 20, 100);
 	}
 
 	public synchronized void start() {
