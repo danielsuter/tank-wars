@@ -85,7 +85,7 @@ public class Game implements ActorListener {
 			powerUp = new HealthPowerUp(0, 0);
 			break;
 		}
-		computeRandomActorPoisition(powerUp);
+		computeRandomActorPosition(powerUp);
 		createActor(powerUp);
 	}
 
@@ -109,14 +109,14 @@ public class Game implements ActorListener {
 	public Tank spawn(String playerName) {
 		final Tank tank = new Tank(this, playerName);
 
-		computeRandomActorPoisition(tank);
+		computeRandomActorPosition(tank);
 		createActor(tank);
 		referee.addTank(tank);
 
 		return tank;
 	}
 
-	private void computeRandomActorPoisition(final Actor actor) {
+	private void computeRandomActorPosition(final Actor actor) {
 		final Random random = new Random();
 		final int x = random.nextInt(GAME_WIDTH + 1 - actor.getWidth());
 		final int y = random.nextInt(GAME_HEIGHT + 1 - actor.getHeight());
@@ -127,7 +127,7 @@ public class Game implements ActorListener {
 	private void checkForCollisions(Actor actor) {
 		for (Actor otherActor : actors) {
 			if (actor.collidesWith(otherActor)) {
-				computeRandomActorPoisition(actor);
+				computeRandomActorPosition(actor);
 			}
 		}
 	}
