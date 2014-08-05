@@ -87,7 +87,7 @@ var ShapeRenderer = function(_canvas) {
     };
 
     this.renderStatusBar= function(player) {
-        if(!statusBarShape) {
+        if(!statusBarShape && player) {
             statusBarShape = new fabric.Text(generateStatusbarText(player), {
                 left: 10,
                 top: 560,

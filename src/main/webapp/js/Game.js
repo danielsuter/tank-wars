@@ -121,8 +121,8 @@ var Game = function(canvasId) {
             }
         });
 
-        renderer.renderStatusBar(knownActors[myId]);
         checkOwnDeath();
+        renderer.renderStatusBar(knownActors[myId]);
 
         renderer.render();
     };
