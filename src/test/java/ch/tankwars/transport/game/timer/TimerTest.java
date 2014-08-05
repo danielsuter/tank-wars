@@ -3,9 +3,10 @@ package ch.tankwars.transport.game.timer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
-
+@Ignore("only a show case")
 public class TimerTest {
 	
 	@Test
