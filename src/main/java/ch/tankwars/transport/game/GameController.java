@@ -47,6 +47,7 @@ public class GameController {
 			LOGGER.warn("Already started! Aborting...");
 			return;
 		}
+		
 		isStarted = true;
 		LOGGER.info("game started");
 		
@@ -66,7 +67,7 @@ public class GameController {
 				perf.stop("COMPLETE LOOP");
 			}
 
-		}, 0, INTERVAL_MILIS);
+		}, 10000, INTERVAL_MILIS);
 	}
 
 	public void stop() {

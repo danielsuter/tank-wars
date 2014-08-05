@@ -8,6 +8,9 @@ var Game = function(canvasId) {
     var lastFired = 0;
     var myId; // player id = tank id
     var ignoreNextKeyUp = false;
+    var clock;
+    var gameStarted = false;
+
     /**
      * @type {boolean} true if the player is dead
      */
@@ -119,9 +122,15 @@ var Game = function(canvasId) {
         myId = id;
         drawBoard(playGround);
         $("#playersDisplay").show();
+        $("#countdown").show();
     };
 
     var update = function(actorsFromResponse) {
+        if (!gameStarted) {
+            gameStarted = true;
+            countTime();
+        }
+
         removeDeadActors(actorsFromResponse);
 
         $.each(actorsFromResponse, function() {
@@ -216,12 +225,14 @@ var Game = function(canvasId) {
             $("#stopGame").show();
             $("#clearGame").show();
             resource.start();
+            clock.start();
         });
 
         $("#stopGame").click(function() {
             resource.stop();
             $(this).hide();
             $("#startGame").show();
+            clock.stop();
         });
 
         $("#clearGame").click(function() {
@@ -229,7 +240,13 @@ var Game = function(canvasId) {
             $("#stopGame").hide();
             $("#joinGame").show();
             $("#playerName").prop('disabled', false);
+            clock.stop();
         });
+   };
+
+   var countTime = function() {
+       clock.countdown = false;
+       clock.start();
    };
 
    var playerDisplayTemplate =
@@ -320,7 +337,7 @@ var Game = function(canvasId) {
 
     registerEventListeners();
 
-    var clock = $('#countdown').FlipClock(10, {
+    clock = $('#countdown').FlipClock(10, {
         countdown : true,
         clockFace : 'MinuteCounter'
     });
