@@ -149,7 +149,7 @@ var Game = function(canvasId) {
 
 
         checkOwnDeath();
-        renderer.renderStatusBar(knownActors[myId]);
+        renderer.renderStatusBar(knownActors[myId], canvas.getHeight());
 
         renderer.render();
     };

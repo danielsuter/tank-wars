@@ -18,16 +18,24 @@
         }
     </style>
 
-    <div class="container">
-        <h1>Tank Wars</h1>
-        <p class="lead">Welcome and have fun shooting</p>
-        <span class="label label-info" id="connectionInfo">Please connect first!</span>
-        <span class="label label-warning" id="connectionWarning" style="display: none;">Connection failed! Reload page and retry!</span>
-        <span class="label label-warning" id="gameRunning" style="display: none;">Sorry mate - game is already in progress!</span>
-        <span class="label label-success" id="connectionSuccess" style="display: none;">Successfully connected</span>
+    <div class="col-md-12">
 
         <div class="row">
-            <div class="col-md-6">
+            <!--<div class="col-md-2"></div>-->
+            <div class="col-md-10">
+                <h1>Tank Wars</h1>
+                <p class="lead">Welcome and have fun shooting</p>
+                <span class="label label-info" id="connectionInfo">Please connect first!</span>
+                <span class="label label-warning" id="connectionWarning" style="display: none;">Connection failed! Reload page and retry!</span>
+                <span class="label label-warning" id="gameRunning" style="display: none;">Sorry mate - game is already in progress!</span>
+                <span class="label label-success" id="connectionSuccess" style="display: none;">Successfully connected</span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <!--<div class="col-md-2"></div>-->
+            <div class="col-md-8">
                 <form action="" class="navbar-form navbar-left" role="search">
                     <div class="form-group">
                         <input id="playerName" type="text" class="form-control" placeholder="Your Name" autofocus style="display: none;" >
@@ -41,23 +49,23 @@
                 </form>
             </div>
 
-            <!--<div class="col-md-2"></div>-->
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div style="display: none;" id="countdown"></div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-2">
+                <div id="playersDisplay" style="display: none;">
+                    <p class="lead">Stats</p>
+                    <ul class="list-group" id="playersList"></ul>
+                </div>
+            </div>
+            <div class="col-md-10">
                 <canvas id="board" tabindex="1"></canvas>
             </div>
-            <div class="col-md-3" id="playersDisplay" style="display: none;">
-                <h3>Stats</h3>
-                <ul class="list-group" id="playersList"></ul>
 
-            </div>
         </div>
-
 
     </div>
 
