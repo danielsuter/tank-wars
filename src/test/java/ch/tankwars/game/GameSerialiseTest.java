@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import ch.tankwars.transport.game.mapper.ActorListDeserializer;
@@ -23,10 +24,16 @@ public class GameSerialiseTest {
 	private ResponseMapper mapper = new ResponseMapper();
 	private Gson gson = GsonFactory.create();
 	
+	private Game game;
+	
+	@Before
+	public void setUp() {
+		game = new Game();
+		game.setPlayGround(new PlayGround(1000, 1000));
+	}
+	
 	@Test
 	public void actorMapping() {
-		
-		Game game = new Game();
 		Tank tank = game.spawn("Tristana");
 		
 		gson.toJson(tank);
@@ -34,8 +41,6 @@ public class GameSerialiseTest {
 
 	@Test
 	public void assertSize() {
-		
-		Game game = new Game();
 		List<Tank> tanks = new LinkedList<Tank>();
 		for(int i = 0; i< 4; i++) {
 			Tank tank = game.spawn("player " + i);
@@ -69,7 +74,6 @@ public class GameSerialiseTest {
 	
 	@Test
 	public void assertDeltaRecogniztion() {
-		Game game = new Game();
 		Tank tank = game.spawn("Lux");
 		tank.setPosition(0, 0);
 		tank.setVelocity(1);

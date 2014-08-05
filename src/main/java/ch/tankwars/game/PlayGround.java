@@ -33,4 +33,8 @@ public class PlayGround{
 	public void addWall(Wall wall) {
 		walls.add(wall);
 	}
+	
+	public Set<Wall> getWalls() {
+		return walls;
+	}
 }

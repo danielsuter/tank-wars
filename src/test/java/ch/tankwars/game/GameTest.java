@@ -13,6 +13,7 @@ public class GameTest {
 	@Before
 	public void setUp() {
 		game = new Game();
+		game.setPlayGround(new PlayGround(100, 100));
 		tank = game.spawn("testPlayer");
 	}
 	

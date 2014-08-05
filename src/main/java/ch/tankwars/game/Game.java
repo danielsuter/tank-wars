@@ -13,69 +13,76 @@ public class Game implements ActorListener {
 
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
-	
+
 	private ConcurrentLinkedQueue<Actor> actorsToAdd = new ConcurrentLinkedQueue<Actor>();
-	
+
 	private List<Actor> actors = new LinkedList<Actor>();
 	private int globalId;
-	
+
 	private PlayGround playGround;
 
 	public synchronized void tick() {
 		addActorsInQueue();
-		
+
 		removeDeadActors();
-		
+
 		for (Actor actor : actors) {
-			if(!actor.isRemove()) {
+			if (!actor.isRemove()) {
 				actor.act();
+				for (Wall wall : playGround.getWalls()) {
+					if(actor.collidesWith(wall)) {
+						wall.collision(actor);
+						actor.collision(wall);
+					}
+				}
 				for (Actor otherActor : actors) {
-					if(actor != otherActor && actor.collidesWith(otherActor)) {
+					if (actor != otherActor && actor.collidesWith(otherActor)) {
 						actor.collision(otherActor);
 						otherActor.collision(actor);
 					}
 				}
 			}
 		}
+		removeDeadActors();
 	}
 
 	private void addActorsInQueue() {
 		Actor actorToAdd = null;
-		while((actorToAdd = actorsToAdd.poll()) != null){
+		while ((actorToAdd = actorsToAdd.poll()) != null) {
 			actors.add(actorToAdd);
 		}
 	}
 
 	private void removeDeadActors() {
 		Iterator<Actor> iterator = actors.iterator();
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			Actor actor = iterator.next();
-			if(actor.isRemove()) {
+			if (actor.isRemove()) {
 				iterator.remove();
 			}
 		}
 	}
-	
+
 	public Tank spawn(String playerName) {
 		final Tank tank = new Tank(this, playerName);
-		
+
 		final Random random = new Random();
 		final int x = random.nextInt(GAME_WIDTH + 1 - tank.getWidth());
 		final int y = random.nextInt(GAME_HEIGHT + 1 - tank.getHeight());
-		
+
 		tank.setPosition(x, y);
-		
+
 		createActor(tank);
-		
+
 		return tank;
 	}
-	
+
 	public List<Actor> getActors() {
 		return actors;
 	}
 
 	private int generateId() {
-		return ++globalId ;
+		return ++globalId;
 	}
 
 	@Override

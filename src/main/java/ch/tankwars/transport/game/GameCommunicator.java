@@ -32,7 +32,7 @@ public class GameCommunicator {
 		long responseTime = System.nanoTime();
 		double durationMillis = (responseTime - startTime) / 1000000d;
 		double durationJson = (jsonTime - startTime) / 1000000d;
-		LOGGER.info("SEND TIME: {} JSON TIME: {}", durationMillis, durationJson);
+//		LOGGER.info("SEND TIME: {} JSON TIME: {}", durationMillis, durationJson);
 	}
 
 	public void sendMessage(Object objectToBroadcast, Session session) {
