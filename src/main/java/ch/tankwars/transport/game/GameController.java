@@ -65,17 +65,15 @@ public class GameController {
 
 			@Override
 			public void run() {
-//				double startTime = System.nanoTime();
 				perf.start();
+				
 				game.tick();
+				
 				perf.lap("tick");
-//				double tickTime = System.nanoTime();
+				
 				gameCommunicator.sendMessage(game.getActors(), peers, ActorListDeserializer.TYPE);
+				
 				perf.stop("COMPLETE LOOP");
-				//				double endTime = System.nanoTime();
-//				double durationMilis = (endTime - startTime) / 1000000d;
-//				double durationTick = (tickTime - startTime) / 1000000d;
-//				LOGGER.info("LOOP TIME: {} TICK TIME: {}", durationMilis, durationTick);
 			}
 
 		}, 0, INTERVAL_MILIS);
