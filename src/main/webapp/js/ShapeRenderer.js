@@ -13,7 +13,7 @@ var ShapeRenderer = function(_canvas) {
                 shape.direction = actor.direction;
                 break;
             case "PROJECTILE":
-                //shape = Projectile.drawProjectile(actor);
+                shape = Projectile.drawProjectile(actor);
                 break;
             case "WALL":
                 shape = Wall.drawWall(actor);
@@ -24,6 +24,8 @@ var ShapeRenderer = function(_canvas) {
     };
 
     var getColor = function() {
+        // TODO: Render random colors:
+        //  '#'+Math.floor(Math.random()*16777215).toString(16);
         return availableColors.splice(0, 1);
     };
 
