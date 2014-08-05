@@ -131,7 +131,7 @@ var Game = function(canvasId) {
             }
         });
 
-//        removeDeadProjectiles(projectilesFromResponse);
+        removeDeadProjectiles(projectilesFromResponse);
         canvas.renderAll();
     };
 
@@ -142,14 +142,14 @@ var Game = function(canvasId) {
         canvas.renderAll();
     };
 
-    var removeDeadProjectiles = function(projectilesInGame) {
-        $.each(projectiles, function() {
-            if (!projectilesInGame[this.id]) {
-                projectiles[this.id] = undefined;
-                knownActors[this.id] = undefined;
-                canvas.remove(this);
+    var removeDeadProjectiles = function(projectilesFromResponse) {
+        for (var id in projectiles) {
+            if (!projectilesFromResponse[id]) {
+                canvas.remove(projectiles[id]);
+                projectiles[id] = undefined;
+                knownActors[id] = undefined;
             }
-        });
+        }
     };
 
     var registerEventListeners = function() {
