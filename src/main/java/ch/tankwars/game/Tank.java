@@ -134,7 +134,7 @@ public class Tank extends Actor {
 	}
 	
 	private void increaseHealth(HealthPowerUp healthPowerUp) {
-		health =  Math.max(DEFAULT_HEALTH, health + healthPowerUp.getHealthGain());
+		health =  Math.min(DEFAULT_HEALTH, health + healthPowerUp.getHealthGain());
 	}
 	private void increaseFireRate(FireRatePowerUp fireRatePowerUp) {
 		fireRatePerSecond += fireRatePowerUp.getFireRateGain();
