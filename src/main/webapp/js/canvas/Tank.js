@@ -7,7 +7,6 @@ var Tank = {
         var tankBody;
         var pipe;
 
-
         raupeLeft = new fabric.Rect({
             left: tank.x,
             top: tank.y,
@@ -27,7 +26,7 @@ var Tank = {
         tankBody = new fabric.Rect({
             left: tank.x + 3,
             top: tank.y + 4,
-            fill: 'black',
+            fill: '' + tank.color,
             width: tank.width - 6,
             height: tank.height - 8
         });
