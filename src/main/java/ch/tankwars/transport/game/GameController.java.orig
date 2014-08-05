@@ -133,16 +133,22 @@ public class GameController {
 		playerPeers.remove(playerPeer);
 	}
 	
+<<<<<<< HEAD
+=======
 	// TODO remove
+>>>>>>> f9a75b80bd3b37ce30774bc79b37c6a8d4e810e4
 	private void addHealthPowerUp(int x, int y) {
 		game.createActor(new HealthPowerUp(game, x, y));
 	}
 	
+<<<<<<< HEAD
+=======
 	// TODO remove
+>>>>>>> f9a75b80bd3b37ce30774bc79b37c6a8d4e810e4
 	private void addFireRatePowerUp(int x, int y) {
 		game.createActor(new FireRatePowerUp(game, x, y));
 	}
-
+	
 	public void shoot(PlayerPeer playerPeer) {
 		Tank tank = playerPeer.getTank();
 		if(tank != null) {
