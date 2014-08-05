@@ -93,8 +93,8 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 				if (actor instanceof Tank) {
 					Tank tank = (Tank) actor;
 					Tank cachedTank = (Tank) cachedActor;
-					if (cachedTank == null || cachedTank.getFireRatePerSecond() != tank.getFireRatePerSecond()) {
-						actorJson.addProperty(FIRE_RATE, tank.getFireRatePerSecond());
+					if (cachedTank == null || cachedTank.getWeapon().getFireRatePerSecond() != tank.getWeapon().getFireRatePerSecond()) {
+						actorJson.addProperty(FIRE_RATE, tank.getWeapon().getFireRatePerSecond());
 					}
 
 					if (cachedTank == null || cachedTank.getHealth() != tank.getHealth()) {

@@ -63,17 +63,16 @@ public class Game implements ActorListener {
 			spawnNewPowerUp(random);
 		}
 	}
-
+	
+	// TODO rework
 	private void spawnNewPowerUp(final Random random) {
 		PowerUp powerUp = null;
 		final int type = random.nextInt(4);
 		
 		switch (type) {
 		case 0: 
+		case 1:
 			powerUp = new HealthPowerUp(0, 0);
-			break;
-		case 1: 
-			powerUp = new FireRatePowerUp(0, 0);
 			break;
 		case 2: 
 			powerUp = new LaserGunPowerUp(0, 0);

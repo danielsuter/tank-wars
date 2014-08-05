@@ -44,7 +44,7 @@ public class GameSerialiseTest {
 	@Test
 	public void playgroundMapping() {
 		BattlefieldMap battlefieldMap = new BattlefieldMap(1000, 1000);
-		battlefieldMap.addPowerUp(new FireRatePowerUp(0, 0));
+		battlefieldMap.addPowerUp(new HealthPowerUp(0, 0));
 		battlefieldMap.addWall(new Wall(0, 0, 100, 100));
 		
 		gson.toJson(battlefieldMap);
