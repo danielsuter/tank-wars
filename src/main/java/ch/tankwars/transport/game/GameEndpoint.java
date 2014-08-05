@@ -54,6 +54,9 @@ public class GameEndpoint {
 		case "SHOOT":
 			gameController.shoot(playerSession);
 			break;
+		case "CLEAR":
+			gameController.clear();
+			break;
 		default:
 			throw new RuntimeException("Cannot handle command: " + command);
 		}

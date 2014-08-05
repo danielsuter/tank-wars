@@ -70,6 +70,10 @@ var GameResource = function(_onGameUpdate) {
         websocket.send(message);
     };
 
+    this.clear = function() {
+        sendMessage('CLEAR');
+    };
+
     var protocolToViewMap = {
         "t" : "actorType",
         "i" : "id",

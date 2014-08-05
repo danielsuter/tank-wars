@@ -36,6 +36,10 @@ public class GameController {
 	private PlayGround playGround; 
 	
 	public GameController() {
+		initPlayground();
+	}
+
+	private void initPlayground() {
 		playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		game.setPlayGround(playGround);
 		game.addWall(5, 5, 20, 100);
@@ -76,20 +80,41 @@ public class GameController {
 	}
 
 	public void move(Session player, Direction direction) {
-		tanksMap.get(player).move(direction);
+		Tank tank = tanksMap.get(player);
+		if(tank != null) {
+			tank.move(direction);
+		}
 	}
 	
 	public void moveStop(Session player, Direction direction) {
-		tanksMap.get(player).moveStop(direction);
+		Tank tank = tanksMap.get(player);
+		if(tank != null) {
+			tank.moveStop(direction);
+		}
 	}
 	
 	public void removePlayer(Session player) {
-		tanksMap.get(player).setRemove(true);
-		tanksMap.remove(player);
+		Tank tank = tanksMap.get(player);
+		if(tank != null) {
+			tank.setRemove(true);
+			tanksMap.remove(player);
+		}
 		peers.remove(player);
 	}
 
 	public void shoot(Session playerSession) {
-		tanksMap.get(playerSession).shoot();
+		Tank tank = tanksMap.get(playerSession);
+		if(tank != null) {
+			tank.shoot();
+		}
+	}
+
+	public void clear() {
+		game = new Game();
+		timer.cancel();
+		isStarted = false;
+		tanksMap.clear();
+		peers.clear();
+		initPlayground();
 	}
 }
