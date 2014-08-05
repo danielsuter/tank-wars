@@ -6,8 +6,6 @@ var Game = function(canvasId) {
     var tank;
     var wall;
     var projectile;
-    var tanks = [];
-    var walls = [];
     var lastCode;
     var knownActors = [];
     var knownShapes = [];
@@ -86,12 +84,10 @@ var Game = function(canvasId) {
             var actorType = knownActors[this.id].actorType;
             switch (actorType) {
                 case "TANK":
-                    // FIXME: Rename knownActors -> knownShapes etc.
-                    var tankShape = tanks[this.id];
+                    var tankShape = knownShapes[this.id];
                     if (!tankShape) {
                         tankShape = tank.drawTank(this);
-                        // FIXME: Remove tanks and use knownActors
-                        tanks[this.id] = tankShape;
+                        knownShapes[this.id] = tankShape;
                         canvas.add(tankShape);
                     } else {
                         if (this.x) {
@@ -124,11 +120,10 @@ var Game = function(canvasId) {
                     }
                     break;
                 case "WALL":
-                    var wallShape = walls[this.id];
+                    var wallShape = knownShapes[this.id];
                     if (!wallShape) {
                         wallShape = wall.drawWall(this);
-                        // FIXME: Remove walls and use knownActors
-                        walls[this.id] = wallShape;
+                        knownShapes[this.id] = wallShape;
                         canvas.add(wallShape);
                     }
                     break;
