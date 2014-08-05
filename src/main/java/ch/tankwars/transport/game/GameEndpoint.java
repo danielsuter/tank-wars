@@ -69,7 +69,7 @@ public class GameEndpoint {
 
 	@OnClose
 	public void onClose(Session peer) {
-		gameController.removePlayer(peer);
+		gameLoop.removePlayer(peer);
 	}
 
 	@OnError

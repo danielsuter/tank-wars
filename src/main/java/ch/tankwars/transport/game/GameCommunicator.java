@@ -22,9 +22,13 @@ public class GameCommunicator {
 
 	public void sendMessage(Object objectToBroadcast, Set<Session> peers, Type type) {
 		long startTime = System.nanoTime();
+		
 		String gameAsJson = responseMapper.map(objectToBroadcast, type);
+		
 		long jsonTime = System.nanoTime();
+		
 		peers.parallelStream().forEach(peer -> sendResponse(peer, gameAsJson));
+		
 		long responseTime = System.nanoTime();
 		double durationMillis = (responseTime - startTime) / 1000000d;
 		double durationJson = (jsonTime - startTime) / 1000000d;

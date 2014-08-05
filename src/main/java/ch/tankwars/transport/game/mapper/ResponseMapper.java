@@ -2,8 +2,6 @@ package ch.tankwars.transport.game.mapper;
 
 import java.lang.reflect.Type;
 
-import ch.tankwars.transport.game.GsonFactory;
-
 import com.google.gson.Gson;
 
 public class ResponseMapper {

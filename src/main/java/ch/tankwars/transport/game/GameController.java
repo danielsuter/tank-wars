@@ -19,6 +19,7 @@ import ch.tankwars.game.Tank;
 import ch.tankwars.game.TankMap;
 import ch.tankwars.game.Wall;
 import ch.tankwars.transport.game.dto.JoinResponse;
+import ch.tankwars.transport.game.mapper.ActorListDeserializer;
 
 public class GameController {
 	private static final long INTERVAL_MILIS = 100L;
@@ -49,7 +50,7 @@ public class GameController {
 				double startTime = System.nanoTime();
 				game.tick();
 				double tickTime = System.nanoTime();
-				gameCommunicator.sendMessage(game.getActors(), peers, GsonFactory.ACTOR_LIST_TYPE);
+				gameCommunicator.sendMessage(game.getActors(), peers, ActorListDeserializer.TYPE);
 				double endTime = System.nanoTime();
 				double durationMilis = (endTime - startTime) / 1000000d;
 				double durationTick = (tickTime - startTime) / 1000000d;
