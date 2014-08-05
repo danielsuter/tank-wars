@@ -39,10 +39,6 @@ public class GameController {
 	
 	public GameController() {
 		initPlayground();
-		addHealthPowerUp(200, 200);
-		addHealthPowerUp(400, 300);
-		addFireRatePowerUp(100, 100);
-		addFireRatePowerUp(500, 580);
 	}
 
 	private void initPlayground() {
@@ -52,6 +48,11 @@ public class GameController {
 		game.addWall(50, 89, 200, 10);
 		game.addWall(600, 411, 50, 50);
 		game.addWall(555, 44, 80, 20);
+		
+		addHealthPowerUp(200, 200);
+		addHealthPowerUp(400, 300);
+		addFireRatePowerUp(100, 100);
+		addFireRatePowerUp(500, 580);
 	}
 
 	public synchronized void start() {
@@ -146,6 +147,7 @@ public class GameController {
 		timer.cancel();
 		isStarted = false;
 		playerPeers.clear();
+		gameCommunicator = new GameCommunicator();
 		initPlayground();
 	}
 }
