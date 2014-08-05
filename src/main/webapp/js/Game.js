@@ -1,4 +1,4 @@
-var Game = function(canvasId) {
+var Game = function (canvasId) {
     var canvas = new fabric.StaticCanvas(canvasId);
     var resource;
     var lastCode;
@@ -12,8 +12,8 @@ var Game = function(canvasId) {
      */
     var isDead = false;
 
-    var doKeyDown = function(event) {
-        if(event.keyCode === lastCode || isDead) {
+    var doKeyDown = function (event) {
+        if (event.keyCode === lastCode || isDead) {
             return;
         }
 
@@ -23,7 +23,7 @@ var Game = function(canvasId) {
 
         lastCode = event.keyCode;
 
-        switch(event.keyCode) {
+        switch (event.keyCode) {
             case 37: // LEFT
                 event.preventDefault();
                 resource.move('LEFT');
@@ -43,8 +43,8 @@ var Game = function(canvasId) {
         }
     };
 
-    var doKeyUp = function(event) {
-        if(isDead) {
+    var doKeyUp = function (event) {
+        if (isDead) {
             return;
         }
 
@@ -54,7 +54,7 @@ var Game = function(canvasId) {
         }
 
         lastCode = null;
-        switch(event.keyCode) {
+        switch (event.keyCode) {
             case 37: // LEFT
                 event.preventDefault();
                 resource.stopMove('LEFT');
@@ -80,7 +80,7 @@ var Game = function(canvasId) {
         }
     };
 
-    var cannonOffCooldown = function() {
+    var cannonOffCooldown = function () {
         var myTank = knownActors[myId];
         var fireRate = myTank.fireRate;
         var cooldown = 500 / fireRate;
@@ -98,27 +98,31 @@ var Game = function(canvasId) {
         keyup: doKeyUp
     });
 
-    var onConnect = function() {
+    var onConnect = function (gameRunning) {
         $("#connectGame").hide();
-        $("#connectionInfo").hide();
         $("#connectionSuccess").show();
-        $("#joinGame").show();
-        $("#playerName").show();
+        $("#connectionInfo").hide();
+        if (gameRunning) {
+            $("#gameRunning").show();
+        } else {
+            $("#joinGame").show();
+            $("#playerName").show();
+        }
     };
 
-    var onJoin = function(id, playGround) {
-		myId = id;
+    var onJoin = function (id, playGround) {
+        myId = id;
         drawBoard(playGround);
         $("#playersDisplay").show();
         newsFlash("WELCOME!");
     };
 
-    var update = function(actorsFromResponse) {
-        if(isDead) return;
+    var update = function (actorsFromResponse) {
+        if (isDead) return;
 
         removeDeadActors(actorsFromResponse);
 
-        $.each(actorsFromResponse, function() {
+        $.each(actorsFromResponse, function () {
             var actorUpdate = this;
 
             if (isNewActor(actorUpdate)) {
@@ -139,15 +143,15 @@ var Game = function(canvasId) {
         renderer.render();
     };
 
-    var checkOwnDeath = function() {
+    var checkOwnDeath = function () {
         var myPlayer = knownActors[myId];
-        if(!myPlayer) {
+        if (!myPlayer) {
             isDead = true;
             renderer.renderDeath();
         }
     };
 
-    var updateActor= function(actorUpdate) {
+    var updateActor = function (actorUpdate) {
         var cachedActor = knownActors[actorUpdate.id];
 
         for (var property in actorUpdate) {
@@ -157,14 +161,14 @@ var Game = function(canvasId) {
         }
     };
 
-    var isNewActor = function(actor) {
+    var isNewActor = function (actor) {
         return typeof knownActors[actor.id] === "undefined";
     };
 
-    var removeDeadActors = function(actorsFromResponse) {
+    var removeDeadActors = function (actorsFromResponse) {
         var ids = [];
 
-        $.each(actorsFromResponse, function() {
+        $.each(actorsFromResponse, function () {
             ids.push(parseInt(this.id));
         });
 
@@ -176,7 +180,7 @@ var Game = function(canvasId) {
         }
     };
 
-    var drawBoard = function(playGround) {
+    var drawBoard = function (playGround) {
         canvas.setWidth(playGround.fieldWidth);
         canvas.setHeight(playGround.fieldHeight);
         drawWalls(playGround.walls);
@@ -184,88 +188,88 @@ var Game = function(canvasId) {
         canvas.renderAll();
     };
 
-    var drawWalls = function(walls) {
-        $.each(walls, function() {
+    var drawWalls = function (walls) {
+        $.each(walls, function () {
             renderer.createShape(this);
         });
     };
 
-    var registerEventListeners = function() {
-        $("#connectGame").click(function() {
+    var registerEventListeners = function () {
+        $("#connectGame").click(function () {
             resource.connect(onConnect);
         });
-        $("#joinGame").click(function() {
+        $("#joinGame").click(function () {
             $(this).hide();
             $("#playerName").prop("disabled", true);
             $("#startGame").show();
             resource.join(onJoin, $("#playerName").val());
         });
 
-        $("#startGame").click(function() {
+        $("#startGame").click(function () {
             $(this).hide();
             $("#stopGame").show();
             $("#clearGame").show();
             resource.start();
         });
 
-        $("#stopGame").click(function() {
+        $("#stopGame").click(function () {
             resource.stop();
             $(this).hide();
             $("#startGame").show();
         });
 
-        $("#clearGame").click(function() {
+        $("#clearGame").click(function () {
             resource.clear();
             $("#stopGame").hide();
             $("#joinGame").show();
             $("#playerName").prop('disabled', false);
         });
-   };
+    };
 
-   var playerDisplayTemplate =
-       "<li class='list-group-item playerScore'>" +
-           "<span class='label label-default' id='color{{id}}'>{{name}}</span>" +
-           "<span class='badge' name='killsBadge' data-value='0' id='kills{{id}}'>Kills: 0</span>" +
-           "<span class='badge' name='hitsBadge' data-value='0' id='hits{{id}}'>Hits: 0</span>" +
-       "</li>";
+    var playerDisplayTemplate =
+        "<li class='list-group-item playerScore'>" +
+        "<span class='label label-default' id='color{{id}}'>{{name}}</span>" +
+        "<span class='badge' name='killsBadge' data-value='0' id='kills{{id}}'>Kills: 0</span>" +
+        "<span class='badge' name='hitsBadge' data-value='0' id='hits{{id}}'>Hits: 0</span>" +
+        "</li>";
 
 
-   var onPlayersChanged = function(players) {
-       var rows = "";
-       $.each(players, function() {
-           rows += Mustache.render(playerDisplayTemplate, this);
-       });
-       $("#playersList").html(rows);
-   };
+    var onPlayersChanged = function (players) {
+        var rows = "";
+        $.each(players, function () {
+            rows += Mustache.render(playerDisplayTemplate, this);
+        });
+        $("#playersList").html(rows);
+    };
 
-   var updateScore = function(actor) {
-       var scoreChanged = false;
-       if (actor.hits) {
-           var hitsBadge = $("#hits" + actor.id);
-           hitsBadge.html("Hits: " + actor.hits);
-           hitsBadge.data("value", actor.hits);
-           scoreChanged = true;
-       }
+    var updateScore = function (actor) {
+        var scoreChanged = false;
+        if (actor.hits) {
+            var hitsBadge = $("#hits" + actor.id);
+            hitsBadge.html("Hits: " + actor.hits);
+            hitsBadge.data("value", actor.hits);
+            scoreChanged = true;
+        }
 
-       if (actor.kills) {
-           var killsBadge = $("#kills" + actor.id);
-           killsBadge.html("Kills: " + actor.kills);
-           killsBadge.data("value", actor.kills);
-           scoreChanged = true;
-       }
-       if (actor.color) {
-           $("#color" + actor.id).css('background-color', actor.color);
-       }
+        if (actor.kills) {
+            var killsBadge = $("#kills" + actor.id);
+            killsBadge.html("Kills: " + actor.kills);
+            killsBadge.data("value", actor.kills);
+            scoreChanged = true;
+        }
+        if (actor.color) {
+            $("#color" + actor.id).css('background-color', actor.color);
+        }
 
-       if (scoreChanged) {
-           sortRows();
-       }
-   };
+        if (scoreChanged) {
+            sortRows();
+        }
+    };
 
-    var sortRows = function() {
+    var sortRows = function () {
         var playerRows = $(".playerScore").get();
 
-        playerRows.sort(function(a, b) {
+        playerRows.sort(function (a, b) {
             var aHits = $(a).find($("span[name='hitsBadge']")).data("value");
             var aKills = $(a).find($("span[name='killsBadge']")).data("value");
             var bHits = $(b).find($("span[name='hitsBadge']")).data("value");
@@ -280,12 +284,12 @@ var Game = function(canvasId) {
             return (parseInt(aHits) - parseInt(bHits)) * -1;
         });
 
-        $.each(playerRows, function() {
-           $("#playersList").append(this);
+        $.each(playerRows, function () {
+            $("#playersList").append(this);
         });
     };
 
-    var newsFlash = function(text) {
+    var newsFlash = function (text) {
         var container = $("#gameNews");
         var news = $("#newsText");
 

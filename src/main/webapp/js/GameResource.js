@@ -2,19 +2,21 @@ var GameResource = function (_onGameUpdate, _onPlayersChanged) {
     var onGameUpdate = _onGameUpdate;
     var websocket;
     var onJoined;
+    var onConnect;
     var onPlayersChanged = _onPlayersChanged;
 
     var lastMessageTime = 0;
 
-    this.connect = function (onConnect) {
+    this.connect = function (_onConnect) {
+        onConnect = _onConnect;
         var wsUri = TUtil.getWebsocketGameUrl();
-        websocket = new WebSocket(wsUri);
 
+        websocket = new WebSocket(wsUri);
         websocket.onerror = this.onError;
         websocket.onmessage = this.onMessage;
 
         websocket.onopen = function (event) {
-            onConnect();
+           sendMessage("CONNECT");
         }
     };
 
@@ -48,6 +50,8 @@ var GameResource = function (_onGameUpdate, _onPlayersChanged) {
             if (time > 50) {
                 console.log("processing time unusually high: " + time + "ms");
             }
+        } else if (message.messageType === 'CONNECT') {
+            onConnect(message.gameRunning);
         } else if (message.messageType === 'JOIN') {
             onJoined(message.playerId, message.battlefieldMap);
         } else if (message.messageType === "PLAYERS_CHANGED") {

@@ -31,6 +31,9 @@ public class GameEndpoint {
 		String command = fullCommand[0];
 		
 		switch (command) {
+		case "CONNECT":
+			gameController.checkGameState(clientSession);
+			break;
 		case "JOIN":
 			String playerName; 
 			if(fullCommand.length < 1) {
