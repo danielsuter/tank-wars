@@ -1,7 +1,12 @@
-package ch.tankwars.game;
+package ch.tankwars.game.projectiles;
+
+import ch.tankwars.game.Actor;
+import ch.tankwars.game.ActorType;
+import ch.tankwars.game.Game;
+import ch.tankwars.game.Referee;
 
 
-public class Projectile extends Actor {
+public abstract class Projectile extends Actor {
 	
 	public static final int DEFAULT_PROJECTILE_SPEED = 10;
 	public static final int DEFAULT_PROJECTILE_DIMENSION = 3; 

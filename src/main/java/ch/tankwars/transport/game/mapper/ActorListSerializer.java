@@ -8,8 +8,8 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import ch.tankwars.game.Actor;
-import ch.tankwars.game.Projectile;
 import ch.tankwars.game.Tank;
+import ch.tankwars.game.projectiles.Projectile;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

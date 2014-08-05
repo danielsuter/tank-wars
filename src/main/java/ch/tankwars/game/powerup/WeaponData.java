@@ -1,12 +1,13 @@
 package ch.tankwars.game.powerup;
 
 import ch.tankwars.game.Direction;
-import ch.tankwars.game.Projectile;
+import ch.tankwars.game.projectiles.CircularProjectile;
+import ch.tankwars.game.projectiles.Projectile;
 
 public enum WeaponData {
 
 	STANDARD_CANON(0, Projectile.DEFAULT_PROJECTILE_SPEED, Projectile.DEFAULT_PROJECTILE_POWER, Projectile.DEFAULT_PROJECTILE_DIMENSION, 1, -1),
-	LASER_GUN(1, 30, 7, 2, 10, 10),
+	LASER_GUN(1, 30, 7, 2, 10, 30),
 	ROCKET_LAUNCHER(2, 8, 25, 4, 1, 10);
 	
 	private int velocity;
@@ -41,7 +42,7 @@ public enum WeaponData {
 				}
 			};
 		} else {
-			projectile = new Projectile(tankId);
+			projectile = new CircularProjectile(tankId);
 		}
 		projectile.setProjectileDimension(dimension);
 		projectile.setVelocity(velocity);
