@@ -35,6 +35,16 @@ public class GsonFactory {
 
 	private static class ActorListDeserializer implements JsonSerializer<List<Actor>> {
 
+		private static final String VELOCITY = "v";
+		private static final String DIRECTION = "d";
+		private static final String HEIGHT = "h";
+		private static final String WIDTH = "w";
+		private static final String RADIUS = "r";
+		private static final String Y_POSITION = "y";
+		private static final String X_POSITION = "x";
+		private static final String ID = "i";
+		private static final String ACTOR_TYPE = "t";
+		
 		private static final int GAME_UPDATE = 0;
 
 		@Override
@@ -42,7 +52,6 @@ public class GsonFactory {
 			JsonArray returnValue = new JsonArray();
 
 			returnValue.add(new JsonPrimitive(GAME_UPDATE));
-			// TODO Mapping values in konstantenklasse
 			toSerialize.parallelStream().map(new Function<Actor, JsonObject>() {
 				@Override
 				public JsonObject apply(Actor actor) {
@@ -51,40 +60,40 @@ public class GsonFactory {
 					JsonObject actorJson = new JsonObject();
 					
 					if (cachedActor == null) {
-						actorJson.addProperty("t", actor.getActorType().getIdentifier());
+						actorJson.addProperty(ACTOR_TYPE, actor.getActorType().getIdentifier());
 					}
 					
-					actorJson.addProperty("i", actor.getId());
+					actorJson.addProperty(ID, actor.getId());
 
 					if (cachedActor == null || cachedActor.getX() != actor.getX()) {
-						actorJson.addProperty("x", actor.getX());
+						actorJson.addProperty(X_POSITION, actor.getX());
 					}
 
 					if (cachedActor == null || cachedActor.getY() != actor.getY()) {
-						actorJson.addProperty("y", actor.getY());
+						actorJson.addProperty(Y_POSITION, actor.getY());
 					}
 					
 					if (actor instanceof Projectile) {
 						Projectile projectile = (Projectile) actor;
 						Projectile cachedProjectile = (Projectile) cachedActor;
 						if (cachedProjectile == null || cachedProjectile.getProjectileDimension() != projectile.getProjectileDimension()) {
-							actorJson.addProperty("r", projectile.getProjectileDimension());
+							actorJson.addProperty(RADIUS, projectile.getProjectileDimension());
 						}
 					} else {
 						if (cachedActor == null || cachedActor.getWidth() != actor.getWidth()) {
-							actorJson.addProperty("w", actor.getWidth());
+							actorJson.addProperty(WIDTH, actor.getWidth());
 						}
 						if (cachedActor == null || cachedActor.getHeight() != actor.getHeight()) {
-							actorJson.addProperty("h", actor.getHeight());
+							actorJson.addProperty(HEIGHT, actor.getHeight());
 						}
 					}
 
 					if (cachedActor == null || cachedActor.getDirection() != actor.getDirection()) {
-						actorJson.addProperty("d", actor.getDirection().getIdentifier());
+						actorJson.addProperty(DIRECTION, actor.getDirection().getIdentifier());
 					}
 
 					if (cachedActor == null || cachedActor.getVelocity() != actor.getVelocity()) {
-						actorJson.addProperty("v", actor.getVelocity());
+						actorJson.addProperty(VELOCITY, actor.getVelocity());
 					}
 					
 					putToCache(actor);
