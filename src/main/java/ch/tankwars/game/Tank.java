@@ -7,7 +7,8 @@ public class Tank extends Actor {
 	private static final int DEFAULT_SPEED = 5;
 
 	private final String playerName;
-
+	private int health = 100;
+	
 	public Tank(ActorListener actorListener, String playerName) {
 		super(actorListener, ActorType.TANK);
 		this.playerName = playerName;
@@ -83,8 +84,19 @@ public class Tank extends Actor {
 		if(actor instanceof Projectile) {
 			Projectile projectile = (Projectile) actor;
 			if(projectile.getId() != getId()) {
-				System.out.println("got killed uaaarrrghh");
+				damage(projectile.getPower());
 			}
+		}
+	}
+
+	public int getHealth() {
+		return health;
+	}
+	
+	public void damage(int amount) {
+		health -= amount;
+		if(health <= 0) {
+			System.out.println("got killed uaaarrrgh");
 		}
 	}
 }

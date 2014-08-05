@@ -7,6 +7,7 @@ public class Projectile extends Actor {
 	private static final int DEFAULT_PROJECTILE_DIMENSION = 3; 
 	private int projectileDimension;
 	private int owningTankId; 
+	private int power = 10;
 
 	public Projectile(ActorListener actorListener, int owningTankId) {
 		super(actorListener, ActorType.PROJECTILE);
@@ -58,5 +59,13 @@ public class Projectile extends Actor {
 		if(actor.getId() != owningTankId) {
 			setRemove(true);
 		}
+	}
+
+	public int getPower() {
+		return power;
+	}
+
+	public void setPower(int power) {
+		this.power = power;
 	}
 }
