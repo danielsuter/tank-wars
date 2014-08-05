@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Collectors;
 
 /**
  * Contains all game logic.
@@ -46,16 +47,26 @@ public class Game implements ActorListener {
 				}
 			}
 		}
-		if(roundCounter % 50 == 0) {
-			reSpawnNewPowerUps();
+		if(roundCounter % 200 == 0) {
+			final List<Actor> powerUps = actors.stream().filter(a -> a instanceof PowerUp).collect(Collectors.toList());
+			if(powerUps.size() <= 10) {
+				reSpawnNewPowerUps();
+			}
 		}
 		removeDeadActors();
 	}
 
 	private void reSpawnNewPowerUps() {
-		PowerUp powerUp = null;
 		final Random random = new Random();
-		final int type = random.nextInt(3);
+		final int powerUpCount = random.nextInt(5);
+		for (int i = 0; i <= powerUpCount; i++) {
+			spawnNewPowerUp(random);
+		}
+	}
+
+	private void spawnNewPowerUp(final Random random) {
+		PowerUp powerUp = null;
+		final int type = random.nextInt(4);
 		
 		switch (type) {
 		case 0: 
@@ -69,6 +80,9 @@ public class Game implements ActorListener {
 			break;
 		case 3: 
 			powerUp = new RocketLauncherPowerUp(0, 0);
+			break;
+		default:
+			powerUp = new HealthPowerUp(0, 0);
 			break;
 		}
 		computeRandomActorPoisition(powerUp);
