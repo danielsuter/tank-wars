@@ -63,8 +63,10 @@ public class GsonFactory {
 
 					JsonObject actorJson = new JsonObject();
 					
-					int identifier = actor.getActorType().getIdentifier();
-					actorJson.addProperty("t", identifier);
+					if (cachedActor == null) {
+						actorJson.addProperty("t", actor.getActorType().getIdentifier());
+					}
+					
 					actorJson.addProperty("i", actor.getId());
 
 					if (cachedActor == null || cachedActor.getX() != actor.getX()) {

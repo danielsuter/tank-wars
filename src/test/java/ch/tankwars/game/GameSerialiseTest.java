@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 public class GameSerialiseTest {
 
 	private static final int TICKS_PER_SECOND = 10;
-	private static final int MAX_SIZE_BYTES = 6000;
+	private static final int MAX_SIZE_BYTES = 2500;
 
 	ResponseMapper mapper = new ResponseMapper();
 	
@@ -78,7 +78,7 @@ public class GameSerialiseTest {
 		game.tick();
 
 		String response2 = mapper.map(game.getActors(), GsonFactory.ACTOR_LIST_TYPE);
-		assertEquals("[0,{\"t\":0,\"i\":1,\"y\":1}]", response2);
+		assertEquals("[0,{\"i\":1,\"y\":1}]", response2);
 		
 	}
 }
