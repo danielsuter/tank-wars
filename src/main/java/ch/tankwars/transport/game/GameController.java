@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import ch.tankwars.game.Direction;
 import ch.tankwars.game.Game;
 import ch.tankwars.game.Tank;
+import ch.tankwars.game.TankMap;
+import ch.tankwars.game.Wall;
 import ch.tankwars.transport.game.dto.JoinResponse;
 
 public class GameController {
@@ -67,10 +69,18 @@ public class GameController {
 		Tank spawnedTank = game.spawn(playerName);
 		tanksMap.put(player, spawnedTank);
 		
-		JoinResponse joinResponse = new JoinResponse(spawnedTank.getId(), Game.GAME_WIDTH, Game.GAME_HEIGHT);
+		JoinResponse joinResponse = new JoinResponse(spawnedTank.getId());
 		gameCommunicator.sendMessage(joinResponse, player);
 	}
-
+	
+	public void init(Session session) {
+		TankMap initResponse = new TankMap(Game.GAME_WIDTH, Game.GAME_HEIGHT);
+		Wall wall = game.addWall(1, 1, 1, 1);
+		initResponse.addWall(wall);
+		
+		gameCommunicator.sendMessage(initResponse, session);
+	}
+	
 	public void move(Session player, Direction direction) {
 		tanksMap.get(player).move(direction);
 	}

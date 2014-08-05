@@ -24,7 +24,7 @@ public class WallTest {
 			}
 		};
 		
-		tank = new Tank(al, "Fritzli");
+		tank = new Tank(al, "Fritzli", 1);
 		wall = new Wall(al, 1, 1, 1, 1, 1);
 	}
 

@@ -3,31 +3,38 @@ package ch.tankwars.game;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TankMap {
+import ch.tankwars.transport.game.dto.MessageType;
+import ch.tankwars.transport.game.dto.Response;
 
-	private int width;
-	private int height;
-
+public class TankMap extends Response {
+	
+	private int fieldWidth;
+	private int fieldHeight;
 	private Set<Wall> walls = new HashSet<Wall>();
-
-	public int getWidth() {
-		return width;
+	
+	public TankMap(int fieldWidth, int fieldHeight) {
+		super(MessageType.INIT.getType());
+		this.setFieldWidth(fieldWidth);
+		this.setFieldHeight(fieldHeight);
 	}
 
-	public void setWidth(int width) {
-		this.width = width;
+	public int getFieldWidth() {
+		return fieldWidth;
 	}
 
-	public int getHeight() {
-		return height;
+	public void setFieldWidth(int width) {
+		this.fieldWidth = width;
 	}
 
-	public void setHeight(int height) {
-		this.height = height;
+	public int getFieldHeight() {
+		return fieldHeight;
+	}
+
+	public void setFieldHeight(int height) {
+		this.fieldHeight = height;
 	}
 
 	public void addWall(Wall wall) {
 		walls.add(wall);
 	}
-
 }
