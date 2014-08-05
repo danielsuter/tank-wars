@@ -11,7 +11,7 @@ var ShapeRenderer = function(_canvas) {
                 shape.direction = actor.direction;
                 break;
             case "PROJECTILE":
-                shape = Projectile.drawProjectile(actor);
+                //shape = Projectile.drawProjectile(actor);
                 break;
             case "WALL":
                 shape = Wall.drawWall(actor);

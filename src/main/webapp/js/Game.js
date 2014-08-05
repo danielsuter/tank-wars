@@ -54,9 +54,9 @@ var Game = function(canvasId) {
                 break;
             case 32: // Space
                 event.preventDefault();
-                /*if (cannonOffCooldown()) {
+                if (cannonOffCooldown()) {
                     resource.shoot();
-                }*/
+                }
                 break;
         }
     };
