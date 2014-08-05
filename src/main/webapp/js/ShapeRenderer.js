@@ -30,9 +30,7 @@ var ShapeRenderer = function(_canvas) {
     };
 
     var getColor = function() {
-        // TODO: Render random colors:
-        //  '#'+Math.floor(Math.random()*16777215).toString(16);
-        return availableColors.splice(0, 1);
+        return '#'+Math.floor(Math.random()*16777215).toString(16);
     };
 
     this.updateShape = function(actor) {

@@ -26,7 +26,7 @@ var Tank = {
         tankBody = new fabric.Rect({
             left: tank.x + 3,
             top: tank.y + 4,
-            fill: '' + tank.color,
+            fill: tank.color,
             width: tank.width - 6,
             height: tank.height - 8
         });
