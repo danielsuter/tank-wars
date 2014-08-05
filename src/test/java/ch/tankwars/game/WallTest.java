@@ -16,10 +16,6 @@ public class WallTest {
 	public void setUp() {
 		al = new ActorListener() {
 			@Override
-			public void removeActor(Actor actor) {
-			}
-			
-			@Override
 			public void createActor(Actor actor) {
 			}
 		};

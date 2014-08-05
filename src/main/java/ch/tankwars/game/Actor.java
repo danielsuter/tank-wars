@@ -18,6 +18,8 @@ public abstract class Actor implements Cloneable {
 	private ActorType actorType;
 	private ActorListener actorListener;
 
+	private boolean remove;
+	
 	public Actor(ActorListener actorListener, ActorType actorType) {
 		this.actorListener = actorListener;
 		this.actorType = actorType;
@@ -120,5 +122,13 @@ public abstract class Actor implements Cloneable {
 
 	public void setVelocity(int velocity) {
 		this.velocity = velocity;
+	}
+
+	public boolean isRemove() {
+		return remove;
+	}
+
+	public void setRemove(boolean remove) {
+		this.remove = remove;
 	}
 }

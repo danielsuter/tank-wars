@@ -19,11 +19,11 @@ public class Projectile extends Actor {
 		int newY = getY() + getDirection().calculateVelocityY(getVelocity());
 		
 		if(newX > Game.GAME_WIDTH - getProjectileDimension()  || newX < 0) {
-			getActorListener().removeActor(this);
+			this.setRemove(true);
 			return;
 		} 
 		if(newY > Game.GAME_HEIGHT - getProjectileDimension()  || newY < 0) {
-			getActorListener().removeActor(this);
+			this.setRemove(true);
 			return;
 		}
 		super.act();
