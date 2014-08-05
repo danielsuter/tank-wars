@@ -9,8 +9,6 @@ import java.util.function.Function;
 import ch.tankwars.game.Actor;
 import ch.tankwars.game.Projectile;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -29,18 +27,6 @@ public class GsonFactory {
 
 	public static Gson create() {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.addSerializationExclusionStrategy(new ExclusionStrategy() {
-
-			@Override
-			public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-				return "actorListener".equals(fieldAttributes.getName());
-			}
-
-			@Override
-			public boolean shouldSkipClass(Class<?> clazz) {
-				return false;
-			}
-		});
 
 		gsonBuilder.registerTypeAdapter(ACTOR_LIST_TYPE, new ActorListDeserializer());
 
@@ -56,7 +42,7 @@ public class GsonFactory {
 			JsonArray returnValue = new JsonArray();
 
 			returnValue.add(new JsonPrimitive(GAME_UPDATE));
-
+			// TODO Mapping values in konstantenklasse
 			toSerialize.parallelStream().map(new Function<Actor, JsonObject>() {
 				@Override
 				public JsonObject apply(Actor actor) {

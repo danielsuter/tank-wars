@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 public class GameSerialiseTest {
 
 	private static final int TICKS_PER_SECOND = 10;
-	private static final int MAX_SIZE_BYTES = 2500;
+	private static final int MAX_SIZE_BYTES = 4000;
 
 	ResponseMapper mapper = new ResponseMapper();
 	
@@ -51,7 +51,7 @@ public class GameSerialiseTest {
 			mapper.map(game.getActors(), GsonFactory.ACTOR_LIST_TYPE);
 		}
 		
-		
+		game.tick();
 		List<Actor> actors = game.getActors();
 		String response = mapper.map(actors, GsonFactory.ACTOR_LIST_TYPE);
 		long actualSize = getSizeInBytes(response) * TICKS_PER_SECOND;
