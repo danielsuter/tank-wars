@@ -93,7 +93,11 @@ var Game = function(canvasId) {
 
             if (isNewActor(actor)) {
                 knownActors[actor.id] = actor;
-                renderer.createShape(actor);
+                if(actor.actorType === "PROJECTILE") {
+
+                } else {
+                    renderer.createShape(actor);
+                }
             } else {
                 renderer.updateShape(actor);
             }
