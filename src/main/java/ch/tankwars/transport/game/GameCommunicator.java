@@ -9,6 +9,7 @@ import javax.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.tankwars.performance.PerformanceCounter;
 import ch.tankwars.transport.game.mapper.ResponseMapper;
 
 public class GameCommunicator {
@@ -16,23 +17,22 @@ public class GameCommunicator {
 
 	private final ResponseMapper responseMapper;
 	
+	private PerformanceCounter perf = new PerformanceCounter(10);
+	
 	public GameCommunicator() {
 		responseMapper = new ResponseMapper();
 	}
 
 	public void sendMessage(Object objectToBroadcast, Set<Session> peers, Type type) {
-		long startTime = System.nanoTime();
+		perf.start();
 		
 		String gameAsJson = responseMapper.map(objectToBroadcast, type);
 		
-		long jsonTime = System.nanoTime();
+		perf.lap("JSON TIME");
 		
 		peers.parallelStream().forEach(peer -> sendResponse(peer, gameAsJson));
 		
-		long responseTime = System.nanoTime();
-		double durationMillis = (responseTime - startTime) / 1000000d;
-		double durationJson = (jsonTime - startTime) / 1000000d;
-//		LOGGER.info("SEND TIME: {} JSON TIME: {}", durationMillis, durationJson);
+		perf.stop("COMPLETE TIME ({0,number} characters)", gameAsJson.length());
 	}
 
 	public void sendMessage(Object objectToBroadcast, Session session) {

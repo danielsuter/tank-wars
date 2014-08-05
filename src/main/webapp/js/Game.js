@@ -145,6 +145,7 @@ var Game = function(canvasId) {
         $("#startGame").click(function() {
             $(this).hide();
             $("#stopGame").show();
+            $("#clearGame").show();
             resource.start();
         });
 
@@ -152,6 +153,12 @@ var Game = function(canvasId) {
             resource.stop();
             $(this).hide();
             $("#startGame").show();
+        });
+
+        $("#clearGame").click(function() {
+            resource.clear();
+            $("#stopGame").hide();
+            $("#joinGame").show();
         });
    };
 
