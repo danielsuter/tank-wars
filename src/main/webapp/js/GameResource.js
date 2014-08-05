@@ -36,7 +36,7 @@ var GameResource = function(_onGameUpdate) {
         var message = JSON.parse(event.data);
 
         if(!message.messageType) {
-            message.splice(0, 1);
+            message.splice(0, 1); // return value -> message type
             var actors = mapToActorArray(message);
             onGameUpdate(actors);
         } else if(message.messageType === 'JOIN') {
@@ -46,7 +46,7 @@ var GameResource = function(_onGameUpdate) {
 
     this.onError = function(event) {
         console.error(event);
-    }
+    };
 
     /**
      * @param direction {string} one of RIGHT, LEFT, TOP, DOWN
@@ -84,7 +84,8 @@ var GameResource = function(_onGameUpdate) {
 
     var actorTypeMap = {
         0 : "TANK",
-        1 : "PROJECTILE"
+        1 : "PROJECTILE",
+        2 : "WALL"
     };
 
     var mapToActorArray = function(protocol) {
@@ -94,7 +95,7 @@ var GameResource = function(_onGameUpdate) {
 
             for (var property in this) {
                 var viewPropertyName = protocolToViewMap[property];
-                if (property === "t") {
+                if (viewPropertyName === "actorType") {
                     actor[viewPropertyName]  = actorTypeMap[this[property]];
                 } else {
                     actor[viewPropertyName] = this[property];

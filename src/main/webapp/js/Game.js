@@ -6,11 +6,9 @@ var Game = function(canvasId) {
     var tank;
     var wall;
     var projectile;
-    var tanks = [];
-    var walls = [];
-    var projectiles = [];
     var lastCode;
     var knownActors = [];
+    var knownShapes = [];
 
     var doKeyDown = function(event) {
         if(event.keyCode === lastCode) {
@@ -75,21 +73,21 @@ var Game = function(canvasId) {
     };
 
     var update = function(actors) {
-        var projectilesFromResponse = [];
+        var actorsFromResponse = [];
         $.each(actors, function() {
             if (!knownActors[this.id]) {
                 knownActors[this.id] = this;
             }
 
+            actorsFromResponse[this.id] = this;
+
             var actorType = knownActors[this.id].actorType;
             switch (actorType) {
                 case "TANK":
-                    // FIXME: Rename knownActors -> knownShapes etc.
-                    var tankShape = tanks[this.id];
+                    var tankShape = knownShapes[this.id];
                     if (!tankShape) {
                         tankShape = tank.drawTank(this);
-                        // FIXME: Remove tanks and use knownActors
-                        tanks[this.id] = tankShape;
+                        knownShapes[this.id] = tankShape;
                         canvas.add(tankShape);
                     } else {
                         if (this.x) {
@@ -104,12 +102,10 @@ var Game = function(canvasId) {
                     }
                     break;
                 case "PROJECTILE":
-                    projectilesFromResponse[this.id] = this;
-                    var projectileShape = projectiles[this.id];
+                    var projectileShape = knownShapes[this.id];
                     if (!projectileShape) {
                         projectileShape = projectile.drawProjectile(this);
-                        // FIXME: Remove projectiles and use knownActors
-                        projectiles[this.id] = projectileShape;
+                        knownShapes[this.id] = projectileShape;
                         canvas.add(projectileShape);
                     } else {
                         if (this.x) {
@@ -124,18 +120,17 @@ var Game = function(canvasId) {
                     }
                     break;
                 case "WALL":
-                    var wallShape = walls[this.id];
+                    var wallShape = knownShapes[this.id];
                     if (!wallShape) {
                         wallShape = wall.drawWall(this);
-                        // FIXME: Remove walls and use knownActors
-                        walls[this.id] = wallShape;
+                        knownShapes[this.id] = wallShape;
                         canvas.add(wallShape);
                     }
                     break;
             }
         });
 
-        removeDeadProjectiles(projectilesFromResponse);
+        removeDeadActors(actorsFromResponse);
         canvas.renderAll();
     };
 
@@ -146,13 +141,12 @@ var Game = function(canvasId) {
         canvas.renderAll();
     };
 
-    var removeDeadProjectiles = function(projectilesFromResponse) {
-        for (var id in projectiles) {
-            if (!projectilesFromResponse[id]) {
-                canvas.remove(projectiles[id]);
-                // FIXME: Remove projectiles and use knownActors
-                projectiles[id] = undefined;
+    var removeDeadActors = function(actorsFromResponse) {
+        for (var id in knownActors) {
+            if (!actorsFromResponse[id]) {
+                canvas.remove(knownShapes[id]);
                 knownActors[id] = undefined;
+                knownShapes[id] = undefined;
             }
         }
     };
