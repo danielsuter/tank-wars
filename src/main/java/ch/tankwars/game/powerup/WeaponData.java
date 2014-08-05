@@ -1,5 +1,6 @@
 package ch.tankwars.game.powerup;
 
+import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Direction;
 import ch.tankwars.game.projectiles.CircularProjectile;
 import ch.tankwars.game.projectiles.Projectile;
@@ -26,11 +27,11 @@ public enum WeaponData {
 		this.maxShots = maxShots;
 	}
 	
-	public Projectile shoot(int tankId, Direction direction) {
+	public Projectile shoot(int tankId, Direction direction, BattlefieldMap battlefieldMap) {
 		// TODO remove hack
 		Projectile projectile = null;
 		if(this == LASER_GUN) {
-			projectile = new Projectile(tankId) {
+			projectile = new Projectile(tankId, battlefieldMap) {
 				@Override
 				public int getHeight() {
 					return direction == Direction.LEFT || direction == Direction.RIGHT ? 2 : 16;
@@ -42,7 +43,7 @@ public enum WeaponData {
 				}
 			};
 		} else {
-			projectile = new CircularProjectile(tankId);
+			projectile = new CircularProjectile(tankId, battlefieldMap);
 		}
 		projectile.setProjectileDimension(dimension);
 		projectile.setVelocity(velocity);

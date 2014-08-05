@@ -20,7 +20,7 @@ public class WallTest {
 			}
 		};
 		
-		tank = new Tank(al, "Fritzli");
+		tank = new Tank(al, "Fritzli", null);
 		wall = new Wall(1, 1, 1, 1);
 	}
 

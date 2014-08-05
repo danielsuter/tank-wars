@@ -2,7 +2,7 @@ package ch.tankwars.game.projectiles;
 
 import ch.tankwars.game.Actor;
 import ch.tankwars.game.ActorType;
-import ch.tankwars.game.Game;
+import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Referee;
 
 
@@ -14,10 +14,12 @@ public abstract class Projectile extends Actor {
 	private int projectileDimension;
 	private int owningTankId; 
 	private int power;
+	private BattlefieldMap battlefieldMap;
 	
-	public Projectile(int owningTankId) {
+	public Projectile(int owningTankId, BattlefieldMap battlefieldMap) {
 		super(ActorType.PROJECTILE);
 		this.owningTankId = owningTankId;
+		this.battlefieldMap = battlefieldMap;
 		setProjectileDimension(DEFAULT_PROJECTILE_DIMENSION);
 		setVelocity(DEFAULT_PROJECTILE_SPEED);
 		setPower(DEFAULT_PROJECTILE_POWER);
@@ -27,12 +29,11 @@ public abstract class Projectile extends Actor {
 	public void act() {
 		int newX = getX() + getDirection().calculateVelocityX(getVelocity());
 		int newY = getY() + getDirection().calculateVelocityY(getVelocity());
-		
-		if(newX > Game.getGameWidth() - getProjectileDimension()  || newX < 0) {
+		if(newX > battlefieldMap.getFieldWidth() - getProjectileDimension()  || newX < 0) {
 			this.setRemove(true);
 			return;
 		} 
-		if(newY > Game.getGameHeight() - getProjectileDimension()  || newY < 0) {
+		if(newY > battlefieldMap.getFieldHeight() - getProjectileDimension()  || newY < 0) {
 			this.setRemove(true);
 			return;
 		}

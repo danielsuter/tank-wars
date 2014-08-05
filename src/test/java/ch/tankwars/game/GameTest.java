@@ -7,13 +7,15 @@ import org.junit.Test;
 
 public class GameTest {
 
+	private static final int GAME_HEIGHT = 100;
+	private static final int GAME_WIDTH = 100;
 	private Game game;
 	private Tank tank;
 
 	@Before
 	public void setUp() {
 		game = new Game();
-		game.setPlayGround(new BattlefieldMap(100, 100));
+		game.setPlayGround(new BattlefieldMap(GAME_WIDTH, GAME_HEIGHT));
 		tank = game.spawn("testPlayer");
 	}
 	
@@ -29,7 +31,7 @@ public class GameTest {
 	
 	@Test
 	public void tankCollisionWithWallsRight() {
-		int expectedPositionX = Game.getGameWidth() - tank.getWidth();
+		int expectedPositionX = GAME_WIDTH - tank.getWidth();
 		tank.setPosition(expectedPositionX - 2, 0);
 		tank.setVelocity(5);
 		
@@ -41,7 +43,7 @@ public class GameTest {
 	
 	@Test
 	public void tankCollisionWithWallsDown() {
-		int expectedPositionY = Game.getGameHeight() - tank.getHeight();
+		int expectedPositionY = GAME_HEIGHT - tank.getHeight();
 		tank.setPosition(0, expectedPositionY - 2);
 		tank.setVelocity(5);
 		tank.move(Direction.DOWN);

@@ -1,12 +1,14 @@
 package ch.tankwars.game;
 
+import java.awt.Dimension;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.Consumer;
 
-
+import ch.tankwars.game.powerup.PowerUp;
 import ch.tankwars.game.powerup.strategy.PowerUpSpawnStrategy;
 import ch.tankwars.game.powerup.strategy.RandomPowerUpStrategy;
 
@@ -14,25 +16,26 @@ import ch.tankwars.game.powerup.strategy.RandomPowerUpStrategy;
  * Contains all game logic.
  */
 public class Game implements ActorListener {
-
-	private static int gameWidth = 800;
-	private static int gameHeight = 600;
-
 	private ConcurrentLinkedQueue<Actor> actorsToAdd = new ConcurrentLinkedQueue<Actor>();
 
 	private List<Actor> actors = new LinkedList<Actor>();
 	private int globalId;
-	private static int roundCounter = 0; 
 
 	private BattlefieldMap battlefieldMap;
 	private Referee referee = new Referee();
 	
 	private PowerUpSpawnStrategy powerUpSpawnStrategy = new RandomPowerUpStrategy();
 	
-//	private RandomPositionCalculator positionCalculator = new RandomPositionCalculator();
+	private RandomPositionCalculator positionCalculator;
 	
 	public synchronized void tick() {
-		powerUpSpawnStrategy.spawnPowerUps(actors).forEach(powerup -> this.createActor(powerup));
+		powerUpSpawnStrategy.spawnPowerUps(actors).forEach(new Consumer<PowerUp>() {
+			@Override
+			public void accept(PowerUp powerUp) {
+				positionCalculator.setPosition(getActors(), powerUp);
+				createActor(powerUp);
+			}
+		});
 		
 		
 		addActorsInQueue();
@@ -42,6 +45,7 @@ public class Game implements ActorListener {
 		for (Actor actor : actors) {
 			if (!actor.isDead()) {
 				actor.act();
+				
 				for (Wall wall : battlefieldMap.getWalls()) {
 					if(actor.collidesWith(wall)) {
 						actor.onCollision(wall, referee);
@@ -77,10 +81,8 @@ public class Game implements ActorListener {
 	}
 
 	public Tank spawn(String playerName) {
-		final Tank tank = new Tank(this, playerName);
-
-		// TODO replace
-		computeRandomActorPosition(tank);
+		final Tank tank = new Tank(this, playerName, battlefieldMap);
+		positionCalculator.setPosition(getActors(), tank);
 		createActor(tank);
 		referee.addTank(tank);
 
@@ -89,8 +91,8 @@ public class Game implements ActorListener {
 
 	private void computeRandomActorPosition(final Actor actor) {
 		final Random random = new Random();
-		final int x = random.nextInt(GAME_WIDTH - 50 - actor.getWidth()) + 20;
-		final int y = random.nextInt(GAME_HEIGHT - 50 - actor.getHeight()) + 20;
+		final int x = random.nextInt(battlefieldMap.getFieldWidth() - 50 - actor.getWidth()) + 20;
+		final int y = random.nextInt(battlefieldMap.getFieldHeight() - 50 - actor.getHeight()) + 20;
 		actor.setPosition(x, y);
 		checkForCollisions(actor);
 	}
@@ -123,24 +125,13 @@ public class Game implements ActorListener {
 	// TODO should become load playground
 	public void setPlayGround(BattlefieldMap battlefieldMap) {
 		this.battlefieldMap = battlefieldMap;
+		positionCalculator = new RandomPositionCalculator(battlefieldMap);
 		
 		battlefieldMap.getWalls().forEach(wall -> wall.setId(generateId()));
 		battlefieldMap.getPowerUps().forEach(powerup -> createActor(powerup));
 	}
-
-	public static int getGameWidth() {
-		return gameWidth;
-	}
-
-	public static void setGameWidth(int gameWidth) {
-		Game.gameWidth = gameWidth;
-	}
-
-	public static int getGameHeight() {
-		return gameHeight;
-	}
-
-	public static void setGameHeight(int gameHeight) {
-		Game.gameHeight = gameHeight;
+	
+	public Dimension getPlayfieldSize() {
+		return new Dimension(battlefieldMap.getFieldWidth(), battlefieldMap.getFieldHeight());
 	}
 }

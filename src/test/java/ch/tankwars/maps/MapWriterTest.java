@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 public class MapWriterTest {
 
 	private static final int WALL_THICKNESS = 10;
+	private static final int GAME_WIDTH = 800;
+	private static final int GAME_HEIGHT = 600;
 	private static final String MAP_PATH = "src/main/resources/maps/";
 	private Gson gson;
 	private BattlefieldMap battlefieldMap;
@@ -71,13 +73,13 @@ public class MapWriterTest {
 
 	@Test
 	public void labyrinth() throws Exception {
-		battlefieldMap = new BattlefieldMap(Game.getGameWidth(), Game.getGameHeight());
+		battlefieldMap = new BattlefieldMap(GAME_WIDTH, GAME_HEIGHT);
 		
 		// OUTER WALLS
-		addWallToBattleField(0, 0, WALL_THICKNESS, Game.getGameHeight());
-		addWallToBattleField(Game.getGameWidth() - WALL_THICKNESS, 0, WALL_THICKNESS, Game.getGameHeight());
-		addWallToBattleField(WALL_THICKNESS, 0, Game.getGameWidth() - 2 * WALL_THICKNESS, WALL_THICKNESS);
-		addWallToBattleField(WALL_THICKNESS, Game.getGameHeight() - WALL_THICKNESS, Game.getGameWidth() - 2 * WALL_THICKNESS, WALL_THICKNESS);
+		addWallToBattleField(0, 0, WALL_THICKNESS, GAME_HEIGHT);
+		addWallToBattleField(GAME_WIDTH - WALL_THICKNESS, 0, WALL_THICKNESS, GAME_HEIGHT);
+		addWallToBattleField(WALL_THICKNESS, 0, GAME_WIDTH - 2 * WALL_THICKNESS, WALL_THICKNESS);
+		addWallToBattleField(WALL_THICKNESS, GAME_HEIGHT - WALL_THICKNESS, GAME_WIDTH - 2 * WALL_THICKNESS, WALL_THICKNESS);
 
 		addWallToBattleField(100, 100, 600, WALL_THICKNESS);
 		addWallToBattleField(100, 400, 600, WALL_THICKNESS);
@@ -91,7 +93,7 @@ public class MapWriterTest {
 
 	@Test
 	public void defaultMap() throws Exception {
-		battlefieldMap = new BattlefieldMap(Game.getGameWidth(), Game.getGameHeight());
+				battlefieldMap = new BattlefieldMap(GAME_WIDTH, GAME_HEIGHT);
 		addWallToBattleField(5, 5, 20, 100);
 		addWallToBattleField(50, 89, 200, 10);
 		addWallToBattleField(600, 411, 50, 50);

@@ -40,10 +40,6 @@ public class GameController {
 	
 	public GameController() {
 		loadMap(defaultMapName);
-		
-		// FIXME: Use map size from JSON here
-		Game.setGameWidth(1400);
-		Game.setGameHeight(500);
 	}
 	
 	public synchronized void start() {
