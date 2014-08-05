@@ -1,9 +1,10 @@
 package ch.tankwars.game;
 
+import ch.tankwars.game.powerup.CurrentWeapon;
 import ch.tankwars.game.powerup.HealthPowerUp;
 import ch.tankwars.game.powerup.LaserGunPowerUp;
 import ch.tankwars.game.powerup.RocketLauncherPowerUp;
-import ch.tankwars.game.powerup.Weapon;
+import ch.tankwars.game.powerup.WeaponData;
 
 public class Tank extends Actor {
 
@@ -12,7 +13,7 @@ public class Tank extends Actor {
 	private final static int DEFAULT_SPEED = 8;
 	private final static int MAX_HEALTH = 100;
 	
-	private Weapon weapon;
+	private CurrentWeapon currentWeapon;
 
 	private final String playerName;
 	private int health = MAX_HEALTH;
@@ -28,7 +29,7 @@ public class Tank extends Actor {
 		setWidth(DEFAULT_WIDTH);
 		setHeight(DEFAULT_HEIGHT);
 		setVelocity(0);
-		this.weapon = Weapon.STANDARD_CANON;
+		this.currentWeapon = new CurrentWeapon();
 	}
 	
 	public void move(Direction direction) {
@@ -89,7 +90,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		Projectile projectile = weapon.shoot(getId(), getDirection());
+		Projectile projectile = currentWeapon.shoot(getId(), getDirection());
 		
 		// TODO beautify
 		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), 
@@ -159,11 +160,11 @@ public class Tank extends Actor {
 		health =  Math.min(MAX_HEALTH, health + healthPowerUp.getHealthGain());
 	}
 
-	public Weapon getWeapon() {
-		return weapon;
+	public WeaponData getWeaponData() {
+		return currentWeapon.getWeaponData();
 	}
 
-	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
+	public void setWeapon(WeaponData weaponData) {
+		this.currentWeapon.setWeapon(weaponData);
 	}
 }

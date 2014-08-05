@@ -110,6 +110,7 @@ var Game = function(canvasId) {
 		myId = id;
         drawBoard(playGround);
         $("#playersDisplay").show();
+        newsFlash("WELCOME!");
     };
 
     var update = function(actorsFromResponse) {
@@ -238,22 +239,27 @@ var Game = function(canvasId) {
    };
 
    var updateScore = function(actor) {
+       var scoreChanged = false;
        if (actor.hits) {
            var hitsBadge = $("#hits" + actor.id);
            hitsBadge.html("Hits: " + actor.hits);
            hitsBadge.data("value", actor.hits);
+           scoreChanged = true;
        }
 
        if (actor.kills) {
            var killsBadge = $("#kills" + actor.id);
            killsBadge.html("Kills: " + actor.kills);
            killsBadge.data("value", actor.kills);
+           scoreChanged = true;
        }
        if (actor.color) {
            $("#color" + actor.id).css('background-color', actor.color);
        }
 
-       sortRows();
+       if (scoreChanged) {
+           sortRows();
+       }
    };
 
     var sortRows = function() {
@@ -277,6 +283,15 @@ var Game = function(canvasId) {
         $.each(playerRows, function() {
            $("#playersList").append(this);
         });
+    };
+
+    var newsFlash = function(text) {
+        var container = $("#gameNews");
+        var news = $("#newsText");
+
+        news.html(text);
+        container.fadeIn(1000);
+        container.fadeOut(4000);
     };
 
     resource = new GameResource(update, onPlayersChanged);

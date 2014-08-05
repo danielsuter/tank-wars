@@ -35,16 +35,29 @@
                 <canvas id="board" tabindex="1"></canvas>
             </div>
             <div class="col-md-3" id="playersDisplay" style="display: none;">
-                <h3>Players</h3>
+                <h3>Stats</h3>
                 <ul class="list-group" id="playersList"></ul>
+
             </div>
         </div>
+
+
     </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+        <div class="container">
+            <div style="display: none;" id="gameNews" class="col-md-4 alert alert-success" role="alert">
+                <strong id="newsText"></strong>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </nav>
 
     <script>
         $(function() {
             new Game('board');
         });
+
     </script>
 
     <script src="js/lib/fabric.min.js"></script>

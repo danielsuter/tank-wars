@@ -38,6 +38,7 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 	private static final String HEALTH = "l";
 	private static final String KILLS = "k";
 	private static final String HITS = "s";
+	private static final String WEAPON = "g";
 
 	private static final int GAME_UPDATE = 0;
 
@@ -93,8 +94,8 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 				if (actor instanceof Tank) {
 					Tank tank = (Tank) actor;
 					Tank cachedTank = (Tank) cachedActor;
-					if (cachedTank == null || cachedTank.getWeapon().getFireRatePerSecond() != tank.getWeapon().getFireRatePerSecond()) {
-						actorJson.addProperty(FIRE_RATE, tank.getWeapon().getFireRatePerSecond());
+					if (cachedTank == null || cachedTank.getWeaponData().getFireRatePerSecond() != tank.getWeaponData().getFireRatePerSecond()) {
+						actorJson.addProperty(FIRE_RATE, tank.getWeaponData().getFireRatePerSecond());
 					}
 
 					if (cachedTank == null || cachedTank.getHealth() != tank.getHealth()) {
@@ -107,6 +108,10 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 
 					if (cachedTank == null || cachedTank.getKillsMade() != tank.getKillsMade()) {
 						actorJson.addProperty(KILLS, tank.getKillsMade());
+					}
+					
+					if (cachedTank == null || cachedTank.getWeaponData().getWeaponId() != tank.getWeaponData().getWeaponId()) {
+						actorJson.addProperty(WEAPON, tank.getWeaponData().getWeaponId());
 					}
 				}
 
