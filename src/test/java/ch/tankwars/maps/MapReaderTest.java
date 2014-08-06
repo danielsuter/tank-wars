@@ -35,5 +35,7 @@ public class MapReaderTest {
 		assertEquals(600, battlefieldMap.getFieldHeight());
 		assertEquals(800, battlefieldMap.getFieldWidth());
 		assertTrue(battlefieldMap.getPowerUps().size() > 0);
+		assertTrue(battlefieldMap.getWalls().size() > 0);
+		
 	}
 }
