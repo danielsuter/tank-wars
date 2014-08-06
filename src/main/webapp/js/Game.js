@@ -233,7 +233,7 @@ var Game = function(canvasId) {
 
    var updateScore = function(actor) {
         if (actor.hits) {
-            $("#hits" + actor.id).html("Hits:" + actor.hits);
+            $("#hits" + actor.id).html("Hits: " + actor.hits);
         }
 
         if (actor.kills) {
