@@ -92,6 +92,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
+		// TODO strategy pattern
 		final Projectile projectile = new Projectile(getId());
 		switch (weapon) {
 			case STANDARD_CANON:
@@ -131,6 +132,7 @@ public class Tank extends Actor {
 
 	@Override
 	public void onCollision(Actor actor, Referee referee) {
+		// TODO switch case
 		if(actor instanceof Projectile) {
 			Projectile projectile = (Projectile) actor;
 			if(projectile.getOwningTankId() != getId()) {
@@ -142,21 +144,7 @@ public class Tank extends Actor {
 				}
 			}
 		} else if (actor instanceof Wall) {
-			Wall wall = (Wall) actor;
-			switch(getDirection()) {
-				case DOWN: 
-					setY(wall.getY() - getHeight());
-					break; 
-				case UP:
-					setY(wall.getY() + wall.getHeight());
-					break;
-				case RIGHT:
-					setX(wall.getX() - getWidth());
-					break;
-				case LEFT:
-					setX(wall.getX() + wall.getWidth());
-					break; 
-			}
+			prohibitCollision(actor);
 		} else if (actor instanceof HealthPowerUp) {
 			HealthPowerUp healthPowerUp = (HealthPowerUp) actor;
 			increaseHealth(healthPowerUp);
@@ -169,6 +157,25 @@ public class Tank extends Actor {
 		} else if (actor instanceof RocketLauncherPowerUp) {
 			RocketLauncherPowerUp rocketLauncherPowerUp = (RocketLauncherPowerUp) actor;
 			setWeapon(rocketLauncherPowerUp.getWeapon());
+		} else if(actor instanceof Tank) {
+			prohibitCollision(actor);
+		}
+	}
+
+	private void prohibitCollision(Actor actor) {
+		switch(getDirection()) {
+			case DOWN: 
+				setY(actor.getY() - getHeight());
+				break; 
+			case UP:
+				setY(actor.getY() + actor.getHeight());
+				break;
+			case RIGHT:
+				setX(actor.getX() - getWidth());
+				break;
+			case LEFT:
+				setX(actor.getX() + actor.getWidth());
+				break; 
 		}
 	}
 
