@@ -105,7 +105,6 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart) {
         "i" : "id",
         "x" : "x",
         "y" : "y",
-        "r" : "radius",
         "w" : "width",
         "h" : "height",
         "d" : "direction",

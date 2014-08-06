@@ -1,11 +1,12 @@
 package ch.tankwars.game;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.tankwars.game.projectiles.CircularProjectile;
 import ch.tankwars.game.projectiles.Projectile;
 
 public class GameCollisionTest {
@@ -25,7 +26,7 @@ public class GameCollisionTest {
 		Tank tank = game.spawn("Chief");
 		tank.setPosition(0, 0);
 
-		Projectile projectile = new CircularProjectile(-1, battlefieldMap);
+		Projectile projectile = new Projectile(-1, battlefieldMap);
 		projectile.setPosition(24, 0);
 
 		assertTrue(projectile.collidesWith(tank));
@@ -37,7 +38,7 @@ public class GameCollisionTest {
 		Tank tank = game.spawn("Chief");
 		tank.setPosition(0, 0);
 
-		Projectile projectile = new CircularProjectile(-1, battlefieldMap);
+		Projectile projectile = new Projectile(-1, battlefieldMap);
 		projectile.setPosition(27, 0);
 		projectile.setDirection(Direction.LEFT);
 		projectile.setVelocity(10);
@@ -51,12 +52,12 @@ public class GameCollisionTest {
 
 	@Test
 	public void noCollisionBetweenProjectiles() {
-		Projectile projectile1 = new CircularProjectile(-1, battlefieldMap);
+		Projectile projectile1 = new Projectile(-1, battlefieldMap);
 		projectile1.setPosition(0, 0);
 		projectile1.setDirection(Direction.LEFT);
 		projectile1.setVelocity(10);
 
-		Projectile projectile2 = new CircularProjectile(-2, battlefieldMap);
+		Projectile projectile2 = new Projectile(-2, battlefieldMap);
 		projectile2.setPosition(30, 0);
 		projectile2.setDirection(Direction.LEFT);
 		projectile2.setVelocity(10);
@@ -73,7 +74,7 @@ public class GameCollisionTest {
 		battlefieldMap.addWall(wall);
 		game.setPlayGround(battlefieldMap);
 
-		Projectile projectile = new CircularProjectile(-1, battlefieldMap);
+		Projectile projectile = new Projectile(-1, battlefieldMap);
 		projectile.setPosition(15, 15);
 		projectile.setDirection(Direction.UP);
 		projectile.setVelocity(10);
