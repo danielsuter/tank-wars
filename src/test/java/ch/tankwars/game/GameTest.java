@@ -61,4 +61,35 @@ public class GameTest {
 		assertEquals(0, tank.getY());		
 	}
 
+	@Test
+	public void tankCollisionWithTankOnXAxis() {
+		tank.setPosition(0, 0);
+		tank.setVelocity(2);
+		tank.move(Direction.RIGHT);
+		
+		Tank tank2 = game.spawn("player 2");
+		tank2.setPosition(tank.getWidth() + 2, 0);
+		tank2.setVelocity(2);
+		tank2.move(Direction.LEFT);
+		
+		game.tick();
+		
+		assertFalse("tanks must not collide", tank.collidesWith(tank2));
+	}
+	
+	@Test
+	public void tankCollisionTank() {
+		tank.setPosition(0, 0);
+		tank.setVelocity(2);
+		tank.move(Direction.RIGHT);
+		
+		Tank tank2 = game.spawn("player 2");
+		tank2.setPosition(0, tank.getHeight());
+		tank2.setVelocity(2);
+		tank2.move(Direction.UP);
+		
+		game.tick();
+		
+		assertFalse("tanks must not collide", tank.collidesWith(tank2));
+	}
 }

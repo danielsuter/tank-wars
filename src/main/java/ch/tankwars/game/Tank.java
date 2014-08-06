@@ -92,6 +92,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
+		// TODO strategy pattern
 		final Projectile projectile = new Projectile(getId());
 		switch (weapon) {
 			case STANDARD_CANON:
@@ -131,6 +132,7 @@ public class Tank extends Actor {
 
 	@Override
 	public void onCollision(Actor actor, Referee referee) {
+		// TODO switch case
 		if(actor instanceof Projectile) {
 			Projectile projectile = (Projectile) actor;
 			if(projectile.getOwningTankId() != getId()) {
@@ -169,6 +171,22 @@ public class Tank extends Actor {
 		} else if (actor instanceof RocketLauncherPowerUp) {
 			RocketLauncherPowerUp rocketLauncherPowerUp = (RocketLauncherPowerUp) actor;
 			setWeapon(rocketLauncherPowerUp.getWeapon());
+		} else if(actor instanceof Tank) {
+			Tank tank = (Tank) actor;
+			switch(getDirection()) {
+				case DOWN: 
+					setY(tank.getY() - getHeight());
+					break; 
+				case UP:
+					setY(tank.getY() + tank.getHeight());
+					break;
+				case RIGHT:
+					setX(tank.getX() - getWidth());
+					break;
+				case LEFT:
+					setX(tank.getX() + tank.getWidth());
+					break; 
+			}
 		}
 	}
 
