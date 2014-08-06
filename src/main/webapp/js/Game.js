@@ -163,7 +163,22 @@ var Game = function(canvasId) {
         });
    };
 
-    resource = new GameResource(update);
+   var playerDisplayTemplate =
+       "<li class='list-group-item'>" +
+            "{{name}}" +
+            "<span class='badge'>5</span>" +
+       "</li>";
+
+
+   var onPlayersChanged = function(players) {
+       var rows = "";
+       $.each(players, function() {
+           rows += Mustache.render(playerDisplayTemplate, this);
+       });
+       $("#playersList").html(rows);
+   };
+
+    resource = new GameResource(update, onPlayersChanged);
     renderer = new ShapeRenderer(canvas);
     registerEventListeners();
 };

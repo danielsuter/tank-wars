@@ -2,7 +2,8 @@ package ch.tankwars.transport.game.dto;
 
 public enum MessageType {
 
-	JOIN("JOIN");
+	JOIN("JOIN"),
+	PLAYERS_CHANGED("PLAYERS_CHANGED");
 
 	private final String type;
 

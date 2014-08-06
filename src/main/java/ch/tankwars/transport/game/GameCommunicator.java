@@ -37,7 +37,10 @@ public class GameCommunicator {
 
 	public void sendMessage(Object objectToBroadcast, Session session) {
 		sendResponse(session, responseMapper.map(objectToBroadcast));
-
+	}
+	
+	public void sendMessage(Object objectToBroadcast, Set<Session> peers) {
+		peers.parallelStream().forEach(peer -> sendResponse(peer, responseMapper.map(objectToBroadcast)));
 	}
 	
 	private void sendResponse(Session session, String response) {

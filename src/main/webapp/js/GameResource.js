@@ -1,7 +1,8 @@
-var GameResource = function(_onGameUpdate) {
+var GameResource = function(_onGameUpdate, _onPlayersChanged) {
     var onGameUpdate = _onGameUpdate;
     var websocket;
     var onJoined;
+    var onPlayersChanged = _onPlayersChanged;
 
     this.join = function(_onJoined, playerName) {
         console.log("Joining game with player name " + playerName + ".");
@@ -41,6 +42,9 @@ var GameResource = function(_onGameUpdate) {
             onGameUpdate(actors);
         } else if(message.messageType === 'JOIN') {
             onJoined(message.playerId, message.playGround);
+        } else if(message.messageType === "PLAYERS_CHANGED") {
+            console.log(message);
+            onPlayersChanged(message.players);
         }
     };
 

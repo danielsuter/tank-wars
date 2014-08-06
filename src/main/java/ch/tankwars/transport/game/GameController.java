@@ -18,6 +18,7 @@ import ch.tankwars.game.Game;
 import ch.tankwars.game.PlayGround;
 import ch.tankwars.game.Tank;
 import ch.tankwars.transport.game.dto.JoinResponse;
+import ch.tankwars.transport.game.dto.PlayersChangedResponse;
 import ch.tankwars.transport.game.mapper.ActorListDeserializer;
 
 public class GameController {
@@ -86,6 +87,12 @@ public class GameController {
 		
 		JoinResponse joinResponse = new JoinResponse(spawnedTank.getId(), game.getPlayGround());
 		gameCommunicator.sendMessage(joinResponse, player);
+		updatePlayers();
+	}
+	
+	public void updatePlayers() {
+		PlayersChangedResponse response = new PlayersChangedResponse(tanksMap.values());
+		gameCommunicator.sendMessage(response, peers);
 	}
 
 	public void move(Session player, Direction direction) {
