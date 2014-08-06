@@ -82,6 +82,7 @@ var Game = function(canvasId) {
     var onJoin = function(id, playGround) {
 		myId = id;
         drawBoard(playGround);
+        $("#playersDisplay").show();
     };
 
     var update = function(actorsFromResponse) {
