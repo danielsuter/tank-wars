@@ -2,16 +2,18 @@ var ShapeRenderer = function(_canvas) {
 
     var shapes = [];
     var canvas = _canvas;
+    var availableColors = ['white', 'red', 'black', 'blue', 'orange'];
 
     this.createShape = function(actor) {
         var shape;
         switch (actor.actorType) {
             case "TANK":
+                actor.color = getColor();
                 shape = Tank.drawTank(actor);
                 shape.direction = actor.direction;
                 break;
             case "PROJECTILE":
-                shape = Projectile.drawProjectile(actor);
+                //shape = Projectile.drawProjectile(actor);
                 break;
             case "WALL":
                 shape = Wall.drawWall(actor);
@@ -19,6 +21,10 @@ var ShapeRenderer = function(_canvas) {
 
         shapes[actor.id] = shape;
         canvas.add(shape);
+    };
+
+    var getColor = function() {
+        return availableColors.splice(0, 1);
     };
 
     this.updateShape = function(actor) {
