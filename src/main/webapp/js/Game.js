@@ -102,6 +102,7 @@ var Game = function(canvasId) {
 		myId = id;
         drawBoard(playGround);
         $("#playersDisplay").show();
+        newsFlash("WELCOME!");
     };
 
     var update = function(actorsFromResponse) {
@@ -271,6 +272,15 @@ var Game = function(canvasId) {
         $.each(playerRows, function() {
            $("#playersList").append(this);
         });
+    };
+
+    var newsFlash = function(text) {
+        var container = $("#gameNews");
+        var news = $("#newsText");
+
+        news.html(text);
+        container.fadeIn(1000);
+        container.fadeOut(4000);
     };
 
     resource = new GameResource(update, onPlayersChanged);
