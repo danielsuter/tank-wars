@@ -7,6 +7,11 @@ var ShapeRenderer = function(_canvas) {
     var statusBarShape;
     var cachedStatusBarText;
 
+    var optimizeShape = function (shape) {
+        shape.hasRotatingPoint = false;
+        shape.selectable = false;
+    };
+
     this.createShape = function(actor) {
         var shape;
         switch (actor.actorType) {
@@ -15,11 +20,8 @@ var ShapeRenderer = function(_canvas) {
                 shape = Tank.drawTank(actor);
                 shape.direction = actor.direction;
 
-                // TODO looks hacky
-                // TODO optimize
                 var healthBar = HealthBar.drawHealthBar(actor);
-                healthBar.healthBar = false;
-                healthBar.selectable = false;
+                optimizeShape(healthBar);
                 healthBars[actor.id] = healthBar;
                 canvas.add(healthBar);
                 break;
@@ -45,8 +47,7 @@ var ShapeRenderer = function(_canvas) {
 
         // optimize
         if(shape) {
-            shape.hasRotatingPoint = false;
-            shape.selectable = false;
+            optimizeShape(shape);
             shapes[actor.id] = shape;
             canvas.add(shape);
         }
