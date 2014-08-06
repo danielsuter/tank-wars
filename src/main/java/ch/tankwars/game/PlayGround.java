@@ -42,4 +42,8 @@ public class PlayGround{
 	public Set<Wall> getWalls() {
 		return walls;
 	}
+	
+	public Set<PowerUp> getPowerUps() {
+		return powerUps;
+	}
 }

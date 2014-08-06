@@ -103,8 +103,11 @@ public class Game implements ActorListener {
 	public PlayGround getPlayGround() {
 		return playGround;
 	}
-
+	// TODO should become load playground
 	public void setPlayGround(PlayGround playGround) {
 		this.playGround = playGround;
+		
+		playGround.getWalls().forEach(wall -> wall.setId(generateId()));
+		playGround.getPowerUps().forEach(powerup -> createActor(powerup));
 	}
 }

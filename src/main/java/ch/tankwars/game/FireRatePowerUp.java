@@ -3,7 +3,7 @@ package ch.tankwars.game;
 public class FireRatePowerUp extends PowerUp {
 	
 	private int fireRateGain;
-
+	
 	public FireRatePowerUp(int x, int y) {
 		super(ActorType.FIRERATEPOWERUP);
 		setX(x);

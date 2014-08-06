@@ -42,6 +42,15 @@ public class GameSerialiseTest {
 	}
 
 	@Test
+	public void playgroundMapping() {
+		PlayGround playGround = new PlayGround(1000, 1000);
+		playGround.addPowerUp(new FireRatePowerUp(0, 0));
+		playGround.addWall(new Wall(0, 0, 0, 100, 100));
+		
+		gson.toJson(playGround);
+	}
+	
+	@Test
 	public void assertSize() {
 		List<Tank> tanks = new LinkedList<Tank>();
 		for(int i = 0; i< 4; i++) {

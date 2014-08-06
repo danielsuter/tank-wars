@@ -12,12 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.tankwars.game.Direction;
-import ch.tankwars.game.FireRatePowerUp;
 import ch.tankwars.game.Game;
-import ch.tankwars.game.HealthPowerUp;
-import ch.tankwars.game.LaserGunPowerUp;
 import ch.tankwars.game.PlayGround;
-import ch.tankwars.game.RocketLauncherPowerUp;
 import ch.tankwars.game.Tank;
 import ch.tankwars.maps.MapReader;
 import ch.tankwars.performance.PerformanceCounter;
@@ -42,26 +38,11 @@ public class GameController {
 	
 	public GameController() {
 		initPlayground();
-		// TODO proper map loading
-//		loadMap("default.json");
 	}
 	
 	// TODO will be replaced by loadMap
 	private void initPlayground() {
-		PlayGround playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
-		game.setPlayGround(playGround);
-		game.addWall(5, 5, 20, 100);
-		game.addWall(50, 89, 200, 10);
-		game.addWall(600, 411, 50, 50);
-		game.addWall(555, 44, 80, 20);
-
-		addHealthPowerUp(200, 200);
-		addHealthPowerUp(400, 300);
-		addFireRatePowerUp(100, 100);
-		addFireRatePowerUp(500, 580);
-		
-		game.createActor(new RocketLauncherPowerUp(250, 250));
-		game.createActor(new LaserGunPowerUp(430, 70));
+		loadMap("default.json");
 	}
 
 	public synchronized void start() {
@@ -137,15 +118,6 @@ public class GameController {
 		playerPeers.remove(playerPeer);
 	}
 	
-	// TODO remove
-	private void addHealthPowerUp(int x, int y) {
-		game.createActor(new HealthPowerUp(x, y));
-	}
-	
-	// TODO remove
-	private void addFireRatePowerUp(int x, int y) {
-		game.createActor(new FireRatePowerUp(x, y));
-	}
 
 	public void shoot(PlayerPeer playerPeer) {
 		Tank tank = playerPeer.getTank();
