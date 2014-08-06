@@ -11,6 +11,8 @@ public class Tank extends Actor {
 
 	private final String playerName;
 	private int health = DEFAULT_HEALTH;
+	private int hitsMade = 0;
+	private int killsMade = 0;
 	
 	public Tank(ActorListener actorListener, String playerName) {
 		super(actorListener, ActorType.TANK);
@@ -33,6 +35,22 @@ public class Tank extends Actor {
 	
 	public int getFireRatePerSecond() {
 		return fireRatePerSecond;
+	}
+	
+	public void madeHit() {
+		hitsMade++;
+	}
+	
+	public void madeKill() {
+		killsMade++;
+	}
+	
+	public int getHitsMade() {
+		return hitsMade;
+	}
+	
+	public int getKillsMade() {
+		return killsMade;
 	}
 	
 	@Override
@@ -91,12 +109,19 @@ public class Tank extends Actor {
 	}
 
 	@Override
-	public void onCollision(Actor actor) {
+	public void onCollision(Actor actor, Referee referee) {
 		if(actor instanceof Projectile) {
 			Projectile projectile = (Projectile) actor;
 			if(projectile.getOwningTankId() != getId()) {
 				damage(projectile.getPower());
+				
+				if (health <= 0) {
+					referee.tankMadeKill(projectile.getOwningTankId());
+				} else {
+					referee.tankMadeHit(projectile.getOwningTankId());
+				}
 			}
+			
 		} else if (actor instanceof Wall) {
 			Wall wall = (Wall) actor;
 			switch(getDirection()) {

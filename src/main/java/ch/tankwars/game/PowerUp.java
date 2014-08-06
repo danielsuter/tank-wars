@@ -9,7 +9,7 @@ public abstract class PowerUp extends Actor {
 	}
 
 	@Override
-	public void collision(Actor actor) {
+	public void onCollision(Actor actor, Referee referee) {
 		setRemove(true);
 	}
 

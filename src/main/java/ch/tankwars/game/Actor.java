@@ -31,7 +31,7 @@ public abstract class Actor implements Cloneable {
 		return getBounds().intersects(actor.getBounds());
 	}
 	
-	public abstract void onCollision(Actor actor);
+	public abstract void onCollision(Actor actor, Referee referee);
 	
 	
 	public Rectangle getBounds() {

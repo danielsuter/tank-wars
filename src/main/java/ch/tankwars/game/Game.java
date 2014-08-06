@@ -20,6 +20,7 @@ public class Game implements ActorListener {
 	private int globalId;
 
 	private PlayGround playGround;
+	private Referee referee = new Referee();
 
 	public synchronized void tick() {
 		addActorsInQueue();
@@ -31,7 +32,7 @@ public class Game implements ActorListener {
 				actor.act();
 				for (Actor otherActor : actors) {
 					if (actor != otherActor && actor.collidesWith(otherActor)) {
-						actor.onCollision(otherActor);
+						actor.onCollision(otherActor, referee);
 					}
 				}
 			}
@@ -67,6 +68,7 @@ public class Game implements ActorListener {
 		tank.setPosition(x, y);
 
 		createActor(tank);
+		referee.addTank(tank);
 
 		return tank;
 	}

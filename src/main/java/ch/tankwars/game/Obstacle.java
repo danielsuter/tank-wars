@@ -13,7 +13,7 @@ public abstract class Obstacle extends Actor {
 	}
 	
 	@Override
-	public void onCollision(Actor actor) {
+	public void onCollision(Actor actor, Referee referee) {
 		throw new UnsupportedOperationException("I came here to sit, not to collide.");
 	}
 

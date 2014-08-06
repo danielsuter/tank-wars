@@ -111,6 +111,7 @@ var Game = function(canvasId) {
 
         $.each(actorsFromResponse, function() {
             var actorUpdate = this;
+            updateScore(actorUpdate);
 
             if (isNewActor(actorUpdate)) {
                 knownActors[actorUpdate.id] = actorUpdate;
@@ -133,7 +134,7 @@ var Game = function(canvasId) {
             isDead = true;
             renderer.renderDeath();
         }
-    }
+    };
 
     var updateActor= function(actorUpdate) {
         var cachedActor = knownActors[actorUpdate.id];
@@ -216,7 +217,8 @@ var Game = function(canvasId) {
    var playerDisplayTemplate =
        "<li class='list-group-item'>" +
             "{{name}}" +
-            "<span class='badge'>5</span>" +
+            "<span class='badge' id='hits{{id}}'>0</span>" +
+            "<span class='badge' id='kills{{id}}'>0</span>" +
        "</li>";
 
 
@@ -226,6 +228,16 @@ var Game = function(canvasId) {
            rows += Mustache.render(playerDisplayTemplate, this);
        });
        $("#playersList").html(rows);
+   };
+
+   var updateScore = function(actor) {
+        if (actor.hits) {
+            $("#hits" + actor.id).val(actor.hits);
+        }
+
+        if (actor.kills) {
+            $("#kills" + actor.id).val(actor.kills);
+        }
    };
 
     resource = new GameResource(update, onPlayersChanged);
