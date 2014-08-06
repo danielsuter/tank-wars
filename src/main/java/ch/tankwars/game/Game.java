@@ -94,12 +94,6 @@ public class Game implements ActorListener {
 		actorsToAdd.add(actor);
 	}
 
-	public Wall addWall(int x, int y, int width, int height) {
-		final Wall wall = new Wall(generateId(), x, y, width, height);
-		battlefieldMap.addWall(wall);
-		return wall;
-	}
-	
 	public BattlefieldMap getPlayGround() {
 		return battlefieldMap;
 	}

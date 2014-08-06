@@ -14,6 +14,7 @@ import ch.tankwars.game.LaserGunPowerUp;
 import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.PowerUp;
 import ch.tankwars.game.RocketLauncherPowerUp;
+import ch.tankwars.game.Wall;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 
 import com.google.gson.Gson;
@@ -33,10 +34,10 @@ public class MapWriterTest {
 		BattlefieldMap battlefieldMap = new BattlefieldMap(Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		Game game = new Game();
 		game.setPlayGround(battlefieldMap);
-		game.addWall(5, 5, 20, 100);
-		game.addWall(50, 89, 200, 10);
-		game.addWall(600, 411, 50, 50);
-		game.addWall(555, 44, 80, 20);
+		battlefieldMap.addWall(new Wall( 5, 5, 20, 100));
+		battlefieldMap.addWall(new Wall(50, 89, 200, 10));
+		battlefieldMap.addWall(new Wall(600, 411, 50, 50));
+		battlefieldMap.addWall(new Wall(555, 44, 80, 20));
 		
 		battlefieldMap.addPowerUp(addHealthPowerUp(200, 200));
 		battlefieldMap.addPowerUp(addHealthPowerUp(400, 300));

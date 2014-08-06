@@ -63,7 +63,7 @@ public class GameCollisionTest {
 	@Test
 	public void collisionProjectileWall() throws Exception {
 		BattlefieldMap battlefieldMap = new BattlefieldMap(1000, 1000);
-		Wall wall = new Wall(1, 1, 1, 200, 10);
+		Wall wall = new Wall(1, 1, 200, 10);
 		battlefieldMap.addWall(wall);
 		game.setPlayGround(battlefieldMap);
 		
@@ -81,7 +81,7 @@ public class GameCollisionTest {
 	public void collisionWallTank() throws Exception {
 		BattlefieldMap battlefieldMap = new BattlefieldMap(1000, 1000);
 		game.setPlayGround(battlefieldMap);
-		Wall wall = new Wall(1, 1, 1, 200, 15);
+		Wall wall = new Wall(1, 1, 200, 15);
 		battlefieldMap.addWall(wall);
 		
 		Tank tank = game.spawn("Support Veigar");

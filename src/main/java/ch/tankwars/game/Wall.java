@@ -2,7 +2,7 @@ package ch.tankwars.game;
 
 public class Wall extends Obstacle {
 
-	public Wall(int id, int x, int y, int width, int height) {
+	public Wall(int x, int y, int width, int height) {
 		super(ActorType.WALL);
 		setX(x);
 		setY(y);

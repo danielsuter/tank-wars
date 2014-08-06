@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import ch.tankwars.game.BattlefieldMap;
-import ch.tankwars.transport.game.GameController;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 
 import com.google.gson.Gson;
@@ -17,7 +16,7 @@ public class MapReader {
 	}
 	
 	public BattlefieldMap load(String mapName) {
-		InputStream inputStream = GameController.class.getResourceAsStream("/maps/" + mapName);
+		InputStream inputStream = MapReader.class.getResourceAsStream("/maps/" + mapName);
 		return loadPlayground(inputStream);
 	}
 
