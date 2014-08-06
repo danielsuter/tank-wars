@@ -12,13 +12,13 @@ var ShapeRenderer = function(_canvas) {
         shape.selectable = false;
     };
 
-    this.createShape = function(actor) {
+    this.createShape = function(actor, playerName) {
         var shape;
         switch (actor.actorType) {
             case "TANK":
                 actor.color = getColor();
                 shape = Tank.drawTankEast(actor);
-				var healthBar = HealthBar.drawHealthBar(actor);
+				var healthBar = HealthBar.drawHealthBar(actor, playerName);
                 optimizeShape(healthBar);
                 healthBars[actor.id] = healthBar;
                 canvas.add(healthBar);

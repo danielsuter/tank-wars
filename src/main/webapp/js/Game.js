@@ -157,7 +157,7 @@ var Game = function(canvasId) {
 
             if (isNewActor(actorUpdate)) {
                 knownActors[actorUpdate.id] = actorUpdate;
-                renderer.createShape(actorUpdate);
+                renderer.createShape(actorUpdate, knownPlayers[actorUpdate.id]);
             } else {
                 updateActor(actorUpdate);
                 renderer.updateShape(knownActors[actorUpdate.id]);
