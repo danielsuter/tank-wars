@@ -24,7 +24,7 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 	}.getType();
 
 	private final Map<Integer, Actor> CACHE = new HashMap<Integer, Actor>();
-	
+
 	private static final String VELOCITY = "v";
 	private static final String DIRECTION = "d";
 	private static final String HEIGHT = "h";
@@ -38,7 +38,7 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 	private static final String HEALTH = "l";
 	private static final String KILLS = "k";
 	private static final String HITS = "s";
-	
+
 	private static final int GAME_UPDATE = 0;
 
 	@Override
@@ -52,11 +52,11 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 				Actor cachedActor = CACHE.get(actor.getId());
 
 				JsonObject actorJson = new JsonObject();
-				
+
 				if (cachedActor == null) {
 					actorJson.addProperty(ACTOR_TYPE, actor.getActorType().getIdentifier());
 				}
-				
+
 				actorJson.addProperty(ID, actor.getId());
 
 				if (cachedActor == null || cachedActor.getX() != actor.getX()) {
@@ -66,19 +66,19 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 				if (cachedActor == null || cachedActor.getY() != actor.getY()) {
 					actorJson.addProperty(Y_POSITION, actor.getY());
 				}
-				
+
+				if (cachedActor == null || cachedActor.getWidth() != actor.getWidth()) {
+					actorJson.addProperty(WIDTH, actor.getWidth());
+				}
+				if (cachedActor == null || cachedActor.getHeight() != actor.getHeight()) {
+					actorJson.addProperty(HEIGHT, actor.getHeight());
+				}
 				if (actor instanceof Projectile) {
 					Projectile projectile = (Projectile) actor;
 					Projectile cachedProjectile = (Projectile) cachedActor;
-					if (cachedProjectile == null || cachedProjectile.getProjectileDimension() != projectile.getProjectileDimension()) {
+					if (cachedProjectile == null
+							|| cachedProjectile.getProjectileDimension() != projectile.getProjectileDimension()) {
 						actorJson.addProperty(RADIUS, projectile.getProjectileDimension());
-					}
-				} else {
-					if (cachedActor == null || cachedActor.getWidth() != actor.getWidth()) {
-						actorJson.addProperty(WIDTH, actor.getWidth());
-					}
-					if (cachedActor == null || cachedActor.getHeight() != actor.getHeight()) {
-						actorJson.addProperty(HEIGHT, actor.getHeight());
 					}
 				}
 
@@ -89,29 +89,29 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 				if (cachedActor == null || cachedActor.getVelocity() != actor.getVelocity()) {
 					actorJson.addProperty(VELOCITY, actor.getVelocity());
 				}
-				
+
 				if (actor instanceof Tank) {
 					Tank tank = (Tank) actor;
 					Tank cachedTank = (Tank) cachedActor;
 					if (cachedTank == null || cachedTank.getFireRatePerSecond() != tank.getFireRatePerSecond()) {
 						actorJson.addProperty(FIRE_RATE, tank.getFireRatePerSecond());
 					}
-					
-					if(cachedTank == null || cachedTank.getHealth() != tank.getHealth()) {
+
+					if (cachedTank == null || cachedTank.getHealth() != tank.getHealth()) {
 						actorJson.addProperty(HEALTH, tank.getHealth());
 					}
-					
+
 					if (cachedTank == null || cachedTank.getHitsMade() != tank.getHitsMade()) {
 						actorJson.addProperty(HITS, tank.getHitsMade());
 					}
-					
+
 					if (cachedTank == null || cachedTank.getKillsMade() != tank.getKillsMade()) {
 						actorJson.addProperty(KILLS, tank.getKillsMade());
 					}
 				}
-				
+
 				putToCache(actor);
-				
+
 				return actorJson;
 			}
 
@@ -123,7 +123,7 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 				}
 			}
 		});
-		
+
 		stream.forEach(json -> returnValue.add(json));
 		return returnValue;
 	}
