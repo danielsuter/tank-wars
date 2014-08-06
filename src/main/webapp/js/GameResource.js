@@ -37,7 +37,7 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
 
     this.onMessage = function(event) {
         var now = $.now();
-        if (now !== 0 && now - lastMessageTime > 200) {
+        if (now !== 0 && now - lastMessageTime > 100) {
             $("#warning").show();
             console.log("tick time: " + (now - lastMessageTime));
         }
