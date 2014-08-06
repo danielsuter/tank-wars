@@ -53,10 +53,16 @@ public class GameController {
 		game.addWall(50, 89, 200, 10);
 		game.addWall(600, 411, 50, 50);
 		game.addWall(555, 44, 80, 20);
-		
+
 		for (Wall wall : playGround.getWalls()) {
 			game.createActor(wall);
 		}
+		
+		addHealthPowerUp(200, 200);
+		addHealthPowerUp(400, 300);
+		addFireRatePowerUp(100, 100);
+		addFireRatePowerUp(500, 580);
+
 	}
 
 	public synchronized void start() {
@@ -132,11 +138,13 @@ public class GameController {
 		playerPeers.remove(playerPeer);
 	}
 	
-	public void addHealthPowerUp(int x, int y) {
+	// TODO remove
+	private void addHealthPowerUp(int x, int y) {
 		game.createActor(new HealthPowerUp(game, x, y));
 	}
 	
-	public void addFireRatePowerUp(int x, int y) {
+	// TODO remove
+	private void addFireRatePowerUp(int x, int y) {
 		game.createActor(new FireRatePowerUp(game, x, y));
 	}
 
@@ -152,6 +160,12 @@ public class GameController {
 		timer.cancel();
 		isStarted = false;
 		playerPeers.clear();
+		gameCommunicator = new GameCommunicator();
 		initPlayground();
+	}
+
+	public void loadMap(String mapName) {
+		// TODO
+		throw new RuntimeException("not implemented");
 	}
 }

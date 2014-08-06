@@ -4,6 +4,7 @@ var ShapeRenderer = function(_canvas) {
     var canvas = _canvas;
 
     var statusBarShape;
+    var cachedStatusBarText;
 
     this.createShape = function(actor) {
         var shape;
@@ -103,7 +104,12 @@ var ShapeRenderer = function(_canvas) {
             statusBarShape.hasRotatingPoint = false;
 
             canvas.add(statusBarShape);
+        } else {
+            var statusBarText = generateStatusbarText(player);
+            if(cachedStatusBarText !== statusBarText) {
+                statusBarShape.setText(statusBarText);
+                cachedStatusBarText = statusBarText;
+            }
         }
-        statusBarShape.setText(generateStatusbarText(player));
     };
 };
