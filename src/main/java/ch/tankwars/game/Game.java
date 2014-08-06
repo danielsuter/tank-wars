@@ -28,11 +28,18 @@ public class Game implements ActorListener {
 		removeDeadActors();
 
 		for (Actor actor : actors) {
-			if (!(actor instanceof Obstacle) && !actor.isDead()) {
+			if (!actor.isDead()) {
 				actor.act();
+				for (Wall wall : playGround.getWalls()) {
+					if(actor.collidesWith(wall)) {
+//						wall.onCollision(actor, referee);
+						actor.onCollision(wall, referee);
+					}
+				}
 				for (Actor otherActor : actors) {
 					if (actor != otherActor && actor.collidesWith(otherActor)) {
 						actor.onCollision(otherActor, referee);
+						otherActor.onCollision(actor, referee);
 					}
 				}
 			}
@@ -90,15 +97,9 @@ public class Game implements ActorListener {
 	public Wall addWall(int x, int y, int width, int height) {
 		final Wall wall = new Wall(this, generateId(), x, y, width, height);
 		playGround.addWall(wall);
-		createActor(wall);
 		return wall;
 	}
 	
-	public Wall addWall(Wall wall) {
-		createActor(wall);
-		return wall;
-	}
-
 	public PlayGround getPlayGround() {
 		return playGround;
 	}
