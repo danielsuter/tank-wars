@@ -7,12 +7,11 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.FireRatePowerUp;
 import ch.tankwars.game.Game;
 import ch.tankwars.game.HealthPowerUp;
 import ch.tankwars.game.LaserGunPowerUp;
-import ch.tankwars.game.BattlefieldMap;
-import ch.tankwars.game.PowerUp;
 import ch.tankwars.game.RocketLauncherPowerUp;
 import ch.tankwars.game.Wall;
 import ch.tankwars.transport.game.mapper.GsonFactory;
@@ -39,10 +38,10 @@ public class MapWriterTest {
 		battlefieldMap.addWall(new Wall(600, 411, 50, 50));
 		battlefieldMap.addWall(new Wall(555, 44, 80, 20));
 		
-		battlefieldMap.addPowerUp(addHealthPowerUp(200, 200));
-		battlefieldMap.addPowerUp(addHealthPowerUp(400, 300));
-		battlefieldMap.addPowerUp(addFireRatePowerUp(100, 100));
-		battlefieldMap.addPowerUp(addFireRatePowerUp(500, 580));
+		battlefieldMap.addPowerUp(new HealthPowerUp(200, 200));
+		battlefieldMap.addPowerUp(new HealthPowerUp(400, 300));
+		battlefieldMap.addPowerUp(new FireRatePowerUp(100, 100));
+		battlefieldMap.addPowerUp(new FireRatePowerUp(500, 580));
 		
 		battlefieldMap.addPowerUp(new RocketLauncherPowerUp(250, 250));
 		battlefieldMap.addPowerUp(new LaserGunPowerUp(430, 70));
@@ -56,13 +55,5 @@ public class MapWriterTest {
 		FileWriter writer = new FileWriter(file);
 		writer.write(json);
 		writer.close();
-	}
-	
-	private PowerUp addHealthPowerUp(int x, int y) {
-		return new HealthPowerUp(x, y);
-	}
-	
-	private PowerUp addFireRatePowerUp(int x, int y) {
-		return new FireRatePowerUp(x, y);
 	}
 }
