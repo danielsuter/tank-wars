@@ -42,7 +42,7 @@ public class GameController {
 	
 	// TODO will be replaced by loadMap
 	private void initPlayground() {
-		loadMap("default.json");
+		loadMap("labyrinth.json");
 	}
 
 	public synchronized void start() {
