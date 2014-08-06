@@ -95,7 +95,6 @@ public class Game implements ActorListener {
 	}
 	
 	public Wall addWall(Wall wall) {
-		playGround.addWall(wall);
 		createActor(wall);
 		return wall;
 	}
