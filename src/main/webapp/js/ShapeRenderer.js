@@ -1,6 +1,7 @@
 var ShapeRenderer = function(_canvas) {
 
     var shapes = [];
+    var healthBars = [];
     var canvas = _canvas;
 
     var statusBarShape;
@@ -13,6 +14,14 @@ var ShapeRenderer = function(_canvas) {
                 actor.color = getColor();
                 shape = Tank.drawTank(actor);
                 shape.direction = actor.direction;
+
+                // TODO looks hacky
+                // TODO optimize
+                var healthBar = HealthBar.drawHealthBar(actor);
+                healthBar.healthBar = false;
+                healthBar.selectable = false;
+                healthBars[actor.id] = healthBar;
+                canvas.add(healthBar);
                 break;
             case "PROJECTILE":
                 shape = Projectile.drawProjectile(actor);
@@ -55,11 +64,19 @@ var ShapeRenderer = function(_canvas) {
         return '#'+Math.floor(Math.random()*16777215).toString(16);
     };
 
+    var updateHealthBar = function (tank) {
+        healthBars[tank.id].updateLocation(tank);
+    };
+
     this.updateShape = function(actor) {
         var shape = shapes[actor.id];
 
         if (!shape) {
             throw "This shape does not exist, cannot update it!";
+        }
+
+        if(actor.actorType === 'TANK') {
+            updateHealthBar(actor);
         }
 
         shape.set({"left" : actor.x});
