@@ -68,18 +68,29 @@ public class Game implements ActorListener {
 	public Tank spawn(String playerName) {
 		final Tank tank = new Tank(this, playerName);
 
-		final Random random = new Random();
-		final int x = random.nextInt(GAME_WIDTH + 1 - tank.getWidth());
-		final int y = random.nextInt(GAME_HEIGHT + 1 - tank.getHeight());
-
-		tank.setPosition(x, y);
-
+		computeRandomTankPoisition(tank);
 		createActor(tank);
 		referee.addTank(tank);
 
 		return tank;
 	}
 
+	private void computeRandomTankPoisition(final Tank tank) {
+		final Random random = new Random();
+		final int x = random.nextInt(GAME_WIDTH + 1 - tank.getWidth());
+		final int y = random.nextInt(GAME_HEIGHT + 1 - tank.getHeight());
+		tank.setPosition(x, y);
+		checkForCollisions(tank);
+	}
+
+	private void checkForCollisions(Tank tank) {
+		for (Actor otherActor : actors) {
+			if (tank.collidesWith(otherActor)) {
+				computeRandomTankPoisition(tank);
+			}
+		}
+	}
+	
 	public List<Actor> getActors() {
 		return actors;
 	}
