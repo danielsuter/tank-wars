@@ -12,14 +12,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.tankwars.game.Direction;
+import ch.tankwars.game.FireRatePowerUp;
 import ch.tankwars.game.Game;
+import ch.tankwars.game.HealthPowerUp;
 import ch.tankwars.game.PlayGround;
 import ch.tankwars.game.Tank;
 import ch.tankwars.game.Wall;
 import ch.tankwars.performance.PerformanceCounter;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.dto.PlayersChangedResponse;
-import ch.tankwars.transport.game.mapper.ActorListDeserializer;
+import ch.tankwars.transport.game.mapper.ActorListSerializer;
 
 public class GameController {
 	private static final long INTERVAL_MILIS = 50L;
@@ -38,6 +40,10 @@ public class GameController {
 	
 	public GameController() {
 		initPlayground();
+		addHealthPowerUp(200, 200);
+		addHealthPowerUp(400, 300);
+		addFireRatePowerUp(100, 100);
+		addFireRatePowerUp(500, 580);
 	}
 
 	private void initPlayground() {
@@ -72,7 +78,7 @@ public class GameController {
 				
 				perf.lap("tick");
 				
-				gameCommunicator.sendMessage(game.getActors(), playerPeers, ActorListDeserializer.TYPE);
+				gameCommunicator.sendMessage(game.getActors(), playerPeers, ActorListSerializer.TYPE);
 				
 				perf.stop("COMPLETE LOOP");
 			}
@@ -124,6 +130,14 @@ public class GameController {
 			tank.setRemove(true);
 		}
 		playerPeers.remove(playerPeer);
+	}
+	
+	public void addHealthPowerUp(int x, int y) {
+		game.createActor(new HealthPowerUp(game, x, y));
+	}
+	
+	public void addFireRatePowerUp(int x, int y) {
+		game.createActor(new FireRatePowerUp(game, x, y));
 	}
 
 	public void shoot(PlayerPeer playerPeer) {

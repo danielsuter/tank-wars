@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.tankwars.transport.game.mapper.ActorListDeserializer;
+import ch.tankwars.transport.game.mapper.ActorListSerializer;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 import ch.tankwars.transport.game.mapper.ResponseMapper;
 
@@ -56,12 +56,12 @@ public class GameSerialiseTest {
 			tanks.stream().forEach(t -> t.shoot());
 			game.tick();
 			// Allow caching
-			mapper.map(game.getActors(), ActorListDeserializer.TYPE);
+			mapper.map(game.getActors(), ActorListSerializer.TYPE);
 		}
 		
 		game.tick();
 		List<Actor> actors = game.getActors();
-		String response = mapper.map(actors, ActorListDeserializer.TYPE);
+		String response = mapper.map(actors, ActorListSerializer.TYPE);
 		long actualSize = getSizeInBytes(response) * TICKS_PER_SECOND;
 		assertTrue("Expected size to be below " + MAX_SIZE_BYTES + " but was " + actualSize ,actualSize < MAX_SIZE_BYTES);
 	}
@@ -82,11 +82,11 @@ public class GameSerialiseTest {
 		tank.setDirection(Direction.DOWN);
 		game.tick();
 		
-		mapper.map(game.getActors(), ActorListDeserializer.TYPE);
+		mapper.map(game.getActors(), ActorListSerializer.TYPE);
 		
 		game.tick();
 
-		String response2 = mapper.map(game.getActors(), ActorListDeserializer.TYPE);
+		String response2 = mapper.map(game.getActors(), ActorListSerializer.TYPE);
 		assertEquals("[0,{\"i\":1,\"y\":2}]", response2);
 		
 	}
@@ -100,8 +100,8 @@ public class GameSerialiseTest {
 		tank.shoot();
 		game.tick();
 		
-		String response = mapper.map(game.getActors(), ActorListDeserializer.TYPE);
-		assertEquals("[0,{\"t\":0,\"i\":1,\"x\":0,\"y\":1,\"w\":25,\"h\":25,\"d\":\"S\",\"v\":1,\"f\":1},"
+		String response = mapper.map(game.getActors(), ActorListSerializer.TYPE);
+		assertEquals("[0,{\"t\":0,\"i\":1,\"x\":0,\"y\":1,\"w\":25,\"h\":25,\"d\":\"S\",\"v\":1,\"f\":1,\"l\":100},"
 				+ "{\"t\":1,\"i\":2,\"x\":11,\"y\":21,\"r\":3,\"d\":\"S\",\"v\":10}]", response);
 	}
 }

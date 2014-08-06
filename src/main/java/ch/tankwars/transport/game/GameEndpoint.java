@@ -32,7 +32,12 @@ public class GameEndpoint {
 		
 		switch (command) {
 		case "JOIN":
-			final String playerName = fullCommand[1];
+			String playerName; 
+			if(fullCommand.length < 1) {
+				playerName = "UNDEFINDED";
+			} else {
+				playerName = fullCommand[1];
+			}
 			playerSession = gameController.join(clientSession, playerName);
 			break;
 		case "START":

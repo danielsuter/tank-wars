@@ -5,11 +5,12 @@ public class Tank extends Actor {
 	private final static int DEFAULT_WIDTH = 25;
 	private final static int DEFAULT_HEIGHT = 25;
 	private final static int DEFAULT_SPEED = 5;
+	private final static int DEFAULT_HEALTH = 100;
 	
 	private int fireRatePerSecond = 1;
 
 	private final String playerName;
-	private int health = 100;
+	private int health = DEFAULT_HEALTH;
 	
 	public Tank(ActorListener actorListener, String playerName) {
 		super(actorListener, ActorType.TANK);
@@ -112,6 +113,12 @@ public class Tank extends Actor {
 					setX(wall.getX() + wall.getWidth());
 					break; 
 			}
+		} else if (actor instanceof HealthPowerUp) {
+			HealthPowerUp healthPowerUp = (HealthPowerUp) actor;
+			increaseHealth(healthPowerUp);
+		} else if (actor instanceof FireRatePowerUp) {
+			FireRatePowerUp fireRatePowerUp = (FireRatePowerUp) actor;
+			increaseFireRate(fireRatePowerUp);
 		}
 	}
 
@@ -122,7 +129,14 @@ public class Tank extends Actor {
 	public void damage(int amount) {
 		health -= amount;
 		if(health <= 0) {
-			System.out.println("got killed uaaarrrgh");
+			setRemove(true);
 		}
+	}
+	
+	private void increaseHealth(HealthPowerUp healthPowerUp) {
+		health =  Math.min(DEFAULT_HEALTH, health + healthPowerUp.getHealthGain());
+	}
+	private void increaseFireRate(FireRatePowerUp fireRatePowerUp) {
+		fireRatePerSecond += fireRatePowerUp.getFireRateGain();
 	}
 }

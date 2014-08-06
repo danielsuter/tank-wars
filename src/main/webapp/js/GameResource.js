@@ -94,13 +94,16 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
         "h" : "height",
         "d" : "direction",
         "v" : "velocity",
-        "f" : "fireRate"
+        "f" : "fireRate",
+        "l" : "health"
     };
 
     var actorTypeMap = {
         0 : "TANK",
         1 : "PROJECTILE",
-        2 : "WALL"
+        2 : "WALL",
+        3 : "HealthPowerUp",
+        4:  "FireRatePowerUp"
     };
 
     var mapToActorArray = function(protocol) {

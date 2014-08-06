@@ -3,6 +3,8 @@ var ShapeRenderer = function(_canvas) {
     var shapes = [];
     var canvas = _canvas;
 
+    var statusBarShape;
+
     this.createShape = function(actor) {
         var shape;
         switch (actor.actorType) {
@@ -17,14 +19,22 @@ var ShapeRenderer = function(_canvas) {
             case "WALL":
                 shape = Wall.drawWall(actor);
                 break;
+            case "HealthPowerUp":
+                shape = HealthPowerUp.drawHealthPowerUp(actor);
+                break;
+            case "FireRatePowerUp":
+                shape = FireRatePowerUp.drawFireRatePowerUp(actor);
+                break;
         }
 
         // optimize
-        shape.selectable = false;
-        shape.hasRotatingPoint = false;
+        if(shape) {
+            shape.hasRotatingPoint = false;
+            shape.selectable = false;
+            shapes[actor.id] = shape;
+            canvas.add(shape);
+        }
 
-        shapes[actor.id] = shape;
-        canvas.add(shape);
     };
 
     var getColor = function() {
@@ -32,42 +42,14 @@ var ShapeRenderer = function(_canvas) {
     };
 
     this.updateShape = function(actor) {
-        if (!actor.x && !actor.y) {
-            return;
-        }
-
         var shape = shapes[actor.id];
 
         if (!shape) {
-            return "This shape does not exist, cannot update it!";
+            throw "This shape does not exist, cannot update it!";
         }
 
-//        if (actor.direction && actor.direction !== shape.direction) {
-//            var currentAngle = shape.getAngle();
-//
-//            switch (actor.direction) {
-//                case "N":
-//                    shape.setAngle(-90);
-//                    break;
-//                case "S":
-//                    shape.setAngle(90);
-//                    break;
-//                case "W":
-//                    shape.setAngle(-180);
-//                    break;
-//                default:
-//                    shape.setAngle(0);
-//            }
-//        }
-
-        if (actor.x) {
-            shape.set({"left" : actor.x});
-        }
-
-        if (actor.y) {
-            shape.set({"top" : actor.y});
-        }
-
+        shape.set({"left" : actor.x});
+        shape.set({"top" : actor.y});
 
         shape.setCoords();
     };
@@ -78,8 +60,50 @@ var ShapeRenderer = function(_canvas) {
         delete shapes[id];
     };
 
+    this.renderDeath = function() {
+        statusBarShape = new fabric.Text('<<< Game over >>>', {
+            left: 110,
+            top: 250,
+            fontSize: 60,
+            fill: 'red',
+            stroke: '#c3bfbf',
+            strokeWidth: 3,
+            fontFamily: 'Arial',
+            fontWeight: 'bold'});
+
+        // optimize
+        statusBarShape.selectable = false;
+        statusBarShape.hasRotatingPoint = false;
+
+        canvas.add(statusBarShape);
+    };
+
     this.render = function() {
         canvas.renderAll();
     };
 
+    var generateStatusbarText = function(player) {
+        return 'Health:' + player.health + '   Fire rate: ' + player.fireRate;
+    };
+
+    this.renderStatusBar= function(player) {
+        if(!player) return;
+
+        if(!statusBarShape) {
+            statusBarShape = new fabric.Text(generateStatusbarText(player), {
+                left: 10,
+                top: 560,
+                fontSize: 20,
+                fill: 'white',
+                fontFamily: 'Arial',
+                fontWeight: 'bold'});
+
+            // optimize
+            statusBarShape.selectable = false;
+            statusBarShape.hasRotatingPoint = false;
+
+            canvas.add(statusBarShape);
+        }
+        statusBarShape.setText(generateStatusbarText(player));
+    };
 };
