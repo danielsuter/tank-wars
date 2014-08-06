@@ -125,6 +125,12 @@ var Game = function(canvasId) {
         }
     };
 
+    var onStop = function () {
+        $("#connectionInfo").hide();
+        $("#connectionWarning").show();
+        clock.stop();
+    };
+
     var onJoin = function (id, playGround) {
         myId = id;
         drawBoard(playGround);
@@ -356,7 +362,7 @@ var Game = function(canvasId) {
         clock.start();
     };
 
-    resource = new GameResource(update, onPlayersChanged, onStart);
+    resource = new GameResource(update, onPlayersChanged, onStart, onStop);
     renderer = new ShapeRenderer(canvas);
 
     canvas.renderOnAddRemove = false;
