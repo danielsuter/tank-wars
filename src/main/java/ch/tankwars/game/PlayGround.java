@@ -8,6 +8,7 @@ public class PlayGround{
 	private int fieldWidth;
 	private int fieldHeight;
 	private Set<Wall> walls = new HashSet<Wall>();
+	private Set<PowerUp> powerUps = new HashSet<PowerUp>();
 	
 	public PlayGround(int fieldWidth, int fieldHeight) {
 		this.setFieldWidth(fieldWidth);
@@ -32,6 +33,10 @@ public class PlayGround{
 
 	public void addWall(Wall wall) {
 		walls.add(wall);
+	}
+	
+	public void addPowerUp(PowerUp powerUp) {
+		powerUps.add(powerUp);
 	}
 	
 	public Set<Wall> getWalls() {

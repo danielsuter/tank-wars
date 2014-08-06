@@ -63,7 +63,8 @@ public class GameEndpoint {
 			gameController.clear();
 			break;
 		case "LOADMAP":
-			
+			String mapName = fullCommand[1];
+			gameController.loadMap(mapName);
 			break;
 		default:
 			throw new RuntimeException("Cannot handle command: " + command);

@@ -10,8 +10,8 @@ public class Projectile extends Actor {
 	private int owningTankId; 
 	private int power;
 	
-	public Projectile(ActorListener actorListener, int owningTankId) {
-		super(actorListener, ActorType.PROJECTILE);
+	public Projectile(int owningTankId) {
+		super(ActorType.PROJECTILE);
 		this.owningTankId = owningTankId;
 		setProjectileDimension(DEFAULT_PROJECTILE_DIMENSION);
 		setVelocity(DEFAULT_PROJECTILE_SPEED);

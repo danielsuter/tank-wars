@@ -95,7 +95,7 @@ public class Game implements ActorListener {
 	}
 
 	public Wall addWall(int x, int y, int width, int height) {
-		final Wall wall = new Wall(this, generateId(), x, y, width, height);
+		final Wall wall = new Wall(generateId(), x, y, width, height);
 		playGround.addWall(wall);
 		return wall;
 	}

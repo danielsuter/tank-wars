@@ -19,6 +19,7 @@ import ch.tankwars.game.LaserGunPowerUp;
 import ch.tankwars.game.PlayGround;
 import ch.tankwars.game.RocketLauncherPowerUp;
 import ch.tankwars.game.Tank;
+import ch.tankwars.maps.MapReader;
 import ch.tankwars.performance.PerformanceCounter;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.dto.PlayersChangedResponse;
@@ -32,7 +33,7 @@ public class GameController {
 	private static Game game = new Game();
 	private Timer timer;
 	private static GameCommunicator gameCommunicator = new GameCommunicator();
-	
+	private MapReader mapReader = new MapReader();
 	private final Set<PlayerPeer> playerPeers = Collections.synchronizedSet(new HashSet<PlayerPeer>());
 	
 	private boolean isStarted;
@@ -41,6 +42,8 @@ public class GameController {
 	
 	public GameController() {
 		initPlayground();
+		// TODO proper map loading
+//		loadMap("default.json");
 	}
 	
 	// TODO will be replaced by loadMap
@@ -57,8 +60,8 @@ public class GameController {
 		addFireRatePowerUp(100, 100);
 		addFireRatePowerUp(500, 580);
 		
-		game.createActor(new RocketLauncherPowerUp(game, 250, 250));
-		game.createActor(new LaserGunPowerUp(game, 430, 70));
+		game.createActor(new RocketLauncherPowerUp(250, 250));
+		game.createActor(new LaserGunPowerUp(430, 70));
 	}
 
 	public synchronized void start() {
@@ -136,12 +139,12 @@ public class GameController {
 	
 	// TODO remove
 	private void addHealthPowerUp(int x, int y) {
-		game.createActor(new HealthPowerUp(game, x, y));
+		game.createActor(new HealthPowerUp(x, y));
 	}
 	
 	// TODO remove
 	private void addFireRatePowerUp(int x, int y) {
-		game.createActor(new FireRatePowerUp(game, x, y));
+		game.createActor(new FireRatePowerUp(x, y));
 	}
 
 	public void shoot(PlayerPeer playerPeer) {
@@ -161,7 +164,7 @@ public class GameController {
 	}
 
 	public void loadMap(String mapName) {
-		// TODO
-		throw new RuntimeException("not implemented");
+		PlayGround playGround = mapReader.load(mapName);
+		game.setPlayGround(playGround);
 	}
 }

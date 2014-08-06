@@ -2,8 +2,8 @@ package ch.tankwars.game;
 
 public abstract class PowerUp extends Actor {
 
-	public PowerUp(ActorListener actorListener, ActorType actorType) {
-		super(actorListener, actorType);
+	public PowerUp(ActorType actorType) {
+		super(actorType);
 		setHeight(16);
 		setWidth(16);
 	}
