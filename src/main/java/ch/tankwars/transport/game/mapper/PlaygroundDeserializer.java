@@ -2,12 +2,11 @@ package ch.tankwars.transport.game.mapper;
 
 import java.lang.reflect.Type;
 
-import ch.tankwars.game.FireRatePowerUp;
-import ch.tankwars.game.HealthPowerUp;
-import ch.tankwars.game.LaserGunPowerUp;
 import ch.tankwars.game.BattlefieldMap;
-import ch.tankwars.game.RocketLauncherPowerUp;
 import ch.tankwars.game.Wall;
+import ch.tankwars.game.powerup.HealthPowerUp;
+import ch.tankwars.game.powerup.LaserGunPowerUp;
+import ch.tankwars.game.powerup.RocketLauncherPowerUp;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -36,9 +35,6 @@ public class PlaygroundDeserializer implements JsonDeserializer<BattlefieldMap> 
 			switch(actorType) {
 			case "HEALTHPOWERUP":
 				battlefieldMap.addPowerUp(context.deserialize(jsonObject, HealthPowerUp.class));
-				break;
-			case "FIRERATEPOWERUP":
-				battlefieldMap.addPowerUp(context.deserialize(jsonObject, FireRatePowerUp.class));	
 				break;
 			case "LASERGUNPOWERUP":
 				battlefieldMap.addPowerUp(context.deserialize(jsonObject, LaserGunPowerUp.class));

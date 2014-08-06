@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.tankwars.game.powerup.HealthPowerUp;
 import ch.tankwars.transport.game.mapper.ActorListSerializer;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 import ch.tankwars.transport.game.mapper.ResponseMapper;
@@ -44,7 +45,7 @@ public class GameSerialiseTest {
 	@Test
 	public void playgroundMapping() {
 		BattlefieldMap battlefieldMap = new BattlefieldMap(1000, 1000);
-		battlefieldMap.addPowerUp(new FireRatePowerUp(0, 0));
+		battlefieldMap.addPowerUp(new HealthPowerUp(0, 0));
 		battlefieldMap.addWall(new Wall(0, 0, 100, 100));
 		
 		gson.toJson(battlefieldMap);

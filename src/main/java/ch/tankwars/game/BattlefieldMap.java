@@ -3,6 +3,8 @@ package ch.tankwars.game;
 import java.util.HashSet;
 import java.util.Set;
 
+import ch.tankwars.game.powerup.PowerUp;
+
 public class BattlefieldMap{
 	
 	private int fieldWidth;

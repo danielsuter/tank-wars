@@ -1,18 +1,21 @@
 package ch.tankwars.game;
 
+import ch.tankwars.game.powerup.HealthPowerUp;
+import ch.tankwars.game.powerup.LaserGunPowerUp;
+import ch.tankwars.game.powerup.RocketLauncherPowerUp;
+import ch.tankwars.game.powerup.Weapon;
+
 public class Tank extends Actor {
 
-	private static final int LASERGUN_SIZE = 2;
 	private final static int DEFAULT_WIDTH = 35;
 	private final static int DEFAULT_HEIGHT = 35;
 	private final static int DEFAULT_SPEED = 8;
-	private final static int DEFAULT_HEALTH = 100;
+	private final static int MAX_HEALTH = 100;
 	
-	private int fireRatePerSecond = 1;
 	private Weapon weapon;
 
 	private final String playerName;
-	private int health = DEFAULT_HEALTH;
+	private int health = MAX_HEALTH;
 	private int hitsMade = 0;
 	private int killsMade = 0;
 	
@@ -34,14 +37,6 @@ public class Tank extends Actor {
 
 	public String getPlayerName() {
 		return playerName;
-	}
-	
-	public void setFireRatePerSecond(int fireRatePerSecond) {
-		this.fireRatePerSecond = fireRatePerSecond;
-	}
-	
-	public int getFireRatePerSecond() {
-		return fireRatePerSecond;
 	}
 	
 	public void madeHit() {
@@ -94,37 +89,8 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		// TODO strategy pattern
-		Projectile projectile = null; 
-		switch (weapon) {
-			case STANDARD_CANON:
-				projectile = new Projectile(getId());
-				break;
-			case LASER_GUN:
-				// FIXME: Extract to own subclass
-				projectile = new Projectile(getId()) {
-					@Override
-					public int getHeight() {
-						return getDirection() == Direction.LEFT || getDirection() == Direction.RIGHT ? LASERGUN_SIZE : Weapon.LASER_GUN.getDimension();
-					}
-					
-					@Override
-					public int getWidth() {
-						return getDirection() == Direction.DOWN || getDirection() == Direction.UP ? LASERGUN_SIZE : Weapon.LASER_GUN.getDimension();
-					}
-				};
-				projectile.setProjectileDimension(LASERGUN_SIZE);
-				projectile.setPower(Weapon.LASER_GUN.getPower());
-				projectile.setVelocity(Weapon.LASER_GUN.getVelocity());
-				break;
-			case ROCKET_LAUNCHER:
-				projectile = new Projectile(getId());
-				projectile.setPower(Weapon.ROCKET_LAUNCHER.getPower());
-				projectile.setProjectileDimension(Weapon.ROCKET_LAUNCHER.getDimension());
-				projectile.setVelocity(Weapon.ROCKET_LAUNCHER.getVelocity());
-				break;
-		}
-		projectile.setDirection(getDirection());
+		Projectile projectile = weapon.shoot(getId(), getDirection());
+		
 		// TODO beautify
 		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), 
 				this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2));
@@ -150,9 +116,6 @@ public class Tank extends Actor {
 		} else if (actor instanceof HealthPowerUp) {
 			HealthPowerUp healthPowerUp = (HealthPowerUp) actor;
 			increaseHealth(healthPowerUp);
-		} else if (actor instanceof FireRatePowerUp) {
-			FireRatePowerUp fireRatePowerUp = (FireRatePowerUp) actor;
-			increaseFireRate(fireRatePowerUp);
 		} else if (actor instanceof LaserGunPowerUp) {
 			LaserGunPowerUp laserGunPowerUp = (LaserGunPowerUp) actor;
 			setWeapon(laserGunPowerUp.getWeapon());
@@ -193,10 +156,7 @@ public class Tank extends Actor {
 	}
 	
 	private void increaseHealth(HealthPowerUp healthPowerUp) {
-		health =  Math.min(DEFAULT_HEALTH, health + healthPowerUp.getHealthGain());
-	}
-	private void increaseFireRate(FireRatePowerUp fireRatePowerUp) {
-		fireRatePerSecond += fireRatePowerUp.getFireRateGain();
+		health =  Math.min(MAX_HEALTH, health + healthPowerUp.getHealthGain());
 	}
 
 	public Weapon getWeapon() {

@@ -8,12 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.tankwars.game.BattlefieldMap;
-import ch.tankwars.game.FireRatePowerUp;
 import ch.tankwars.game.Game;
-import ch.tankwars.game.HealthPowerUp;
-import ch.tankwars.game.LaserGunPowerUp;
-import ch.tankwars.game.RocketLauncherPowerUp;
 import ch.tankwars.game.Wall;
+import ch.tankwars.game.powerup.HealthPowerUp;
+import ch.tankwars.game.powerup.LaserGunPowerUp;
+import ch.tankwars.game.powerup.RocketLauncherPowerUp;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 
 import com.google.gson.Gson;
@@ -47,20 +46,11 @@ public class MapWriterTest {
 		battlefieldMap.addWall(new Wall(100, 100, 600, WALL_WIDTH));
 		battlefieldMap.addWall(new Wall(100, 400, 600, WALL_WIDTH));
 		
-		battlefieldMap.addWall(new Wall(150, 130, WALL_WIDTH, 240));
-		battlefieldMap.addWall(new Wall(600, 130, WALL_WIDTH, 240));
+		battlefieldMap.addWall(new Wall(150, 130, WALL_WIDTH, 220));
+		battlefieldMap.addWall(new Wall(600, 130, WALL_WIDTH, 220));
 		
 		battlefieldMap.addWall(new Wall(300, 300, 100, WALL_WIDTH));
 		
-		
-		battlefieldMap.addPowerUp(new HealthPowerUp(200, 200));
-		battlefieldMap.addPowerUp(new HealthPowerUp(400, 300));
-		battlefieldMap.addPowerUp(new FireRatePowerUp(100, 100));
-		battlefieldMap.addPowerUp(new FireRatePowerUp(500, 540));
-
-		battlefieldMap.addPowerUp(new RocketLauncherPowerUp(250, 250));
-		battlefieldMap.addPowerUp(new LaserGunPowerUp(430, 70));
-
 		String mapAsJson = gson.toJson(battlefieldMap);
 		writeMap("labyrinth.json", mapAsJson);
 	}
@@ -72,14 +62,6 @@ public class MapWriterTest {
 		battlefieldMap.addWall(new Wall(50, 89, 200, 10));
 		battlefieldMap.addWall(new Wall(600, 411, 50, 50));
 		battlefieldMap.addWall(new Wall(555, 44, 80, 20));
-
-		battlefieldMap.addPowerUp(new HealthPowerUp(200, 200));
-		battlefieldMap.addPowerUp(new HealthPowerUp(400, 300));
-		battlefieldMap.addPowerUp(new FireRatePowerUp(100, 100));
-		battlefieldMap.addPowerUp(new FireRatePowerUp(500, 580));
-
-		battlefieldMap.addPowerUp(new RocketLauncherPowerUp(250, 250));
-		battlefieldMap.addPowerUp(new LaserGunPowerUp(430, 70));
 
 		String mapAsJson = gson.toJson(battlefieldMap);
 		writeMap("default.json", mapAsJson);

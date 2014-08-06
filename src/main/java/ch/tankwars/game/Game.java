@@ -7,6 +7,11 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
+import ch.tankwars.game.powerup.HealthPowerUp;
+import ch.tankwars.game.powerup.LaserGunPowerUp;
+import ch.tankwars.game.powerup.PowerUp;
+import ch.tankwars.game.powerup.RocketLauncherPowerUp;
+
 /**
  * Contains all game logic.
  */
@@ -25,6 +30,12 @@ public class Game implements ActorListener {
 	private Referee referee = new Referee();
 
 	public synchronized void tick() {
+		if(roundCounter % 200 == 0) {
+			final List<Actor> powerUps = actors.stream().filter(a -> a instanceof PowerUp).collect(Collectors.toList());
+			if(powerUps.size() <= 10) {
+				reSpawnNewPowerUps();
+			}
+		}
 		roundCounter++;
 		addActorsInQueue();
 
@@ -35,7 +46,6 @@ public class Game implements ActorListener {
 				actor.act();
 				for (Wall wall : battlefieldMap.getWalls()) {
 					if(actor.collidesWith(wall)) {
-//						wall.onCollision(actor, referee);
 						actor.onCollision(wall, referee);
 					}
 				}
@@ -47,33 +57,26 @@ public class Game implements ActorListener {
 				}
 			}
 		}
-		if(roundCounter % 200 == 0) {
-			final List<Actor> powerUps = actors.stream().filter(a -> a instanceof PowerUp).collect(Collectors.toList());
-			if(powerUps.size() <= 10) {
-				reSpawnNewPowerUps();
-			}
-		}
 		removeDeadActors();
 	}
 
 	private void reSpawnNewPowerUps() {
 		final Random random = new Random();
-		final int powerUpCount = random.nextInt(5);
+		final int powerUpCount = random.nextInt(7 - 2) + 2;
 		for (int i = 0; i <= powerUpCount; i++) {
 			spawnNewPowerUp(random);
 		}
 	}
-
+	
+	// TODO rework
 	private void spawnNewPowerUp(final Random random) {
 		PowerUp powerUp = null;
 		final int type = random.nextInt(4);
 		
 		switch (type) {
 		case 0: 
+		case 1:
 			powerUp = new HealthPowerUp(0, 0);
-			break;
-		case 1: 
-			powerUp = new FireRatePowerUp(0, 0);
 			break;
 		case 2: 
 			powerUp = new LaserGunPowerUp(0, 0);
