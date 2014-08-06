@@ -6,6 +6,7 @@ import ch.tankwars.game.Actor;
 import ch.tankwars.game.ActorType;
 import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Referee;
+import ch.tankwars.game.items.Mine;
 
 
 public class Projectile extends Actor {
@@ -65,7 +66,7 @@ public class Projectile extends Actor {
 
 	@Override
 	public void onCollision(Actor actor, Referee referee) {
-		if(actor.getId() != owningTankId) {
+		if(actor.getId() != owningTankId && !(actor instanceof Mine)) {
 			setRemove(true);
 		}
 	}

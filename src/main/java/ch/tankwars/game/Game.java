@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
 
@@ -88,22 +87,6 @@ public class Game implements ActorListener {
 
 		return tank;
 	}
-
-	private void computeRandomActorPosition(final Actor actor) {
-		final Random random = new Random();
-		final int x = random.nextInt(battlefieldMap.getFieldWidth() - 50 - actor.getWidth()) + 20;
-		final int y = random.nextInt(battlefieldMap.getFieldHeight() - 50 - actor.getHeight()) + 20;
-		actor.setPosition(x, y);
-		checkForCollisions(actor);
-	}
-
-	private void checkForCollisions(Actor actor) {
-		for (Actor otherActor : actors) {
-			if (actor.collidesWith(otherActor)) {
-				computeRandomActorPosition(actor);
-			}
-		}
-	}
 	
 	public List<Actor> getActors() {
 		return actors;
@@ -119,6 +102,15 @@ public class Game implements ActorListener {
 		actorsToAdd.add(actor);
 	}
 
+	@Override
+	public boolean createActorIfNoCollision(Actor actorToCreate) {
+		boolean hasCollision = actors.stream().anyMatch(actor -> actor.collidesWith(actorToCreate));
+		if(!hasCollision) {
+			createActor(actorToCreate);
+		}
+		return !hasCollision;
+	}
+	
 	public BattlefieldMap getPlayGround() {
 		return battlefieldMap;
 	}
