@@ -64,7 +64,7 @@ var Game = function(canvasId) {
     var cannonOffCooldown = function() {
         var myTank = knownActors[myId];
         var fireRate = myTank.fireRate;
-        var cooldown = 1000 / fireRate;
+        var cooldown = 500 / fireRate;
 
         var now = $.now();
         var then = lastFired;
@@ -180,5 +180,8 @@ var Game = function(canvasId) {
 
     resource = new GameResource(update, onPlayersChanged);
     renderer = new ShapeRenderer(canvas);
+
+    canvas.renderOnAddRemove = false;
+
     registerEventListeners();
 };

@@ -20,6 +20,11 @@ var ShapeRenderer = function(_canvas) {
                 shape = Wall.drawWall(actor);
                 break;
         }
+
+        // optimize
+        shape.selectable = false;
+        shape.hasRotatingPoint = false;
+
         shapes[actor.id] = shape;
         canvas.add(shape);
     };
