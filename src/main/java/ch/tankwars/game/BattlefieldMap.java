@@ -3,14 +3,14 @@ package ch.tankwars.game;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PlayGround{
+public class BattlefieldMap{
 	
 	private int fieldWidth;
 	private int fieldHeight;
 	private Set<Wall> walls = new HashSet<Wall>();
 	private Set<PowerUp> powerUps = new HashSet<PowerUp>();
 	
-	public PlayGround(int fieldWidth, int fieldHeight) {
+	public BattlefieldMap(int fieldWidth, int fieldHeight) {
 		this.setFieldWidth(fieldWidth);
 		this.setFieldHeight(fieldHeight);
 	}

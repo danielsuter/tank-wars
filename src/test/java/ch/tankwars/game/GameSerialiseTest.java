@@ -29,7 +29,7 @@ public class GameSerialiseTest {
 	@Before
 	public void setUp() {
 		game = new Game();
-		game.setPlayGround(new PlayGround(1000, 1000));
+		game.setPlayGround(new BattlefieldMap(1000, 1000));
 		mapper = new ResponseMapper();
 		gson = GsonFactory.create();
 	}
@@ -43,11 +43,11 @@ public class GameSerialiseTest {
 
 	@Test
 	public void playgroundMapping() {
-		PlayGround playGround = new PlayGround(1000, 1000);
-		playGround.addPowerUp(new FireRatePowerUp(0, 0));
-		playGround.addWall(new Wall(0, 0, 0, 100, 100));
+		BattlefieldMap battlefieldMap = new BattlefieldMap(1000, 1000);
+		battlefieldMap.addPowerUp(new FireRatePowerUp(0, 0));
+		battlefieldMap.addWall(new Wall(0, 0, 0, 100, 100));
 		
-		gson.toJson(playGround);
+		gson.toJson(battlefieldMap);
 	}
 	
 	@Test

@@ -1,6 +1,6 @@
 package ch.tankwars.transport.game.mapper;
 
-import ch.tankwars.game.PlayGround;
+import ch.tankwars.game.BattlefieldMap;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -14,7 +14,7 @@ public class GsonFactory {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 
 		gsonBuilder.registerTypeAdapter(ActorListSerializer.TYPE, new ActorListSerializer());
-		gsonBuilder.registerTypeAdapter(PlayGround.class, new PlaygroundDeserializer());
+		gsonBuilder.registerTypeAdapter(BattlefieldMap.class, new PlaygroundDeserializer());
 		
 		gsonBuilder.setExclusionStrategies(new ExclusionStrategy() {
 			

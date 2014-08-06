@@ -9,7 +9,7 @@ import java.io.FileReader;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.tankwars.game.PlayGround;
+import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 
 import com.google.gson.Gson;
@@ -30,10 +30,10 @@ public class MapReaderTest {
 	public void readDefaultPlayground() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		File file = new File(MAP_PATH, "default.json");
 		
-		PlayGround playGround = gson.fromJson(new FileReader(file), PlayGround.class);
+		BattlefieldMap battlefieldMap = gson.fromJson(new FileReader(file), BattlefieldMap.class);
 		
-		assertEquals(600, playGround.getFieldHeight());
-		assertEquals(800, playGround.getFieldWidth());
-		assertTrue(playGround.getPowerUps().size() > 0);
+		assertEquals(600, battlefieldMap.getFieldHeight());
+		assertEquals(800, battlefieldMap.getFieldWidth());
+		assertTrue(battlefieldMap.getPowerUps().size() > 0);
 	}
 }

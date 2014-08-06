@@ -27,7 +27,7 @@ public class GameCollisionTest {
 	
 	@Test
 	public void collisionTankProjectileWithSpeed() {
-		game.setPlayGround(new PlayGround(100, 100));
+		game.setPlayGround(new BattlefieldMap(100, 100));
 		Tank tank = game.spawn("Chief");
 		tank.setPosition(0, 0);
 		
@@ -62,10 +62,10 @@ public class GameCollisionTest {
 	
 	@Test
 	public void collisionProjectileWall() throws Exception {
-		PlayGround playGround = new PlayGround(1000, 1000);
+		BattlefieldMap battlefieldMap = new BattlefieldMap(1000, 1000);
 		Wall wall = new Wall(1, 1, 1, 200, 10);
-		playGround.addWall(wall);
-		game.setPlayGround(playGround);
+		battlefieldMap.addWall(wall);
+		game.setPlayGround(battlefieldMap);
 		
 		Projectile projectile = new Projectile(-1);
 		projectile.setPosition(15, 15);
@@ -79,10 +79,10 @@ public class GameCollisionTest {
 	
 	@Test
 	public void collisionWallTank() throws Exception {
-		PlayGround playGround = new PlayGround(1000, 1000);
-		game.setPlayGround(playGround);
+		BattlefieldMap battlefieldMap = new BattlefieldMap(1000, 1000);
+		game.setPlayGround(battlefieldMap);
 		Wall wall = new Wall(1, 1, 1, 200, 15);
-		playGround.addWall(wall);
+		battlefieldMap.addWall(wall);
 		
 		Tank tank = game.spawn("Support Veigar");
 		tank.setPosition(15, 20);

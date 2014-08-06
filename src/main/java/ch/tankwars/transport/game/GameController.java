@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import ch.tankwars.game.Direction;
 import ch.tankwars.game.Game;
-import ch.tankwars.game.PlayGround;
+import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Tank;
 import ch.tankwars.maps.MapReader;
 import ch.tankwars.performance.PerformanceCounter;
@@ -136,7 +136,7 @@ public class GameController {
 	}
 
 	public void loadMap(String mapName) {
-		PlayGround playGround = mapReader.load(mapName);
-		game.setPlayGround(playGround);
+		BattlefieldMap battlefieldMap = mapReader.load(mapName);
+		game.setPlayGround(battlefieldMap);
 	}
 }

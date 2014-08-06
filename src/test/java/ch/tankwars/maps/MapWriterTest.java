@@ -11,7 +11,7 @@ import ch.tankwars.game.FireRatePowerUp;
 import ch.tankwars.game.Game;
 import ch.tankwars.game.HealthPowerUp;
 import ch.tankwars.game.LaserGunPowerUp;
-import ch.tankwars.game.PlayGround;
+import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.PowerUp;
 import ch.tankwars.game.RocketLauncherPowerUp;
 import ch.tankwars.transport.game.mapper.GsonFactory;
@@ -30,23 +30,23 @@ public class MapWriterTest {
 	
 	@Test
 	public void defaultMap() throws Exception {
-		PlayGround playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
+		BattlefieldMap battlefieldMap = new BattlefieldMap(Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		Game game = new Game();
-		game.setPlayGround(playGround);
+		game.setPlayGround(battlefieldMap);
 		game.addWall(5, 5, 20, 100);
 		game.addWall(50, 89, 200, 10);
 		game.addWall(600, 411, 50, 50);
 		game.addWall(555, 44, 80, 20);
 		
-		playGround.addPowerUp(addHealthPowerUp(200, 200));
-		playGround.addPowerUp(addHealthPowerUp(400, 300));
-		playGround.addPowerUp(addFireRatePowerUp(100, 100));
-		playGround.addPowerUp(addFireRatePowerUp(500, 580));
+		battlefieldMap.addPowerUp(addHealthPowerUp(200, 200));
+		battlefieldMap.addPowerUp(addHealthPowerUp(400, 300));
+		battlefieldMap.addPowerUp(addFireRatePowerUp(100, 100));
+		battlefieldMap.addPowerUp(addFireRatePowerUp(500, 580));
 		
-		playGround.addPowerUp(new RocketLauncherPowerUp(250, 250));
-		playGround.addPowerUp(new LaserGunPowerUp(430, 70));
+		battlefieldMap.addPowerUp(new RocketLauncherPowerUp(250, 250));
+		battlefieldMap.addPowerUp(new LaserGunPowerUp(430, 70));
 		
-		String mapAsJson = gson.toJson(playGround);
+		String mapAsJson = gson.toJson(battlefieldMap);
 		writeMap("default.json", mapAsJson);
 	}
 	
