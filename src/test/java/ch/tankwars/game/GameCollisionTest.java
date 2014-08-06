@@ -1,15 +1,21 @@
 package ch.tankwars.game;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class GameCollisionTest {
 	
+	private Game game;
+
+	@Before
+	public void setUp() {
+		game = new Game();
+	}
+	
 	@Test
 	public void collisionTankProjectile() {
-		Game game = new Game();
 		Tank tank = game.spawn("Chief");
 		tank.setPosition(0, 0);
 		
@@ -21,7 +27,7 @@ public class GameCollisionTest {
 	
 	@Test
 	public void collisionTankProjectileWithSpeed() {
-		Game game = new Game();
+		game.setPlayGround(new PlayGround(100, 100));
 		Tank tank = game.spawn("Chief");
 		tank.setPosition(0, 0);
 		
@@ -38,8 +44,7 @@ public class GameCollisionTest {
 	}
 	
 	@Test
-	public void collisionBetweenProjectiles() {
-		Game game = new Game();
+	public void noCollisionBetweenProjectiles() {
 		Projectile projectile1 = new Projectile(game, -1);
 		projectile1.setPosition(0, 0);
 		projectile1.setDirection(Direction.LEFT);
@@ -53,6 +58,40 @@ public class GameCollisionTest {
 		assertFalse(projectile1.collidesWith(projectile2));
 		assertFalse(projectile2.collidesWith(projectile1));
 		
+	}
+	
+	@Test
+	public void collisionProjectileWall() throws Exception {
+		PlayGround playGround = new PlayGround(1000, 1000);
+		Wall wall = new Wall(game, 1, 1, 1, 200, 10);
+		playGround.addWall(wall);
+		game.setPlayGround(playGround);
+		
+		Projectile projectile = new Projectile(game, -1);
+		projectile.setPosition(15, 15);
+		projectile.setDirection(Direction.UP);
+		projectile.setVelocity(10);
+		game.createActor(projectile);
+		game.tick();
+		
+		assertTrue(projectile.collidesWith(wall));
+		assertTrue(wall.collidesWith(projectile));
+	}
+	
+	@Test
+	public void collisionWallTank() throws Exception {
+		PlayGround playGround = new PlayGround(1000, 1000);
+		Wall wall = new Wall(game, 1, 1, 1, 200, 15);
+		playGround.addWall(wall);
+		game.setPlayGround(playGround);
+		
+		Tank tank = game.spawn("Support Veigar");
+		tank.setPosition(15, 20);
+		tank.move(Direction.UP);
+		System.out.println("Y:" + tank.getY());
+		game.tick();
+		
+		assertEquals(tank.getY(), wall.getY() + wall.getHeight());
 	}
 
 }

@@ -43,6 +43,9 @@ public class GameController {
 		playGround = new PlayGround(Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		game.setPlayGround(playGround);
 		game.addWall(5, 5, 20, 100);
+		game.addWall(50, 89, 200, 10);
+		game.addWall(600, 411, 50, 50);
+		game.addWall(555, 44, 80, 20);
 	}
 
 	public synchronized void start() {
@@ -58,8 +61,14 @@ public class GameController {
 
 			@Override
 			public void run() {
+				double startTime = System.nanoTime();
 				game.tick();
+				double tickTime = System.nanoTime();
 				gameCommunicator.sendMessage(game.getActors(), peers, ActorListDeserializer.TYPE);
+				double endTime = System.nanoTime();
+				double durationMilis = (endTime - startTime) / 1000000d;
+				double durationTick = (tickTime - startTime) / 1000000d;
+				LOGGER.info("LOOP TIME: {} TICK TIME: {}", durationMilis, durationTick);
 			}
 
 		}, 0, INTERVAL_MILIS);

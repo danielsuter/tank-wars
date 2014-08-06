@@ -96,6 +96,22 @@ public class Tank extends Actor {
 			if(projectile.getOwningTankId() != getId()) {
 				damage(projectile.getPower());
 			}
+		} else if (actor instanceof Wall) {
+			Wall wall = (Wall) actor;
+			switch(getDirection()) {
+				case DOWN: 
+					setY(wall.getY() - getHeight());
+					break; 
+				case UP:
+					setY(wall.getY() + wall.getHeight());
+					break;
+				case RIGHT:
+					setX(wall.getX() - getWidth());
+					break;
+				case LEFT:
+					setX(wall.getX() + wall.getWidth());
+					break; 
+			}
 		}
 	}
 
