@@ -11,8 +11,7 @@ var ShapeRenderer = function(_canvas) {
         switch (actor.actorType) {
             case "TANK":
                 actor.color = getColor();
-                shape = Tank.drawTank(actor);
-                shape.direction = actor.direction;
+                shape = Tank.drawTankEast(actor);
                 break;
             case "PROJECTILE":
                 shape = Projectile.drawProjectile(actor);
@@ -44,15 +43,30 @@ var ShapeRenderer = function(_canvas) {
 
     };
 
-    var directionToAngleMap = {
-        "E"     : 0,
-        "S"     : 90,
-        "W"     : 180,
-        "N"     : -90
-    };
-
     var getColor = function() {
         return '#'+Math.floor(Math.random()*16777215).toString(16);
+    };
+
+    var rotate = function(actor) {
+        var shape = shapes[actor.id];
+        canvas.remove(shape);
+        switch (actor.direction) {
+            case "N":
+                shape = Tank.drawTankNorth(actor);
+                break;
+            case "E":
+                shape = Tank.drawTankEast(actor)
+                break;
+            case "S":
+                shape = Tank.drawTankSouth(actor);
+                break;
+            case "W":
+                shape = Tank.drawTankWest(actor);
+                break;
+        }
+
+        shapes[actor.id] = shape;
+        canvas.add(shape);
     };
 
     this.updateShape = function(actor) {
@@ -65,13 +79,9 @@ var ShapeRenderer = function(_canvas) {
         shape.set({"left" : actor.x});
         shape.set({"top" : actor.y});
 
-//        if (actor.direction) {
-//            var angle = directionToAngleMap[actor.direction];
-//
-//            if (shape.getAngle() !== angle) {
-//                shape.setAngle(angle);
-//            }
-//        }
+        if (actor.actorType === "TANK" && shape.direction !== actor.direction) {
+            rotate(actor);
+        }
 
         shape.setCoords();
     };
@@ -133,4 +143,34 @@ var ShapeRenderer = function(_canvas) {
             }
         }
     };
+
+    fabric.Object.prototype.setOriginToCenter = function () {
+        this._originalOriginX = this.originX;
+        this._originalOriginY = this.originY;
+
+        var center = this.getCenterPoint();
+
+        this.set({
+            originX: 'center',
+            originY: 'center',
+            left: center.x,
+            top: center.y
+        });
+    };
+
+    fabric.Object.prototype.setCenterToOrigin = function () {
+        var originPoint = this.translateToOriginPoint(
+            this.getCenterPoint(),
+            this._originalOriginX,
+            this._originalOriginY);
+
+        this.set({
+            originX: this._originalOriginX,
+            originY: this._originalOriginY,
+            left: originPoint.x,
+            top: originPoint.y
+        });
+    };
+
+
 };
