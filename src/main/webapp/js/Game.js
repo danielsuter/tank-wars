@@ -218,8 +218,8 @@ var Game = function(canvasId) {
    var playerDisplayTemplate =
        "<li class='list-group-item'>" +
             "{{name}}" +
-            "<span class='badge' id='hits{{id}}'>0</span>" +
-            "<span class='badge' id='kills{{id}}'>0</span>" +
+           "<span class='badge' id='kills{{id}}'>Kills: 0</span>" +
+           "<span class='badge' id='hits{{id}}'>Hits: 0</span>" +
        "</li>";
 
 
@@ -233,11 +233,11 @@ var Game = function(canvasId) {
 
    var updateScore = function(actor) {
         if (actor.hits) {
-            $("#hits" + actor.id).val(actor.hits);
+            $("#hits" + actor.id).html("Hits:" + actor.hits);
         }
 
         if (actor.kills) {
-            $("#kills" + actor.id).val(actor.kills);
+            $("#kills" + actor.id).html("Kills: " + actor.kills);
         }
    };
 
