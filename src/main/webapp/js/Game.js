@@ -123,6 +123,7 @@ var Game = function(canvasId) {
             updateScore(knownActors[actorUpdate.id]);
         });
 
+
         checkOwnDeath();
         renderer.renderStatusBar(knownActors[myId]);
 
@@ -210,10 +211,10 @@ var Game = function(canvasId) {
    };
 
    var playerDisplayTemplate =
-       "<li class='list-group-item'>" +
+       "<li class='list-group-item playerScore'>" +
            "<span class='label label-default' id='color{{id}}'>{{name}}</span>" +
-           "<span class='badge' id='kills{{id}}'>Kills: 0</span>" +
-           "<span class='badge' id='hits{{id}}'>Hits: 0</span>" +
+           "<span class='badge' name='killsBadge' data-value='0' id='kills{{id}}'>Kills: 0</span>" +
+           "<span class='badge' name='hitsBadge' data-value='0' id='hits{{id}}'>Hits: 0</span>" +
        "</li>";
 
 
@@ -227,16 +228,45 @@ var Game = function(canvasId) {
 
    var updateScore = function(actor) {
        if (actor.hits) {
-           $("#hits" + actor.id).html("Hits: " + actor.hits);
+           var hitsBadge = $("#hits" + actor.id);
+           hitsBadge.html("Hits: " + actor.hits);
+           hitsBadge.data("value", actor.hits);
        }
 
        if (actor.kills) {
-           $("#kills" + actor.id).html("Kills: " + actor.kills);
+           var killsBadge = $("#kills" + actor.id);
+           killsBadge.html("Kills: " + actor.kills);
+           killsBadge.data("value", actor.kills);
        }
        if (actor.color) {
            $("#color" + actor.id).css('background-color', actor.color);
        }
+
+       sortRows();
    };
+
+    var sortRows = function() {
+        var playerRows = $(".playerScore").get();
+
+        playerRows.sort(function(a, b) {
+            var aHits = $(a).find($("span[name='hitsBadge']")).data("value");
+            var aKills = $(a).find($("span[name='killsBadge']")).data("value");
+            var bHits = $(b).find($("span[name='hitsBadge']")).data("value");
+            var bKills = $(b).find($("span[name='killsBadge']")).data("value");
+
+            var compareKills = (parseInt(aKills) - parseInt(bKills)) * -1;
+
+            if (compareKills !== 0) {
+                return compareKills;
+            }
+
+            return (parseInt(aHits) - parseInt(bHits)) * -1;
+        });
+
+        $.each(playerRows, function() {
+           $("#playersList").append(this);
+        });
+    };
 
     resource = new GameResource(update, onPlayersChanged);
     renderer = new ShapeRenderer(canvas);
