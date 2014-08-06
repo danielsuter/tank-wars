@@ -4,6 +4,8 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
     var onJoined;
     var onPlayersChanged = _onPlayersChanged;
 
+    var lastMessageTime = 0;
+
     this.join = function(_onJoined, playerName) {
         console.log("Joining game with player name " + playerName + ".");
 
@@ -34,6 +36,17 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
     };
 
     this.onMessage = function(event) {
+        var now = $.now();
+        if (now - lastMessageTime > 200) {
+            $("#warning").show();
+        } else {
+            $("#warning").hide();
+        }
+
+        console.log("tick time: " + (now - lastMessageTime));
+
+        lastMessageTime = now;
+
         var message = JSON.parse(event.data);
 
         if(!message.messageType) {
@@ -43,7 +56,6 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
         } else if(message.messageType === 'JOIN') {
             onJoined(message.playerId, message.playGround);
         } else if(message.messageType === "PLAYERS_CHANGED") {
-            console.log(message);
             onPlayersChanged(message.players);
         }
     };
