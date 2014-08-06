@@ -1,10 +1,16 @@
 var ShapeRenderer = function(_canvas) {
 
     var shapes = [];
+    var healthBars = [];
     var canvas = _canvas;
 
     var statusBarShape;
     var cachedStatusBarText;
+
+    var optimizeShape = function (shape) {
+        shape.hasRotatingPoint = false;
+        shape.selectable = false;
+    };
 
     this.createShape = function(actor) {
         var shape;
@@ -12,6 +18,11 @@ var ShapeRenderer = function(_canvas) {
             case "TANK":
                 actor.color = getColor();
                 shape = Tank.drawTankEast(actor);
+
+				var healthBar = HealthBar.drawHealthBar(actor);
+                optimizeShape(healthBar);
+                healthBars[actor.id] = healthBar;
+                canvas.add(healthBar);
                 break;
             case "PROJECTILE":
                 shape = Projectile.drawProjectile(actor);
@@ -35,8 +46,7 @@ var ShapeRenderer = function(_canvas) {
 
         // optimize
         if(shape) {
-            shape.hasRotatingPoint = false;
-            shape.selectable = false;
+            optimizeShape(shape);
             shapes[actor.id] = shape;
             canvas.add(shape);
         }
@@ -45,6 +55,11 @@ var ShapeRenderer = function(_canvas) {
 
     var getColor = function() {
         return '#'+Math.floor(Math.random()*16777215).toString(16);
+    };
+
+    var updateHealthBar = function (tank) {
+        var healthBar = healthBars[tank.id];
+        healthBar.updateLocation(tank);
     };
 
     var rotate = function(actor) {
@@ -76,6 +91,10 @@ var ShapeRenderer = function(_canvas) {
             throw "This shape does not exist, cannot update it!";
         }
 
+        if(actor.actorType === 'TANK') {
+            updateHealthBar(actor);
+        }
+
         shape.set({"left" : actor.x});
         shape.set({"top" : actor.y});
 
@@ -90,6 +109,12 @@ var ShapeRenderer = function(_canvas) {
         var shape = shapes[id];
         canvas.remove(shape);
         delete shapes[id];
+
+        var healthBar = healthBars[id];
+        if(healthBar) {
+            delete healthBars[id];
+            canvas.remove(healthBar);
+        }
     };
 
     this.renderDeath = function() {
@@ -143,34 +168,4 @@ var ShapeRenderer = function(_canvas) {
             }
         }
     };
-
-    fabric.Object.prototype.setOriginToCenter = function () {
-        this._originalOriginX = this.originX;
-        this._originalOriginY = this.originY;
-
-        var center = this.getCenterPoint();
-
-        this.set({
-            originX: 'center',
-            originY: 'center',
-            left: center.x,
-            top: center.y
-        });
-    };
-
-    fabric.Object.prototype.setCenterToOrigin = function () {
-        var originPoint = this.translateToOriginPoint(
-            this.getCenterPoint(),
-            this._originalOriginX,
-            this._originalOriginY);
-
-        this.set({
-            originX: this._originalOriginX,
-            originY: this._originalOriginY,
-            left: originPoint.x,
-            top: originPoint.y
-        });
-    };
-
-
 };

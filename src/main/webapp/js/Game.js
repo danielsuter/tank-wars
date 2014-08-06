@@ -111,7 +111,6 @@ var Game = function(canvasId) {
 
         $.each(actorsFromResponse, function() {
             var actorUpdate = this;
-            updateScore(actorUpdate);
 
             if (isNewActor(actorUpdate)) {
                 knownActors[actorUpdate.id] = actorUpdate;
@@ -120,6 +119,8 @@ var Game = function(canvasId) {
                 updateActor(actorUpdate);
                 renderer.updateShape(knownActors[actorUpdate.id]);
             }
+
+            updateScore(knownActors[actorUpdate.id]);
         });
 
         checkOwnDeath();
@@ -223,7 +224,7 @@ var Game = function(canvasId) {
 
    var playerDisplayTemplate =
        "<li class='list-group-item'>" +
-            "{{name}}" +
+           "<span class='label label-default' id='color{{id}}'>{{name}}</span>" +
            "<span class='badge' id='kills{{id}}'>Kills: 0</span>" +
            "<span class='badge' id='hits{{id}}'>Hits: 0</span>" +
        "</li>";
@@ -238,13 +239,16 @@ var Game = function(canvasId) {
    };
 
    var updateScore = function(actor) {
-        if (actor.hits) {
-            $("#hits" + actor.id).html("Hits: " + actor.hits);
-        }
+       if (actor.hits) {
+           $("#hits" + actor.id).html("Hits: " + actor.hits);
+       }
 
-        if (actor.kills) {
-            $("#kills" + actor.id).html("Kills: " + actor.kills);
-        }
+       if (actor.kills) {
+           $("#kills" + actor.id).html("Kills: " + actor.kills);
+       }
+       if (actor.color) {
+           $("#color" + actor.id).css('background-color', actor.color);
+       }
    };
 
     resource = new GameResource(update, onPlayersChanged);
