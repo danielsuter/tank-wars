@@ -15,6 +15,7 @@ import ch.tankwars.game.Direction;
 import ch.tankwars.game.Game;
 import ch.tankwars.game.PlayGround;
 import ch.tankwars.game.Tank;
+import ch.tankwars.game.Wall;
 import ch.tankwars.performance.PerformanceCounter;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.dto.PlayersChangedResponse;
@@ -46,6 +47,10 @@ public class GameController {
 		game.addWall(50, 89, 200, 10);
 		game.addWall(600, 411, 50, 50);
 		game.addWall(555, 44, 80, 20);
+		
+		for (Wall wall : playGround.getWalls()) {
+			game.createActor(wall);
+		}
 	}
 
 	public synchronized void start() {
@@ -83,6 +88,7 @@ public class GameController {
 	public PlayerPeer join(Session player, String playerName) {
 		PlayerPeer playerPeer = new PlayerPeer(player, playerName);
 		playerPeers.add(playerPeer);
+		
 		
 		Tank spawnedTank = game.spawn(playerName);
 		playerPeer.setTank(spawnedTank);

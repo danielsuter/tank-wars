@@ -26,8 +26,8 @@ public class Tank extends Actor {
 		return playerName;
 	}
 	
-	public void setFireRatePerSecond(int fIRE_RATE_PER_SECOND) {
-		fireRatePerSecond = fIRE_RATE_PER_SECOND;
+	public void setFireRatePerSecond(int fireRatePerSecond) {
+		this.fireRatePerSecond = fireRatePerSecond;
 	}
 	
 	public int getFireRatePerSecond() {
@@ -90,7 +90,7 @@ public class Tank extends Actor {
 	}
 
 	@Override
-	public void collision(Actor actor) {
+	public void onCollision(Actor actor) {
 		if(actor instanceof Projectile) {
 			Projectile projectile = (Projectile) actor;
 			if(projectile.getOwningTankId() != getId()) {

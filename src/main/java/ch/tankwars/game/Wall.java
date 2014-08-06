@@ -1,6 +1,6 @@
 package ch.tankwars.game;
 
-public class Wall extends Actor {
+public class Wall extends Obstacle {
 
 	public Wall(ActorListener actorListener, int id, int x, int y, int width, int height) {
 		super(actorListener, ActorType.WALL);
@@ -9,12 +9,6 @@ public class Wall extends Actor {
 		setWidth(width);
 		setHeight(height);
 	}
-	
-	@Override
-	public void act() {
-		// I'm a wall...
-	}
-	
 	
 	class Dimensions {
 		private int x;
@@ -54,12 +48,6 @@ public class Wall extends Actor {
 			this.height = height;
 		}
 		
-		
 	}
-
-	@Override
-	public void collision(Actor actor) {
-		// I'm a wall and undestructible
-	}
-
+	
 }

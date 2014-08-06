@@ -55,7 +55,7 @@ public class Projectile extends Actor {
 	}
 
 	@Override
-	public void collision(Actor actor) {
+	public void onCollision(Actor actor) {
 		if(actor.getId() != owningTankId) {
 			setRemove(true);
 		}

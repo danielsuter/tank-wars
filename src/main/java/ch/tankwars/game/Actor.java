@@ -31,7 +31,7 @@ public abstract class Actor implements Cloneable {
 		return getBounds().intersects(actor.getBounds());
 	}
 	
-	public abstract void collision(Actor actor);
+	public abstract void onCollision(Actor actor);
 	
 	
 	public Rectangle getBounds() {
@@ -117,7 +117,7 @@ public abstract class Actor implements Cloneable {
 		this.velocity = velocity;
 	}
 
-	public boolean isRemove() {
+	public boolean isDead() {
 		return remove;
 	}
 

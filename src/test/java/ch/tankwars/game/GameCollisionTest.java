@@ -40,7 +40,7 @@ public class GameCollisionTest {
 		game.tick();
 		
 		assertTrue(projectile.collidesWith(tank));
-		assertTrue(projectile.isRemove());
+		assertTrue(projectile.isDead());
 	}
 	
 	@Test
@@ -81,9 +81,9 @@ public class GameCollisionTest {
 	@Test
 	public void collisionWallTank() throws Exception {
 		PlayGround playGround = new PlayGround(1000, 1000);
-		Wall wall = new Wall(game, 1, 1, 1, 200, 15);
-		playGround.addWall(wall);
 		game.setPlayGround(playGround);
+		Wall wall = new Wall(game, 1, 1, 1, 200, 15);
+		game.addWall(wall);
 		
 		Tank tank = game.spawn("Support Veigar");
 		tank.setPosition(15, 20);
