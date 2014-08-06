@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import ch.tankwars.game.Actor;
 import ch.tankwars.game.Projectile;
+import ch.tankwars.game.Tank;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -33,6 +34,7 @@ public class ActorListDeserializer implements JsonSerializer<List<Actor>> {
 	private static final String X_POSITION = "x";
 	private static final String ID = "i";
 	private static final String ACTOR_TYPE = "t";
+	private static final String FIRE_RATE = "f";
 	
 	private static final int GAME_UPDATE = 0;
 
@@ -83,6 +85,14 @@ public class ActorListDeserializer implements JsonSerializer<List<Actor>> {
 
 				if (cachedActor == null || cachedActor.getVelocity() != actor.getVelocity()) {
 					actorJson.addProperty(VELOCITY, actor.getVelocity());
+				}
+				
+				if (actor instanceof Tank) {
+					Tank tank = (Tank) actor;
+					Tank cachedTank = (Tank) cachedActor;
+					if (cachedTank == null || cachedTank.getFireRatePerSecond() != tank.getFireRatePerSecond()) {
+						actorJson.addProperty(FIRE_RATE, tank.getFireRatePerSecond());
+					}
 				}
 				
 				putToCache(actor);

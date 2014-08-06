@@ -79,9 +79,16 @@ var Game = function(canvasId) {
         keyup: doKeyUp
     });
 
-    var onJoin = function(id, playGround) {
-		myId = id;
+<<<<<<< Updated upstream
+    var onJoin = function(playGround) {
         drawBoard(playGround);
+=======
+    var onJoin = function(id, _width, _height) {
+        width = _width;
+        height = _height;
+        myId = id;
+        drawBoard();
+>>>>>>> Stashed changes
     };
 
     var update = function(actorsFromResponse) {
@@ -98,7 +105,7 @@ var Game = function(canvasId) {
             }
         });
 
-        renderer.render();
+//        renderer.render();
     };
 
     var isNewActor = function(actor) {
