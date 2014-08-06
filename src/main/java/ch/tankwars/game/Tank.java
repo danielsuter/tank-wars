@@ -144,21 +144,7 @@ public class Tank extends Actor {
 				}
 			}
 		} else if (actor instanceof Wall) {
-			Wall wall = (Wall) actor;
-			switch(getDirection()) {
-				case DOWN: 
-					setY(wall.getY() - getHeight());
-					break; 
-				case UP:
-					setY(wall.getY() + wall.getHeight());
-					break;
-				case RIGHT:
-					setX(wall.getX() - getWidth());
-					break;
-				case LEFT:
-					setX(wall.getX() + wall.getWidth());
-					break; 
-			}
+			prohibitCollision(actor);
 		} else if (actor instanceof HealthPowerUp) {
 			HealthPowerUp healthPowerUp = (HealthPowerUp) actor;
 			increaseHealth(healthPowerUp);
@@ -172,21 +158,24 @@ public class Tank extends Actor {
 			RocketLauncherPowerUp rocketLauncherPowerUp = (RocketLauncherPowerUp) actor;
 			setWeapon(rocketLauncherPowerUp.getWeapon());
 		} else if(actor instanceof Tank) {
-			Tank tank = (Tank) actor;
-			switch(getDirection()) {
-				case DOWN: 
-					setY(tank.getY() - getHeight());
-					break; 
-				case UP:
-					setY(tank.getY() + tank.getHeight());
-					break;
-				case RIGHT:
-					setX(tank.getX() - getWidth());
-					break;
-				case LEFT:
-					setX(tank.getX() + tank.getWidth());
-					break; 
-			}
+			prohibitCollision(actor);
+		}
+	}
+
+	private void prohibitCollision(Actor actor) {
+		switch(getDirection()) {
+			case DOWN: 
+				setY(actor.getY() - getHeight());
+				break; 
+			case UP:
+				setY(actor.getY() + actor.getHeight());
+				break;
+			case RIGHT:
+				setX(actor.getX() - getWidth());
+				break;
+			case LEFT:
+				setX(actor.getX() + actor.getWidth());
+				break; 
 		}
 	}
 
