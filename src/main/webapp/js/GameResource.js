@@ -36,20 +36,17 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
     };
 
     this.onMessage = function(event) {
-        var now = $.now();
-        if (now !== 0 && now - lastMessageTime > 100) {
-            $("#warning").show();
-            console.log("tick time: " + (now - lastMessageTime));
-        }
-
-        lastMessageTime = now;
-
         var message = JSON.parse(event.data);
 
         if(!message.messageType) {
             message.splice(0, 1); // return value -> message type
             var actors = mapToActorArray(message);
+            var then = $.now();
             onGameUpdate(actors);
+            var time = $.now() - then;
+            if (time > 20) {
+                console.log("processing time unusually high: " + time + "ms");
+            }
         } else if(message.messageType === 'JOIN') {
             onJoined(message.playerId, message.playGround);
         } else if(message.messageType === "PLAYERS_CHANGED") {
