@@ -40,29 +40,30 @@ public class MapWriterTest {
 		addWallToBattleField(WALL_THICKNESS, 0, howlingAbyssWidth - 2 * WALL_THICKNESS, WALL_THICKNESS);
 		addWallToBattleField(WALL_THICKNESS, howlingAbyssHeight - WALL_THICKNESS, howlingAbyssWidth - 2 * WALL_THICKNESS, WALL_THICKNESS);
 
-		
+		// SHORT WALLS FROM BOTTOM AND FROM TOP  
 		addWallToBattleField(300, WALL_THICKNESS, WALL_THICKNESS, 50);
-		addWallToBattleField(howlingAbyssWidth - 400, WALL_THICKNESS, WALL_THICKNESS, 50);
-		
+		addWallToBattleField(howlingAbyssWidth - 300, WALL_THICKNESS, WALL_THICKNESS, 50);
 		addWallToBattleField(300, howlingAbyssHeight - WALL_THICKNESS - 50, WALL_THICKNESS, 50);
-		addWallToBattleField(howlingAbyssWidth - 400, howlingAbyssHeight - WALL_THICKNESS - 50, WALL_THICKNESS, 50);
+		addWallToBattleField(howlingAbyssWidth - 300, howlingAbyssHeight - WALL_THICKNESS - 50, WALL_THICKNESS, 50);
 		
-		addWallToBattleField(350, 100, WALL_THICKNESS, 100);
-		addWallToBattleField(350, howlingAbyssHeight - 100 - 100, WALL_THICKNESS, 100);
-		addWallToBattleField(350, 100, 100, WALL_THICKNESS);
-		addWallToBattleField(350, howlingAbyssHeight - 100, 100, WALL_THICKNESS);
+		// INNER WALL-BUILD
+		addWallToBattleField(400, 100, WALL_THICKNESS, 100);
+		addWallToBattleField(400, howlingAbyssHeight - 100 - 100, WALL_THICKNESS, 100);
+		addWallToBattleField(400, 100, 100, WALL_THICKNESS);
+		addWallToBattleField(400, howlingAbyssHeight - 100, 100, WALL_THICKNESS);
 		
-		addWallToBattleField(750, 100, WALL_THICKNESS, 100);
-		addWallToBattleField(750, howlingAbyssHeight - 100 - 100, WALL_THICKNESS, 100 + WALL_THICKNESS);
-		addWallToBattleField(650, 100, 100, WALL_THICKNESS);
-		addWallToBattleField(650, howlingAbyssHeight - 100, 100  + WALL_THICKNESS, WALL_THICKNESS);
+		addWallToBattleField(800, 100, WALL_THICKNESS, 100);
+		addWallToBattleField(800, howlingAbyssHeight - 100 - 100, WALL_THICKNESS, 100 + WALL_THICKNESS);
+		addWallToBattleField(700, 100, 100, WALL_THICKNESS);
+		addWallToBattleField(700, howlingAbyssHeight - 100, 100  + WALL_THICKNESS, WALL_THICKNESS);
 		
-		
+		// WALLS AROUND BLOCKS
 		addWallToBattleField(50, 145, 250, WALL_THICKNESS);
 		addWallToBattleField(50, 355, 250, WALL_THICKNESS);
 		addWallToBattleField(howlingAbyssWidth - 50 - 250, 145, 250, WALL_THICKNESS);
 		addWallToBattleField(howlingAbyssWidth - 50 - 250, 355, 250, WALL_THICKNESS);
 		
+		// BLOCKS
 		addWallToBattleField(150, 225, 50, 50);
 		addWallToBattleField(howlingAbyssWidth - 150 -50, 225, 50, 50);
 
