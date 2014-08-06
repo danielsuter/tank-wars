@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Collectors;
 
 /**
  * Contains all game logic.
@@ -18,11 +19,13 @@ public class Game implements ActorListener {
 
 	private List<Actor> actors = new LinkedList<Actor>();
 	private int globalId;
+	private static int roundCounter = 0; 
 
 	private BattlefieldMap battlefieldMap;
 	private Referee referee = new Referee();
 
 	public synchronized void tick() {
+		roundCounter++;
 		addActorsInQueue();
 
 		removeDeadActors();
@@ -44,8 +47,46 @@ public class Game implements ActorListener {
 				}
 			}
 		}
-		
+		if(roundCounter % 200 == 0) {
+			final List<Actor> powerUps = actors.stream().filter(a -> a instanceof PowerUp).collect(Collectors.toList());
+			if(powerUps.size() <= 10) {
+				reSpawnNewPowerUps();
+			}
+		}
 		removeDeadActors();
+	}
+
+	private void reSpawnNewPowerUps() {
+		final Random random = new Random();
+		final int powerUpCount = random.nextInt(5);
+		for (int i = 0; i <= powerUpCount; i++) {
+			spawnNewPowerUp(random);
+		}
+	}
+
+	private void spawnNewPowerUp(final Random random) {
+		PowerUp powerUp = null;
+		final int type = random.nextInt(4);
+		
+		switch (type) {
+		case 0: 
+			powerUp = new HealthPowerUp(0, 0);
+			break;
+		case 1: 
+			powerUp = new FireRatePowerUp(0, 0);
+			break;
+		case 2: 
+			powerUp = new LaserGunPowerUp(0, 0);
+			break;
+		case 3: 
+			powerUp = new RocketLauncherPowerUp(0, 0);
+			break;
+		default:
+			powerUp = new HealthPowerUp(0, 0);
+			break;
+		}
+		computeRandomActorPosition(powerUp);
+		createActor(powerUp);
 	}
 
 	private void addActorsInQueue() {
@@ -68,14 +109,14 @@ public class Game implements ActorListener {
 	public Tank spawn(String playerName) {
 		final Tank tank = new Tank(this, playerName);
 
-		computeRandomActorPoisition(tank);
+		computeRandomActorPosition(tank);
 		createActor(tank);
 		referee.addTank(tank);
 
 		return tank;
 	}
 
-	private void computeRandomActorPoisition(final Actor actor) {
+	private void computeRandomActorPosition(final Actor actor) {
 		final Random random = new Random();
 		final int x = random.nextInt(GAME_WIDTH + 1 - actor.getWidth());
 		final int y = random.nextInt(GAME_HEIGHT + 1 - actor.getHeight());
@@ -86,7 +127,7 @@ public class Game implements ActorListener {
 	private void checkForCollisions(Actor actor) {
 		for (Actor otherActor : actors) {
 			if (actor.collidesWith(otherActor)) {
-				computeRandomActorPoisition(actor);
+				computeRandomActorPosition(actor);
 			}
 		}
 	}

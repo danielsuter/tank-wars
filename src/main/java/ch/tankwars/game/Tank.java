@@ -2,9 +2,9 @@ package ch.tankwars.game;
 
 public class Tank extends Actor {
 
-	private final static int DEFAULT_WIDTH = 40;
-	private final static int DEFAULT_HEIGHT = 30;
-	private final static int DEFAULT_SPEED = 5;
+	private final static int DEFAULT_WIDTH = 35;
+	private final static int DEFAULT_HEIGHT = 35;
+	private final static int DEFAULT_SPEED = 6;
 	private final static int DEFAULT_HEALTH = 100;
 	
 	private int fireRatePerSecond = 1;
@@ -23,6 +23,7 @@ public class Tank extends Actor {
 		this.playerName = playerName;
 		setWidth(DEFAULT_WIDTH);
 		setHeight(DEFAULT_HEIGHT);
+		setVelocity(DEFAULT_SPEED);
 		this.weapon = Weapon.STANDARD_CANON;
 	}
 	
