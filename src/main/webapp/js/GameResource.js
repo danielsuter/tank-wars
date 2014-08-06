@@ -44,7 +44,7 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
             var then = $.now();
             onGameUpdate(actors);
             var time = $.now() - then;
-            if (time > 20) {
+            if (time > 50) {
                 console.log("processing time unusually high: " + time + "ms");
             }
         } else if(message.messageType === 'JOIN') {

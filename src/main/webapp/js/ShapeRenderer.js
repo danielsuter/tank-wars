@@ -6,6 +6,7 @@ var ShapeRenderer = function(_canvas) {
 
     this.createShape = function(actor) {
         var shape;
+        console.log("CREATING NEW SHAPE TYPE " + actor.actorType);
         switch (actor.actorType) {
             case "TANK":
                 actor.color = getColor();
@@ -72,8 +73,9 @@ var ShapeRenderer = function(_canvas) {
 
     this.removeShape = function(id) {
         var shape = shapes[id];
+        console.log("REMOVING SHAPE " + id);
         canvas.remove(shape);
-        shapes[id] = undefined;
+        delete shapes[id];
     };
 
     this.render = function() {

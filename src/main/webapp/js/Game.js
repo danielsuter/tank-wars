@@ -116,7 +116,7 @@ var Game = function(canvasId) {
         for (var id in knownActors) {
             if (ids.indexOf(parseInt(id)) === -1) {
                 renderer.removeShape(id);
-                knownActors[id] = undefined;
+                delete knownActors[id];
             }
         }
     };
