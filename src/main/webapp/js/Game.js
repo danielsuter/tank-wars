@@ -18,7 +18,7 @@ var Game = function(canvasId) {
             return;
         }
 
-        if (lastCode) {
+        if (lastCode && isDirectionKey(event.keyCode)) {
             ignoreNextKeyUp = true;
         }
 
@@ -42,6 +42,10 @@ var Game = function(canvasId) {
                 resource.move('DOWN');
                 break;
         }
+    };
+
+    var isDirectionKey = function(keyCode) {
+        return keyCode >= 37 && keyCode <= 40;
     };
 
     var doKeyUp = function(event) {
