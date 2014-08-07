@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.tankwars.game.BattlefieldMap;
-import ch.tankwars.game.FireRatePowerUp;
 import ch.tankwars.game.Game;
 import ch.tankwars.game.HealthPowerUp;
 import ch.tankwars.game.LaserGunPowerUp;
@@ -55,8 +54,6 @@ public class MapWriterTest {
 		
 		battlefieldMap.addPowerUp(new HealthPowerUp(200, 200));
 		battlefieldMap.addPowerUp(new HealthPowerUp(400, 300));
-		battlefieldMap.addPowerUp(new FireRatePowerUp(100, 100));
-		battlefieldMap.addPowerUp(new FireRatePowerUp(500, 540));
 
 		battlefieldMap.addPowerUp(new RocketLauncherPowerUp(250, 250));
 		battlefieldMap.addPowerUp(new LaserGunPowerUp(430, 70));
@@ -75,8 +72,6 @@ public class MapWriterTest {
 
 		battlefieldMap.addPowerUp(new HealthPowerUp(200, 200));
 		battlefieldMap.addPowerUp(new HealthPowerUp(400, 300));
-		battlefieldMap.addPowerUp(new FireRatePowerUp(100, 100));
-		battlefieldMap.addPowerUp(new FireRatePowerUp(500, 580));
 
 		battlefieldMap.addPowerUp(new RocketLauncherPowerUp(250, 250));
 		battlefieldMap.addPowerUp(new LaserGunPowerUp(430, 70));
