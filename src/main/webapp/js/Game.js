@@ -146,7 +146,6 @@ var Game = function(canvasId) {
         var myPlayer = knownActors[myId];
         if(!myPlayer) {
             isDead = true;
-            renderer.renderDeath();
         }
     };
 
