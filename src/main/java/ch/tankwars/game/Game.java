@@ -62,7 +62,7 @@ public class Game implements ActorListener {
 
 	private void reSpawnNewPowerUps() {
 		final Random random = new Random();
-		final int powerUpCount = random.nextInt(7 - 2) + 2;
+		final int powerUpCount = random.nextInt(3);
 		for (int i = 0; i <= powerUpCount; i++) {
 			spawnNewPowerUp(random);
 		}
@@ -71,16 +71,18 @@ public class Game implements ActorListener {
 	// TODO rework
 	private void spawnNewPowerUp(final Random random) {
 		PowerUp powerUp = null;
-		final int type = random.nextInt(3);
+		final int type = random.nextInt(5);
 		
 		switch (type) {
 		case 0: 
 			powerUp = new HealthPowerUp(0, 0);
 			break;
 		case 1: 
+		case 2:
 			powerUp = new LaserGunPowerUp(0, 0);
 			break;
-		case 2: 
+		case 3:
+		case 4:
 			powerUp = new RocketLauncherPowerUp(0, 0);
 			break;
 		}
