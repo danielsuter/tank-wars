@@ -5,6 +5,7 @@ import javax.websocket.Session;
 import ch.tankwars.game.Tank;
 
 public class PlayerPeer {
+	
 	private Session playerSession;
 	private Tank tank;
 	private String name;

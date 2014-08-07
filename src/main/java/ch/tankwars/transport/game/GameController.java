@@ -17,6 +17,7 @@ import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Tank;
 import ch.tankwars.maps.MapReader;
 import ch.tankwars.performance.PerformanceCounter;
+import ch.tankwars.transport.game.dto.ConnectResponse;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.dto.PlayersChangedResponse;
 import ch.tankwars.transport.game.mapper.ActorListSerializer;
@@ -86,7 +87,7 @@ public class GameController {
 		playerPeer.setTank(spawnedTank);
 		
 		JoinResponse joinResponse = new JoinResponse(spawnedTank.getId(), game.getPlayGround());
-		gameCommunicator.sendMessage(joinResponse, playerPeer);
+		gameCommunicator.sendMessage(joinResponse, playerPeer.getSession());
 		updatePlayers();
 		return playerPeer;
 	}
@@ -138,5 +139,10 @@ public class GameController {
 	public void loadMap(String mapName) {
 		BattlefieldMap battlefieldMap = mapReader.load(mapName);
 		game.setPlayGround(battlefieldMap);
+	}
+
+	public void checkGameState(Session session) {
+		ConnectResponse connectResponse = new ConnectResponse(isStarted);
+		gameCommunicator.sendMessage(connectResponse, session);
 	}
 }

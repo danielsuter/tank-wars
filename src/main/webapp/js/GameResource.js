@@ -2,36 +2,39 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
     var onGameUpdate = _onGameUpdate;
     var websocket;
     var onJoined;
+    var onConnect;
     var onPlayersChanged = _onPlayersChanged;
 
     var lastMessageTime = 0;
 
-    this.join = function(_onJoined, playerName) {
-        console.log("Joining game with player name " + playerName + ".");
-
-        onJoined = _onJoined;
+    this.connect = function (_onConnect) {
+        onConnect = _onConnect;
         var wsUri = TUtil.getWebsocketGameUrl();
+
         websocket = new WebSocket(wsUri);
 
         websocket.onerror = this.onError;
         websocket.onmessage = this.onMessage;
 
-        websocket.onopen = function(event) {
-            sendMessage("JOIN " + playerName);
+        websocket.onopen = function (event) {
+           sendMessage("CONNECT");
         }
     };
 
-    this.start = function() {
-        console.log("Starting game.");
+    this.join = function (_onJoined, playerName) {
+        onJoined = _onJoined;
+        sendMessage("JOIN " + playerName);
+    };
+
+    this.start = function () {
         sendMessage("START");
     };
 
-    this.stop = function() {
-        console.log("Stopping game.");
+    this.stop = function () {
         sendMessage("STOP");
     };
 
-    this.shoot = function() {
+    this.shoot = function () {
         sendMessage('SHOOT');
     };
 
@@ -48,14 +51,18 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
             if (time > 50) {
                 console.log("processing time unusually high: " + time + "ms");
             }
-        } else if(message.messageType === 'JOIN') {
+        } else if (message.messageType === 'CONNECT') {
+            onConnect(message.gameRunning);
+        } else if (message.messageType === 'JOIN') {
             onJoined(message.playerId, message.battlefieldMap);
         } else if(message.messageType === "PLAYERS_CHANGED") {
             onPlayersChanged(message.players);
         }
     };
 
-    this.onError = function(event) {
+    this.onError = function (event) {
+        $("#connectionInfo").hide();
+        $("#connectionWarning").show();
         console.error(event);
     };
 
