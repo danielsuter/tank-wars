@@ -245,9 +245,12 @@ var Game = function(canvasId) {
            killsBadge.data("value", actor.kills);
            scoreChanged = true;
 
-           var killerName = knownPlayers[actor.id];
-           var victimName = knownPlayers[actor.tankKilled];
-           newsFlash(killerName + " has PWNED " + victimName + "!!!!");
+           if (knownPlayers[actor.tankKilled]) {
+               var killerName = knownPlayers[actor.id];
+               var victimName = knownPlayers[actor.tankKilled];
+               newsFlash(killerName + " has PWNED " + victimName + "!!!!");
+               delete knownPlayers[actor.tankKilled];
+           }
        }
        if (actor.color) {
            $("#color" + actor.id).css('background-color', actor.color);
