@@ -108,20 +108,29 @@ var Game = function(canvasId) {
 
     var onConnect = function (gameRunning) {
         $("#connectGame").hide();
-        $("#connectionInfo").hide();
         if (gameRunning) {
             $("#gameRunning").show();
         } else {
-            $("#connectionSuccess").show();
-            $("#joinGame").show();
-            $("#playerName").show();
+            $(".enterName").show();
         }
     };
 
     var onJoin = function (id, playGround) {
         myId = id;
         drawBoard(playGround);
-        $("#playersDisplay").show();
+        var playersDisplay = $("#playersDisplay");
+        var canvas = $("#board");
+
+        var canvasWidth = canvas.width();
+        var x = canvas.position().left;
+        var y = canvas.position().top;
+        var topRightCanvas = parseFloat(x) + parseFloat(canvasWidth);
+
+        playersDisplay.show();
+        playersDisplay.css("position", "fixed");
+        playersDisplay.css("left", topRightCanvas );
+        playersDisplay.css("top", y );
+
         $("#countdown").show();
     };
 
@@ -174,7 +183,7 @@ var Game = function(canvasId) {
                 cachedActor[property] = actorUpdate[property];
             }
         }
-    }
+    };
 
     var isNewActor = function(actor) {
         return typeof knownActors[actor.id] === "undefined";
@@ -221,9 +230,8 @@ var Game = function(canvasId) {
         });
 
         $("#startGame").click(function() {
-            $(this).hide();
-            $("#stopGame").show();
-            $("#clearGame").show();
+            $(".startGame").hide();
+            $(".stopGame").show();
             resource.start();
         });
 

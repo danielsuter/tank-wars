@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tank Wars</title>
+    <script src="js/lib/jquery-2.1.1.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/flipclock.css">
+</head>
+<body>
+
+    <style>
+        #countdown{
+            zoom: 0.5;
+            -moz-transform: scale(0.5)
+        }
+    </style>
+
+    <div class="col-md-12">
+
+        <div class="row">
+            <!--<div class="col-md-2"></div>-->
+            <div class="col-md-10">
+                <h1>Tank Wars</h1>
+                <p class="lead">Welcome and have fun shooting</p>
+                <span class="label label-info" id="connectionInfo">Please connect first!</span>
+                <span class="label label-warning" id="connectionWarning" style="display: none;">Connection failed! Reload page and retry!</span>
+                <span class="label label-warning" id="gameRunning" style="display: none;">Sorry mate - game is already in progress!</span>
+                <span class="label label-success" id="connectionSuccess" style="display: none;">Successfully connected</span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <!--<div class="col-md-2"></div>-->
+            <div class="col-md-8">
+                <form action="" class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input id="playerName" type="text" class="form-control" placeholder="Your Name" autofocus style="display: none;" >
+                    </div>
+                    <button id="connectGame" class="btn btn-default" type="button" >Connect to Gameserver</button>
+                    <button id="joinGame" class="btn btn-default" type="button" style="display: none;">Join Game</button>
+                    <button id="startGame" class="btn btn-default" type="button" style="display: none;">Start</button>
+                    <button id="stopGame" class="btn btn-default" type="button" style="display: none;">Stop</button>
+                    <button id="clearGame" class="btn btn-default" type="button" style="display: none;">Clear</button>
+                </form>
+            </div>
+
+            <div class="col-md-4">
+                <div style="display: none;" id="countdown"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div id="playersDisplay" style="display: none;">
+                    <p class="lead">Stats</p>
+                    <ul class="list-group" id="playersList"></ul>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <canvas id="board" tabindex="1"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+        <div class="container">
+
+            <div style="display: none;" id="gameNews" class="col-md-4 alert alert-success" role="alert">
+                <strong id="newsText"></strong>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </nav>
+
+    <script src="js/lib/fabric.min.js"></script>
+    <script src="js/lib/mustache.min.js"></script>
+    <script src="js/lib/flipclock.min.js"></script>
+    <script src="js/util/TUtil.js"></script>
+    <script src="js/canvas/Tank.js"></script>
+    <script src="js/canvas/Projectile.js"></script>
+    <script src="js/canvas/Wall.js"></script>
+    <script src="js/canvas/HealthPowerUp.js"></script>
+    <script src="js/canvas/HealthBar.js"></script>
+    <script src="js/canvas/FireRatePowerUp.js"></script>
+    <script src="js/canvas/RocketLauncherPowerUp.js"></script>
+    <script src="js/canvas/LaserGunPowerUp.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/GameResource.js"></script>
+    <script src="js/ShapeRenderer.js"></script>
+
+    <script>
+        $(function() {
+            new Game('board');
+        });
+
+    </script>
+</body>
+
+</html>

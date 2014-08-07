@@ -11,73 +11,110 @@
 </head>
 <body>
 
-    <style>
-        #countdown{
-            zoom: 0.5;
-            -moz-transform: scale(0.5)
-        }
-    </style>
+<div class="container">
 
-    <div class="col-md-12">
-
-        <div class="row">
-            <!--<div class="col-md-2"></div>-->
-            <div class="col-md-10">
-                <h1>Tank Wars</h1>
-                <p class="lead">Welcome and have fun shooting</p>
-                <span class="label label-info" id="connectionInfo">Please connect first!</span>
-                <span class="label label-warning" id="connectionWarning" style="display: none;">Connection failed! Reload page and retry!</span>
-                <span class="label label-warning" id="gameRunning" style="display: none;">Sorry mate - game is already in progress!</span>
-                <span class="label label-success" id="connectionSuccess" style="display: none;">Successfully connected</span>
-            </div>
+    <div class="row">
+        <div class="page-header">
+            <h1>Tank Wars <small>created by JP DS and NP</small></h1>
         </div>
+    </div>
 
+    <div class="row">
+        <button id="connectGame" type="button" class="btn btn-default">Connect to Game</button>
 
-        <div class="row">
-            <!--<div class="col-md-2"></div>-->
-            <div class="col-md-8">
-                <form action="" class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input id="playerName" type="text" class="form-control" placeholder="Your Name" autofocus style="display: none;" >
-                    </div>
-                    <button id="connectGame" class="btn btn-default" type="button" >Connect to Gameserver</button>
-                    <button id="joinGame" class="btn btn-default" type="button" style="display: none;">Join Game</button>
-                    <button id="startGame" class="btn btn-default" type="button" style="display: none;">Start</button>
-                    <button id="stopGame" class="btn btn-default" type="button" style="display: none;">Stop</button>
-                    <button id="clearGame" class="btn btn-default" type="button" style="display: none;">Clear</button>
-
-                </form>
-            </div>
-
-            <div class="col-md-4">
-                <div style="display: none;" id="countdown"></div>
-            </div>
+        <div class="row enterName" style="display: none;">
+            <p class="col-md-12">You have successfully connected. </p>
         </div>
-
-        <div class="row">
+        <div class="row enterName" style="display:none;">
             <div class="col-md-2">
-                <div id="playersDisplay" style="display: none;">
-                    <p class="lead">Stats</p>
-                    <ul class="list-group" id="playersList"></ul>
-                </div>
+                <input class="form-control" id="playerName" type="text" placeholder="Player name" autofocus>
             </div>
-            <div class="col-md-10">
-                <canvas id="board" tabindex="1"></canvas>
+            <div class="col-md-2 startGame">
+                <button id="joinGame" type="button" class="btn btn-default">Join Game</button>
+                <button id="startGame" class="startGame btn btn-default" type="button" style="display: none;">Start</button>
+            </div>
+            <div class="stopGame col-md-5" style="display: none;">
+                <button id="stopGame" class="btn btn-default" type="button">Stop</button>
+                <button id="clearGame" class="btn btn-default" type="button">Clear</button>
             </div>
 
+
+        </div>
+
+        <hr />
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div style="display: none;" id="countdown"></div>
+        </div>
+        <div class="col-md-5">
+            <div style="display: none;" id="gameNews" class="alert alert-success" role="alert">
+                <strong id="newsText"></strong>
+            </div>
         </div>
 
     </div>
 
-    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-        <div class="container">
+</div>
 
-            <div style="display: none;" id="gameNews" class="col-md-4 alert alert-success" role="alert">
-                <strong id="newsText"></strong>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
-    </nav>
+
+<div id="boardContainer" class="row">
+    <canvas id="board" tabindex="1"></canvas>
+</div>
+
+<div id="playersDisplay" style="display: none;">
+    <p class="lead">Stats</p>
+    <!--<table id="playersList2" class="table table-striped">-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th>#</th>-->
+            <!--<th>First Name</th>-->
+            <!--<th>Last Name</th>-->
+            <!--<th>Username</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr>-->
+            <!--<td>1</td>-->
+            <!--<td>Marafwefeafewffafek</td>-->
+            <!--<td>Otto</td>-->
+            <!--<td>@mdo</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>2</td>-->
+            <!--<td>Jacob</td>-->
+            <!--<td>Thornton</td>-->
+            <!--<td>@fat</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>3</td>-->
+            <!--<td>Larry</td>-->
+            <!--<td>the Bird</td>-->
+            <!--<td>@twitter</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
+    <ul class="list-group" id="playersList"></ul>
+</div>
+
+
+<style>
+        #countdown{
+            zoom: 0.5;
+            -moz-transform: scale(0.5)
+        }
+
+        #boardContainer {
+            width: 100%;
+            text-align:center;
+        }
+
+        canvas {
+            display: inline;
+        }
+
+    </style>
 
     <script src="js/lib/fabric.min.js"></script>
     <script src="js/lib/mustache.min.js"></script>
