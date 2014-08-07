@@ -7,8 +7,16 @@
     <script src="js/lib/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/flipclock.css">
 </head>
 <body>
+
+    <style>
+        #countdown{
+            zoom: 0.5;
+            -moz-transform: scale(0.5)
+        }
+    </style>
 
     <div class="container">
         <h1>Tank Wars</h1>
@@ -19,16 +27,23 @@
         <span class="label label-success" id="connectionSuccess" style="display: none;">Successfully connected</span>
 
         <div class="row">
-        <form action="" class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-                <input id="playerName" type="text" class="form-control" placeholder="Your Name" autofocus style="display: none;" >
+            <div class="col-md-4">
+                <form action="" class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input id="playerName" type="text" class="form-control" placeholder="Your Name" autofocus style="display: none;" >
+                    </div>
+                    <button id="connectGame" class="btn btn-default" type="button" >Connect to Gameserver</button>
+                    <button id="joinGame" class="btn btn-default" type="button" style="display: none;">Join Game</button>
+                    <button id="startGame" class="btn btn-default" type="button" style="display: none;">Start</button>
+                    <button id="stopGame" class="btn btn-default" type="button" style="display: none;">Stop</button>
+                    <button id="clearGame" class="btn btn-default" type="button" style="display: none;">Clear</button>
+
+                </form>
             </div>
-            <button id="connectGame" class="btn btn-default" type="button" >Connect to Gameserver</button>
-            <button id="joinGame" class="btn btn-default" type="button" style="display: none;">Join Game</button>
-            <button id="startGame" class="btn btn-default" type="button" style="display: none;">Start</button>
-            <button id="stopGame" class="btn btn-default" type="button" style="display: none;">Stop</button>
-            <button id="clearGame" class="btn btn-default" type="button" style="display: none;">Clear</button>
-        </form>
+
+            <div class="col-md-4">
+                <div id="countdown"></div>
+            </div>
         </div>
 
         <div class="row">
@@ -47,6 +62,7 @@
 
     <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
         <div class="container">
+
             <div style="display: none;" id="gameNews" class="col-md-4 alert alert-success" role="alert">
                 <strong id="newsText"></strong>
             </div>
@@ -54,15 +70,9 @@
         </div>
     </nav>
 
-    <script>
-        $(function() {
-            new Game('board');
-        });
-
-    </script>
-
     <script src="js/lib/fabric.min.js"></script>
     <script src="js/lib/mustache.min.js"></script>
+    <script src="js/lib/flipclock.min.js"></script>
     <script src="js/util/TUtil.js"></script>
     <script src="js/canvas/Tank.js"></script>
     <script src="js/canvas/Projectile.js"></script>
@@ -75,6 +85,13 @@
     <script src="js/Game.js"></script>
     <script src="js/GameResource.js"></script>
     <script src="js/ShapeRenderer.js"></script>
+
+    <script>
+        $(function() {
+            new Game('board');
+        });
+
+    </script>
 </body>
 
 </html>

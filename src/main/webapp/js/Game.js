@@ -119,7 +119,6 @@ var Game = function(canvasId) {
         myId = id;
         drawBoard(playGround);
         $("#playersDisplay").show();
-        newsFlash("WELCOME!");
     };
 
     var update = function(actorsFromResponse) {
@@ -320,4 +319,11 @@ var Game = function(canvasId) {
     canvas.renderOnAddRemove = false;
 
     registerEventListeners();
+
+    var clock = $('#countdown').FlipClock(10, {
+        countdown : true,
+        clockFace : 'MinuteCounter'
+    });
+
+    clock.stop();
 };
