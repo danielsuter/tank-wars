@@ -18,6 +18,11 @@ public class WallTest {
 			@Override
 			public void createActor(Actor actor) {
 			}
+			
+			@Override
+			public boolean createActorIfNoCollision(Actor actor) {
+				return false;
+			}
 		};
 		
 		tank = new Tank(al, "Fritzli", null);
