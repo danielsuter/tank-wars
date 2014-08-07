@@ -11,19 +11,19 @@ public class Referee {
 		this.tanks.add(tank);
 	}
 	
-	public void tankMadeHit(int tankId) {
+	public void tankMadeHit(int tankId, int tankIdOfVictim) {
 		for (Tank tank : tanks) {
 			if (tank.getId() == tankId) {
-				tank.madeHit();
+				tank.madeHit(tankIdOfVictim);
 				return;
 			}
 		}
 	}
 	
-	public void tankMadeKill(int tankId) {
+	public void tankMadeKill(int tankId, int tankIdOfVictim) {
 		for (Tank tank : tanks) {
 			if (tank.getId() == tankId) {
-				tank.madeKill();
+				tank.madeKill(tankIdOfVictim);
 				return;
 			}
 		}

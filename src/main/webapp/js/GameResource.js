@@ -86,6 +86,8 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
     };
 
     var protocolToViewMap = {
+        "a" : "tankHit",
+        "b" : "tankKilled",
         "t" : "actorType",
         "i" : "id",
         "x" : "x",

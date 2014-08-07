@@ -20,6 +20,8 @@ public class Tank extends Actor {
 	private int health = MAX_HEALTH;
 	private int hitsMade = 0;
 	private int killsMade = 0;
+	private int mostRecentTankHit = -1;
+	private int mostRecentTankKilled = -1;
 	
 	private ActorListener actorListener;
 	
@@ -41,12 +43,14 @@ public class Tank extends Actor {
 		return playerName;
 	}
 	
-	public void madeHit() {
+	public void madeHit(int victimTankId) {
 		hitsMade++;
+		mostRecentTankHit = victimTankId;
 	}
 	
-	public void madeKill() {
+	public void madeKill(int victimTankId) {
 		killsMade++;
+		mostRecentTankKilled = victimTankId;
 	}
 	
 	public int getHitsMade() {
@@ -55,6 +59,14 @@ public class Tank extends Actor {
 	
 	public int getKillsMade() {
 		return killsMade;
+	}
+	
+	public int getMostRecentTankHit() {
+		return mostRecentTankHit;
+	}
+	
+	public int getMostRecentTankKilled() {
+		return mostRecentTankKilled;
 	}
 	
 	@Override
@@ -108,9 +120,9 @@ public class Tank extends Actor {
 			if(projectile.getOwningTankId() != getId()) {
 				damage(projectile.getPower());
 				if (health <= 0) {
-					referee.tankMadeKill(projectile.getOwningTankId());
+					referee.tankMadeKill(projectile.getOwningTankId(), getId());
 				} else {
-					referee.tankMadeHit(projectile.getOwningTankId());
+					referee.tankMadeHit(projectile.getOwningTankId(), getId());
 				}
 			}
 		} else if (actor instanceof Wall) {

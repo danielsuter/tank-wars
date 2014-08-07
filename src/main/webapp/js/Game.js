@@ -3,6 +3,7 @@ var Game = function(canvasId) {
     var resource;
     var lastCode;
     var knownActors = [];
+    var knownPlayers = [];
     var renderer;
     var lastFired = 0;
     var myId; // player id = tank id
@@ -222,6 +223,7 @@ var Game = function(canvasId) {
    var onPlayersChanged = function(players) {
        var rows = "";
        $.each(players, function() {
+
            rows += Mustache.render(playerDisplayTemplate, this);
        });
        $("#playersList").html(rows);
