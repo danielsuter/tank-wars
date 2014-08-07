@@ -270,10 +270,11 @@ var Game = function(canvasId) {
    };
 
    var playerDisplayTemplate =
-       "<li class='list-group-item playerScore' id='color{{id}}'>" +
-           "<span class='label label-default'>{{name}}</span>" +
-           "<span class='badge' name='killsBadge' data-value='0' id='kills{{id}}'>Kills: 0</span>" +
-           "<span class='badge' name='hitsBadge' data-value='0' id='hits{{id}}'>Hits: 0</span>" +
+       "<tr id='color{{id}}'>" +
+           "<td name='rank'></td>" +
+           "<td>{{name}}</span>" +
+           "<td data-value='0' name='hitsBadge' id='hits{{id}}'>0</td>" +
+           "<td data-value='0' name='killsBadge' id='kills{{id}}'>0</td>" +
        "</li>";
 
 
@@ -290,7 +291,7 @@ var Game = function(canvasId) {
        var scoreChanged = false;
        if (actor.hits) {
            var hitsBadge = $("#hits" + actor.id);
-           hitsBadge.html("Hits: " + actor.hits);
+           hitsBadge.html(actor.hits);
            hitsBadge.data("value", actor.hits);
 
            scoreChanged = true;
@@ -298,7 +299,7 @@ var Game = function(canvasId) {
 
        if (actor.kills) {
            var killsBadge = $("#kills" + actor.id);
-           killsBadge.html("Kills: " + actor.kills);
+           killsBadge.html(actor.kills);
            killsBadge.data("value", actor.kills);
            scoreChanged = true;
 
@@ -310,7 +311,7 @@ var Game = function(canvasId) {
            }
        }
        if (actor.color) {
-           $("#color" + actor.id).css('background-color', actor.color);
+           $("#color" + actor.id).css('text-color', actor.color);
        }
 
        if (scoreChanged) {
@@ -319,13 +320,13 @@ var Game = function(canvasId) {
    };
 
     var sortRows = function() {
-        var playerRows = $(".playerScore").get();
+        var playerRows = $(".playersList").get();
 
         playerRows.sort(function(a, b) {
-            var aHits = $(a).find($("span[name='hitsBadge']")).data("value");
-            var aKills = $(a).find($("span[name='killsBadge']")).data("value");
-            var bHits = $(b).find($("span[name='hitsBadge']")).data("value");
-            var bKills = $(b).find($("span[name='killsBadge']")).data("value");
+            var aHits = $(a).find($("td[name='hitsBadge']")).data("value");
+            var aKills = $(a).find($("td[name='killsBadge']")).data("value");
+            var bHits = $(b).find($("td[name='hitsBadge']")).data("value");
+            var bKills = $(b).find($("td[name='killsBadge']")).data("value");
 
             var compareKills = (parseInt(aKills) - parseInt(bKills)) * -1;
 
@@ -336,7 +337,8 @@ var Game = function(canvasId) {
             return (parseInt(aHits) - parseInt(bHits)) * -1;
         });
 
-        $.each(playerRows, function() {
+        $.each(playerRows, function(i) {
+           $(this).find("td[name='rank']").html(parseInt(i) + 1);
            $("#playersList").append(this);
         });
     };
