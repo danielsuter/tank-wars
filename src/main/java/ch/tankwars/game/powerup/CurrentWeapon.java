@@ -1,7 +1,7 @@
 package ch.tankwars.game.powerup;
 
 import ch.tankwars.game.Direction;
-import ch.tankwars.game.Projectile;
+import ch.tankwars.game.projectiles.Projectile;
 
 public class CurrentWeapon {
 	private static final int INFINITE = -1;
@@ -21,6 +21,7 @@ public class CurrentWeapon {
 		Projectile projectile = weaponData.shoot(tankId, direction);
 		if(weaponData.getMaxShots() != INFINITE && currentShots >= weaponData.getMaxShots()) {
 			setWeapon(WeaponData.STANDARD_CANON);
+			currentShots = 0;
 		}
 		return projectile;
 	}

@@ -99,8 +99,20 @@ var Game = function(canvasId) {
         keyup: doKeyUp
     });
 
-    var onJoin = function(id, playGround) {
-		myId = id;
+    var onConnect = function (gameRunning) {
+        $("#connectGame").hide();
+        $("#connectionSuccess").show();
+        $("#connectionInfo").hide();
+        if (gameRunning) {
+            $("#gameRunning").show();
+        } else {
+            $("#joinGame").show();
+            $("#playerName").show();
+        }
+    };
+
+    var onJoin = function (id, playGround) {
+        myId = id;
         drawBoard(playGround);
         $("#playersDisplay").show();
         newsFlash("WELCOME!");
@@ -183,8 +195,11 @@ var Game = function(canvasId) {
         });
     };
 
-    var registerEventListeners = function() {
-        $("#joinGame").click(function() {
+    var registerEventListeners = function () {
+        $("#connectGame").click(function () {
+            resource.connect(onConnect);
+        });
+        $("#joinGame").click(function () {
             $(this).hide();
             $("#playerName").prop("disabled", true);
             $("#startGame").show();

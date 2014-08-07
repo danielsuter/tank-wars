@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Set;
 
+import javax.websocket.Session;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,22 +30,22 @@ public class GameCommunicator {
 		
 		perf.lap("JSON TIME");
 		
-		peers.parallelStream().forEach(peer -> sendResponse(peer, gameAsJson));
+		peers.parallelStream().forEach(peer -> sendResponse(peer.getSession(), gameAsJson));
 		
 		perf.stop("COMPLETE TIME ({0,number} characters)", gameAsJson.length());
 	}
 
-	public void sendMessage(Object objectToBroadcast, PlayerPeer playerPeer) {
-		sendResponse(playerPeer, responseMapper.map(objectToBroadcast));
+	public void sendMessage(Object objectToBroadcast, Session session) {
+		sendResponse(session, responseMapper.map(objectToBroadcast));
 	}
 	
 	public void sendMessage(Object objectToBroadcast, Set<PlayerPeer> peers) {
-		peers.parallelStream().forEach(peer -> sendResponse(peer, responseMapper.map(objectToBroadcast)));
+		peers.parallelStream().forEach(peer -> sendResponse(peer.getSession(), responseMapper.map(objectToBroadcast)));
 	}
 	
-	private void sendResponse(PlayerPeer peer, String response) {
+	private void sendResponse(Session session, String response) {
 		try {
-			peer.getSession().getBasicRemote().sendText(response);
+			session.getBasicRemote().sendText(response);
 		} catch (IOException | IllegalStateException e) {
 			LOGGER.error(e.toString(), e);
 		}
