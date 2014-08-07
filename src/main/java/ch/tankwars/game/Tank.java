@@ -70,6 +70,17 @@ public class Tank extends Actor {
 	}
 	
 	@Override
+	public Tank clone() throws CloneNotSupportedException {
+		Tank clone = (Tank) super.clone();
+		
+		CurrentWeapon clonedCurrentWeapon = new CurrentWeapon();
+		clonedCurrentWeapon.setWeapon(getWeaponData());
+		
+		clone.currentWeapon = clonedCurrentWeapon;
+		return clone;
+	}
+	
+	@Override
 	public void setDirection(Direction direction) {
 		super.setDirection(direction);
 		if(getVelocity() == 0) {

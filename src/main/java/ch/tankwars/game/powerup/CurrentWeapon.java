@@ -20,7 +20,7 @@ public class CurrentWeapon {
 	public Projectile shoot(int tankId, Direction direction) {
 		++currentShots;
 		Projectile projectile = weaponData.shoot(tankId, direction);
-		if(weaponData.getMaxShots() != INFINITE && currentShots >= weaponData.getMaxShots()) {
+		if(this.weaponData.getMaxShots() != INFINITE && currentShots >= this.weaponData.getMaxShots()) {
 			setWeapon(WeaponData.STANDARD_CANON);
 			currentShots = 0;
 		}
@@ -28,6 +28,6 @@ public class CurrentWeapon {
 	}
 	
 	public WeaponData getWeaponData() {
-		return weaponData;
+		return this.weaponData;
 	}
 }
