@@ -143,9 +143,14 @@ var Game = function(canvasId) {
     };
 
     var checkOwnDeath = function() {
+        if (isDead) {
+            return;
+        }
+        
         var myPlayer = knownActors[myId];
         if(!myPlayer) {
             isDead = true;
+            renderer.renderDeath();
         }
     };
 
