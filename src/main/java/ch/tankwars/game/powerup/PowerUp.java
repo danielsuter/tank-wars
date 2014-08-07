@@ -1,4 +1,8 @@
-package ch.tankwars.game;
+package ch.tankwars.game.powerup;
+
+import ch.tankwars.game.Actor;
+import ch.tankwars.game.ActorType;
+import ch.tankwars.game.Referee;
 
 public abstract class PowerUp extends Actor {
 	

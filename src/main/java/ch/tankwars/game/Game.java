@@ -7,6 +7,11 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
+import ch.tankwars.game.powerup.HealthPowerUp;
+import ch.tankwars.game.powerup.LaserGunPowerUp;
+import ch.tankwars.game.powerup.PowerUp;
+import ch.tankwars.game.powerup.RocketLauncherPowerUp;
+
 /**
  * Contains all game logic.
  */
@@ -35,7 +40,6 @@ public class Game implements ActorListener {
 				actor.act();
 				for (Wall wall : battlefieldMap.getWalls()) {
 					if(actor.collidesWith(wall)) {
-//						wall.onCollision(actor, referee);
 						actor.onCollision(wall, referee);
 					}
 				}

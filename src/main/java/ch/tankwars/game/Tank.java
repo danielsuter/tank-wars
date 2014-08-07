@@ -1,5 +1,10 @@
 package ch.tankwars.game;
 
+import ch.tankwars.game.powerup.HealthPowerUp;
+import ch.tankwars.game.powerup.LaserGunPowerUp;
+import ch.tankwars.game.powerup.RocketLauncherPowerUp;
+import ch.tankwars.game.powerup.Weapon;
+
 public class Tank extends Actor {
 
 	private final static int DEFAULT_WIDTH = 35;
@@ -84,8 +89,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		Projectile projectile = weapon.shoot(getId());
-		projectile.setDirection(getDirection());
+		Projectile projectile = weapon.shoot(getId(), getDirection());
 		
 		// TODO beautify
 		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), 

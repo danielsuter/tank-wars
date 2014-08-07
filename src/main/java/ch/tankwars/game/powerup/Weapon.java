@@ -1,9 +1,12 @@
-package ch.tankwars.game;
+package ch.tankwars.game.powerup;
+
+import ch.tankwars.game.Direction;
+import ch.tankwars.game.Projectile;
 
 public enum Weapon {
 
 	STANDARD_CANON(Projectile.DEFAULT_PROJECTILE_SPEED, Projectile.DEFAULT_PROJECTILE_POWER, Projectile.DEFAULT_PROJECTILE_DIMENSION, 1),
-	LASER_GUN(35, 7, 10, 3),
+	LASER_GUN(30, 7, 2, 10),
 	ROCKET_LAUNCHER(8, 25, 4, 1);
 
 	private int velocity;
@@ -18,28 +21,28 @@ public enum Weapon {
 		this.setPower(power);
 	}
 	
-	public Projectile shoot(int tankId) {
+	public Projectile shoot(int tankId, Direction direction) {
 		// TODO remove hack
 		Projectile projectile = null;
 		if(this == LASER_GUN) {
 			projectile = new Projectile(tankId) {
 				@Override
 				public int getHeight() {
-					return getDirection() == Direction.LEFT || getDirection() == Direction.RIGHT ? 2 : getDimension();
+					return direction == Direction.LEFT || direction == Direction.RIGHT ? 2 : 16;
 				}
 				
 				@Override
 				public int getWidth() {
-					return getDirection() == Direction.DOWN || getDirection() == Direction.UP ? 2 : getDimension();
+					return direction == Direction.DOWN || direction == Direction.UP ? 2 : 16;
 				}
 			};
 		} else {
 			projectile = new Projectile(tankId);
 		}
-		
+		projectile.setProjectileDimension(dimension);
 		projectile.setVelocity(velocity);
 		projectile.setPower(power);
-		projectile.setProjectileDimension(dimension);
+		projectile.setDirection(direction);
 		
 		return projectile;
 	}

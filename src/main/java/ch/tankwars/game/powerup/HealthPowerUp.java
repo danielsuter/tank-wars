@@ -1,4 +1,6 @@
-package ch.tankwars.game;
+package ch.tankwars.game.powerup;
+
+import ch.tankwars.game.ActorType;
 
 public class HealthPowerUp extends PowerUp {
 	

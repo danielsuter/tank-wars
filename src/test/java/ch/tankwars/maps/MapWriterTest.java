@@ -9,10 +9,10 @@ import org.junit.Test;
 
 import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Game;
-import ch.tankwars.game.HealthPowerUp;
-import ch.tankwars.game.LaserGunPowerUp;
-import ch.tankwars.game.RocketLauncherPowerUp;
 import ch.tankwars.game.Wall;
+import ch.tankwars.game.powerup.HealthPowerUp;
+import ch.tankwars.game.powerup.LaserGunPowerUp;
+import ch.tankwars.game.powerup.RocketLauncherPowerUp;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 
 import com.google.gson.Gson;

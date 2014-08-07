@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.tankwars.game.powerup.HealthPowerUp;
 import ch.tankwars.transport.game.mapper.ActorListSerializer;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 import ch.tankwars.transport.game.mapper.ResponseMapper;
