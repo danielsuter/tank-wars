@@ -223,7 +223,7 @@ var Game = function(canvasId) {
    var onPlayersChanged = function(players) {
        var rows = "";
        $.each(players, function() {
-
+           knownPlayers[this.id] = this.name;
            rows += Mustache.render(playerDisplayTemplate, this);
        });
        $("#playersList").html(rows);
@@ -235,6 +235,7 @@ var Game = function(canvasId) {
            var hitsBadge = $("#hits" + actor.id);
            hitsBadge.html("Hits: " + actor.hits);
            hitsBadge.data("value", actor.hits);
+
            scoreChanged = true;
        }
 
@@ -243,6 +244,10 @@ var Game = function(canvasId) {
            killsBadge.html("Kills: " + actor.kills);
            killsBadge.data("value", actor.kills);
            scoreChanged = true;
+
+           var killerName = knownPlayers[actor.id];
+           var victimName = knownPlayers[actor.tankKilled];
+           newsFlash(killerName + " has PWNED " + victimName + "!!!!");
        }
        if (actor.color) {
            $("#color" + actor.id).css('background-color', actor.color);
@@ -282,7 +287,7 @@ var Game = function(canvasId) {
 
         news.html(text);
         container.fadeIn(1000);
-        container.fadeOut(4000);
+        container.fadeOut(7000);
     };
 
     resource = new GameResource(update, onPlayersChanged);
