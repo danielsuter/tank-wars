@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.tankwars.game.BattlefieldMap;
-import ch.tankwars.game.Game;
 import ch.tankwars.game.Wall;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 
