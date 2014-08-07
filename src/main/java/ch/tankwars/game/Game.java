@@ -28,7 +28,9 @@ public class Game implements ActorListener {
 
 	private BattlefieldMap battlefieldMap;
 	private Referee referee = new Referee();
-
+	
+	
+	
 	public synchronized void tick() {
 		if(roundCounter % 400 == 0) {
 			final List<Actor> powerUps = actors.stream().filter(a -> a instanceof PowerUp).collect(Collectors.toList());
@@ -119,8 +121,8 @@ public class Game implements ActorListener {
 
 	private void computeRandomActorPosition(final Actor actor) {
 		final Random random = new Random();
-		final int x = random.nextInt(GAME_WIDTH + 1 - actor.getWidth());
-		final int y = random.nextInt(GAME_HEIGHT + 1 - actor.getHeight());
+		final int x = random.nextInt(GAME_WIDTH - 50 - actor.getWidth());
+		final int y = random.nextInt(GAME_HEIGHT - 50 - actor.getHeight());
 		actor.setPosition(x, y);
 		checkForCollisions(actor);
 	}
