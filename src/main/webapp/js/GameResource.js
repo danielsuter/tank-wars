@@ -39,6 +39,10 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart) {
         sendMessage('SHOOT');
     };
 
+    this.plantMine = function() {
+        sendMessage('PLANTMINE');
+    };
+
     this.onMessage = function(event) {
         var message = JSON.parse(event.data);
 
@@ -109,7 +113,9 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart) {
         "f" : "fireRate",
 		"k" : "kills",
         "s" : "hits",
-		"l" : "health"
+		"l" : "health",
+        "m" : "mines",
+        "n" : "bombs"
     };
 
     var actorTypeMap = {
@@ -119,7 +125,11 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart) {
         3 : "HealthPowerUp",
         4:  "FireRatePowerUp",
         5:  "LaserGunPowerUp",
-        6:  "RocketLauncherPowerUp"
+        6:  "RocketLauncherPowerUp",
+        7:  "MineBag",
+        8:  "BombBag",
+        9:  "Mine",
+        10: "Bomb"
     };
 
     var mapToActorArray = function(protocol) {

@@ -62,6 +62,9 @@ public class GameEndpoint {
 		case "SHOOT":
 			gameController.shoot(playerSession);
 			break;
+		case "PLANTMINE":
+			gameController.plantMine(playerSession);
+			break;
 		case "CLEAR":
 			gameController.clear();
 			break;

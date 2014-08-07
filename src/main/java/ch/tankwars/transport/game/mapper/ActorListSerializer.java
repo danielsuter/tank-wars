@@ -40,6 +40,8 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 	private static final String HITS = "s";
 	private static final String TANK_KILLED = "b";
 	private static final String WEAPON = "g";
+	private static final String NUMBER_OF_MINES = "m";
+	private static final String NUMBER_OF_BOMBS = "n";
 
 	private static final int GAME_UPDATE = 0;
 
@@ -117,6 +119,14 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 					
 					if (cachedTank == null || cachedTank.getMostRecentTankKilled() != tank.getMostRecentTankKilled()) {
 						actorJson.addProperty(TANK_KILLED, tank.getMostRecentTankKilled());
+					}
+					
+					if (cachedTank == null || cachedTank.getItems().getMines() != tank.getItems().getMines()) {
+						actorJson.addProperty(NUMBER_OF_MINES, tank.getItems().getMines());
+					}
+					
+					if (cachedTank == null || cachedTank.getItems().getBombs() != tank.getItems().getBombs()) {
+						actorJson.addProperty(NUMBER_OF_BOMBS, tank.getItems().getBombs());
 					}
 				}
 

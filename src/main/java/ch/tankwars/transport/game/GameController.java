@@ -24,6 +24,8 @@ import ch.tankwars.transport.game.dto.StartMessage;
 import ch.tankwars.transport.game.mapper.ActorListSerializer;
 
 public class GameController {
+	private static final int COUNT_DOWN_MILLIS = 1000;
+
 	private static final long INTERVAL_MILIS = 50L;
 	
 	private final static Logger LOGGER = LoggerFactory.getLogger(GameController.class);
@@ -68,7 +70,7 @@ public class GameController {
 				perf.stop("COMPLETE LOOP");
 			}
 
-		}, 10000, INTERVAL_MILIS);
+		}, COUNT_DOWN_MILLIS, INTERVAL_MILIS);
 		
 		gameCommunicator.sendMessage(new StartMessage(), playerPeers);
 	}
@@ -127,6 +129,13 @@ public class GameController {
 		}
 	}
 
+	public void plantMine(PlayerPeer playerSession) {
+		Tank tank = playerSession.getTank();
+		if(tank != null) {
+			tank.plantMine();
+		}
+	}
+	
 	public void clear() {
 		game = new Game();
 		timer.cancel();
