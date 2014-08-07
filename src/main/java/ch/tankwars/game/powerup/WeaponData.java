@@ -2,25 +2,28 @@ package ch.tankwars.game.powerup;
 
 import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Direction;
-import ch.tankwars.game.projectiles.CircularProjectile;
 import ch.tankwars.game.projectiles.Projectile;
 
 public enum WeaponData {
 
-	STANDARD_CANON(0, Projectile.DEFAULT_PROJECTILE_SPEED, Projectile.DEFAULT_PROJECTILE_POWER, Projectile.DEFAULT_PROJECTILE_DIMENSION, 4, -1),
-	LASER_GUN(1, 40, 7, 2, 10, 35),
-	ROCKET_LAUNCHER(2, 30, 25, 4, 2, 10);
+	STANDARD_CANON(0, Projectile.DEFAULT_PROJECTILE_SPEED, Projectile.DEFAULT_PROJECTILE_POWER, Projectile.DEFAULT_PROJECTILE_DIMENSION, Projectile.DEFAULT_PROJECTILE_DIMENSION, 4, -1),
+	LASER_GUN(1, 40, 7, 16, 2, 10, 35),
+	ROCKET_LAUNCHER(2, 30, 25, 4, 4, 2, 10);
 	
 	private int velocity;
 	private int power;
+	private int width;
+	private int height;
+	
 	private int dimension;
 	private int fireRatePerSecond;
 	private int weaponId;
 	private int maxShots;
 
-	private WeaponData(int weaponId, int velocity, int power, int dimension, int fireRatePerSecond, int maxShots) {
+	private WeaponData(int weaponId, int velocity, int power, int width, int height, int fireRatePerSecond, int maxShots) {
 		this.weaponId = weaponId;
-		this.dimension = dimension;
+		this.width = width;
+		this.height = height;
 		this.fireRatePerSecond = fireRatePerSecond;
 		this.velocity = velocity;
 		this.power = power;
@@ -28,27 +31,20 @@ public enum WeaponData {
 	}
 	
 	public Projectile shoot(int tankId, Direction direction, BattlefieldMap battlefieldMap) {
-		// TODO remove hack
-		Projectile projectile = null;
+		Projectile projectile = new Projectile(tankId, battlefieldMap);
+		projectile.setDirection(direction);
 		if(this == LASER_GUN) {
-			projectile = new Projectile(tankId, battlefieldMap) {
-				@Override
-				public int getHeight() {
-					return direction == Direction.LEFT || direction == Direction.RIGHT ? 2 : 16;
-				}
-				
-				@Override
-				public int getWidth() {
-					return direction == Direction.DOWN || direction == Direction.UP ? 2 : 16;
-				}
-			};
+			int laserGunWidth = direction == Direction.LEFT || direction == Direction.RIGHT ? width : height;
+			int laserGunHeight = direction == Direction.DOWN || direction == Direction.UP ? width : height;
+			projectile.setWidth(laserGunWidth);
+			projectile.setHeight(laserGunHeight);
+
 		} else {
-			projectile = new CircularProjectile(tankId, battlefieldMap);
+			projectile.setWidth(width);
+			projectile.setHeight(height);
 		}
-		projectile.setProjectileDimension(dimension);
 		projectile.setVelocity(velocity);
 		projectile.setPower(power);
-		projectile.setDirection(direction);
 		
 		return projectile;
 	}
@@ -75,5 +71,21 @@ public enum WeaponData {
 	
 	public int getWeaponId() {
 		return weaponId;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 }

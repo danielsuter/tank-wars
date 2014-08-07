@@ -123,8 +123,8 @@ public class Tank extends Actor {
 	public void shoot() {
 		Projectile projectile = currentWeapon.shoot(getId(), getDirection(), battlefieldMap);
 		
-		int projectileX = this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2);
-		int projectileY = this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2);
+		int projectileX = this.getX() + (this.getWidth() / 2 ) - (projectile.getWidth() / 2);
+		int projectileY = this.getY() + (this.getHeight() / 2) - (projectile.getHeight()  / 2);
 		projectile.setPosition(projectileX, projectileY);
 		
 		actorListener.createActor(projectile);

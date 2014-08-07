@@ -3,12 +3,12 @@ var Projectile =  {
     drawProjectile : function(projectile) {
 
         // IF radius is bigger than laser shoots radius of 2
-        if(projectile.radius > 2) {
+        if(projectile.height === projectile.width) {
             return new fabric.Circle({
                 left: projectile.x,
                 top: projectile.y,
                 fill: 'red',
-                radius: projectile.radius
+                radius: projectile.height
             });
         } else {
             return new fabric.Rect({

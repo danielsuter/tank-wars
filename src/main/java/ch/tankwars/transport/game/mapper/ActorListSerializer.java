@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import ch.tankwars.game.Actor;
 import ch.tankwars.game.Tank;
-import ch.tankwars.game.projectiles.Projectile;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -29,7 +28,6 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 	private static final String DIRECTION = "d";
 	private static final String HEIGHT = "h";
 	private static final String WIDTH = "w";
-	private static final String RADIUS = "r";
 	private static final String Y_POSITION = "y";
 	private static final String X_POSITION = "x";
 	private static final String ID = "i";
@@ -77,15 +75,6 @@ public class ActorListSerializer implements JsonSerializer<List<Actor>> {
 				if (cachedActor == null || cachedActor.getHeight() != actor.getHeight()) {
 					actorJson.addProperty(HEIGHT, actor.getHeight());
 				}
-				if (actor instanceof Projectile) {
-					Projectile projectile = (Projectile) actor;
-					Projectile cachedProjectile = (Projectile) cachedActor;
-					if (cachedProjectile == null
-							|| cachedProjectile.getProjectileDimension() != projectile.getProjectileDimension()) {
-						actorJson.addProperty(RADIUS, projectile.getProjectileDimension());
-					}
-				}
-
 				if (cachedActor == null || cachedActor.getDirection() != actor.getDirection()) {
 					actorJson.addProperty(DIRECTION, actor.getDirection().getIdentifier());
 				}

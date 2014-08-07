@@ -29,7 +29,7 @@ public class MapWriterTest {
 	
 	@Test
 	public void howlingAbyss() throws Exception {
-		int howlingAbyssWidth = 1400;
+		int howlingAbyssWidth = 1200;
 		int howlingAbyssHeight = 500;
 		battlefieldMap = new BattlefieldMap(howlingAbyssWidth, howlingAbyssHeight);
 		
@@ -41,21 +41,21 @@ public class MapWriterTest {
 		addWallToBattleField(WALL_THICKNESS, howlingAbyssHeight - WALL_THICKNESS, howlingAbyssWidth - 2 * WALL_THICKNESS, WALL_THICKNESS);
 
 		
-		addWallToBattleField(400, WALL_THICKNESS, WALL_THICKNESS, 50);
+		addWallToBattleField(300, WALL_THICKNESS, WALL_THICKNESS, 50);
 		addWallToBattleField(howlingAbyssWidth - 400, WALL_THICKNESS, WALL_THICKNESS, 50);
 		
-		addWallToBattleField(400, howlingAbyssHeight - WALL_THICKNESS - 50, WALL_THICKNESS, 50);
+		addWallToBattleField(300, howlingAbyssHeight - WALL_THICKNESS - 50, WALL_THICKNESS, 50);
 		addWallToBattleField(howlingAbyssWidth - 400, howlingAbyssHeight - WALL_THICKNESS - 50, WALL_THICKNESS, 50);
 		
-		addWallToBattleField(550, 100, WALL_THICKNESS, 100);
-		addWallToBattleField(550, howlingAbyssHeight - 100 - 100, WALL_THICKNESS, 100);
-		addWallToBattleField(550, 100, 100, WALL_THICKNESS);
-		addWallToBattleField(550, howlingAbyssHeight - 100, 100, WALL_THICKNESS);
+		addWallToBattleField(350, 100, WALL_THICKNESS, 100);
+		addWallToBattleField(350, howlingAbyssHeight - 100 - 100, WALL_THICKNESS, 100);
+		addWallToBattleField(350, 100, 100, WALL_THICKNESS);
+		addWallToBattleField(350, howlingAbyssHeight - 100, 100, WALL_THICKNESS);
 		
-		addWallToBattleField(850, 100, WALL_THICKNESS, 100);
-		addWallToBattleField(850, howlingAbyssHeight - 100 - 100, WALL_THICKNESS, 100 + WALL_THICKNESS);
-		addWallToBattleField(750, 100, 100, WALL_THICKNESS);
-		addWallToBattleField(750, howlingAbyssHeight - 100, 100  + WALL_THICKNESS, WALL_THICKNESS);
+		addWallToBattleField(750, 100, WALL_THICKNESS, 100);
+		addWallToBattleField(750, howlingAbyssHeight - 100 - 100, WALL_THICKNESS, 100 + WALL_THICKNESS);
+		addWallToBattleField(650, 100, 100, WALL_THICKNESS);
+		addWallToBattleField(650, howlingAbyssHeight - 100, 100  + WALL_THICKNESS, WALL_THICKNESS);
 		
 		
 		addWallToBattleField(50, 145, 250, WALL_THICKNESS);
