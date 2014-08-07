@@ -116,24 +116,6 @@ var ShapeRenderer = function(_canvas) {
         }
     };
 
-    this.renderDeath = function() {
-        statusBarShape = new fabric.Text('<<< Game over >>>', {
-            left: 110,
-            top: 250,
-            fontSize: 60,
-            fill: 'red',
-            stroke: '#c3bfbf',
-            strokeWidth: 3,
-            fontFamily: 'Arial',
-            fontWeight: 'bold'});
-
-        // optimize
-        statusBarShape.selectable = false;
-        statusBarShape.hasRotatingPoint = false;
-
-        canvas.add(statusBarShape);
-    };
-
     this.render = function() {
         canvas.renderAll();
     };

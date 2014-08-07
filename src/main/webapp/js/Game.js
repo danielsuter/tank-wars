@@ -101,11 +101,11 @@ var Game = function(canvasId) {
 
     var onConnect = function (gameRunning) {
         $("#connectGame").hide();
-        $("#connectionSuccess").show();
         $("#connectionInfo").hide();
         if (gameRunning) {
             $("#gameRunning").show();
         } else {
+            $("#connectionSuccess").show();
             $("#joinGame").show();
             $("#playerName").show();
         }
@@ -146,7 +146,6 @@ var Game = function(canvasId) {
         var myPlayer = knownActors[myId];
         if(!myPlayer) {
             isDead = true;
-            renderer.renderDeath();
         }
     };
 
