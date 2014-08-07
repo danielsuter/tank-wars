@@ -21,6 +21,7 @@ public class CurrentWeapon {
 		Projectile projectile = weaponData.shoot(tankId, direction);
 		if(weaponData.getMaxShots() != INFINITE && currentShots >= weaponData.getMaxShots()) {
 			setWeapon(WeaponData.STANDARD_CANON);
+			currentShots = 0;
 		}
 		return projectile;
 	}
