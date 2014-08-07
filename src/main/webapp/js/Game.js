@@ -320,7 +320,7 @@ var Game = function(canvasId) {
    };
 
     var sortRows = function() {
-        var playerRows = $(".playersList").get();
+        var playerRows = $("#playersList tr").get();
 
         playerRows.sort(function(a, b) {
             var aHits = $(a).find($("td[name='hitsBadge']")).data("value");
