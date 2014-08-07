@@ -5,7 +5,7 @@ public class Tank extends Actor {
 	private static final int LASERGUN_SIZE = 2;
 	private final static int DEFAULT_WIDTH = 35;
 	private final static int DEFAULT_HEIGHT = 35;
-	private final static int DEFAULT_SPEED = 6;
+	private final static int DEFAULT_SPEED = 8;
 	private final static int DEFAULT_HEALTH = 100;
 	
 	private int fireRatePerSecond = 1;
