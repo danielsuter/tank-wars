@@ -24,11 +24,13 @@ public class Tank extends Actor {
 	private int mostRecentTankKilled = -1;
 	
 	private ActorListener actorListener;
+	private BattlefieldMap battlefieldMap;
 	
-	public Tank(ActorListener actorListener, String playerName) {
+	public Tank(ActorListener actorListener, String playerName, BattlefieldMap battlefieldMap) {
 		super(ActorType.TANK);
 		this.actorListener = actorListener;
 		this.playerName = playerName;
+		this.battlefieldMap = battlefieldMap;
 		setWidth(DEFAULT_WIDTH);
 		setHeight(DEFAULT_HEIGHT);
 		setVelocity(0);
@@ -93,14 +95,14 @@ public class Tank extends Actor {
 		int newX = getX() + getDirection().calculateVelocityX(getVelocity());
 		int newY = getY() + getDirection().calculateVelocityY(getVelocity());
 		
-		if(newX > Game.GAME_WIDTH - getWidth()) {
-			newX = Game.GAME_WIDTH - getWidth();
+		if(newX > battlefieldMap.getFieldWidth() - getWidth()) {
+			newX = battlefieldMap.getFieldWidth() - getWidth();
 		} else if(newX < 0) {
 			newX = 0;
 		}
 		
-		if (newY > Game.GAME_HEIGHT - getHeight()) {
-			newY = Game.GAME_HEIGHT - getHeight(); 
+		if (newY > battlefieldMap.getFieldHeight() - getHeight()) {
+			newY = battlefieldMap.getFieldHeight() - getHeight(); 
 		} else if(newY < 0) {
 			newY = 0;
 		}
@@ -114,7 +116,7 @@ public class Tank extends Actor {
 	}
 	
 	public void shoot() {
-		Projectile projectile = currentWeapon.shoot(getId(), getDirection());
+		Projectile projectile = currentWeapon.shoot(getId(), getDirection(), battlefieldMap);
 		
 		// TODO beautify
 		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), 

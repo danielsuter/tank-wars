@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import ch.tankwars.game.Actor;
-import ch.tankwars.game.RandomPositionCalculator;
 import ch.tankwars.game.powerup.HealthPowerUp;
 import ch.tankwars.game.powerup.LaserGunPowerUp;
 import ch.tankwars.game.powerup.PowerUp;
@@ -16,10 +15,8 @@ import ch.tankwars.game.powerup.RocketLauncherPowerUp;
 public class RandomPowerUpStrategy implements PowerUpSpawnStrategy {
 	
 	private int roundCounter = 0;
-	private RandomPositionCalculator positionCalculator;
 	
 	public RandomPowerUpStrategy() {
-		positionCalculator = new RandomPositionCalculator();
 	}
 	
 	@Override
@@ -41,7 +38,6 @@ public class RandomPowerUpStrategy implements PowerUpSpawnStrategy {
 		List<PowerUp> powerUps = new LinkedList<PowerUp>();
 		for (int i = 0; i <= powerUpCount; i++) {
 			PowerUp powerUp = spawnNewPowerUp(random);
-			positionCalculator.setPosition(actors, powerUp);
 			powerUps.add(powerUp);
 		}
 		return powerUps;
