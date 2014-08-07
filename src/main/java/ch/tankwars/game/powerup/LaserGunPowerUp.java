@@ -4,21 +4,21 @@ import ch.tankwars.game.ActorType;
 
 public class LaserGunPowerUp extends PowerUp {
 	
-	private Weapon weapon;
+	private WeaponData weaponData;
 
 	public LaserGunPowerUp(int x, int y) {
 		super(ActorType.LASERGUNPOWERUP);
 		setX(x);
 		setY(y);
-		weapon = Weapon.LASER_GUN;
+		weaponData = WeaponData.LASER_GUN;
 	}
 
-	public Weapon getWeapon() {
-		return weapon;
+	public WeaponData getWeapon() {
+		return weaponData;
 	}
 
-	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
+	public void setWeapon(WeaponData weaponData) {
+		this.weaponData = weaponData;
 	}
 
 }
