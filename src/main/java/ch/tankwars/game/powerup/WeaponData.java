@@ -1,7 +1,8 @@
 package ch.tankwars.game.powerup;
 
 import ch.tankwars.game.Direction;
-import ch.tankwars.game.Projectile;
+import ch.tankwars.game.projectiles.CircularProjectile;
+import ch.tankwars.game.projectiles.Projectile;
 
 public enum WeaponData {
 
@@ -41,7 +42,7 @@ public enum WeaponData {
 				}
 			};
 		} else {
-			projectile = new Projectile(tankId);
+			projectile = new CircularProjectile(tankId);
 		}
 		projectile.setProjectileDimension(dimension);
 		projectile.setVelocity(velocity);

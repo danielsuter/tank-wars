@@ -5,6 +5,7 @@ import ch.tankwars.game.powerup.HealthPowerUp;
 import ch.tankwars.game.powerup.LaserGunPowerUp;
 import ch.tankwars.game.powerup.RocketLauncherPowerUp;
 import ch.tankwars.game.powerup.WeaponData;
+import ch.tankwars.game.projectiles.Projectile;
 
 public class Tank extends Actor {
 
