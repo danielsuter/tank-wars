@@ -13,7 +13,8 @@ public class CurrentWeapon {
 	}
 	
 	public void setWeapon(WeaponData data) {
-		weaponData  = data;
+		this.weaponData  = data;
+		this.currentShots = 0;
 	}
 	
 	public Projectile shoot(int tankId, Direction direction) {
