@@ -20,6 +20,7 @@ import ch.tankwars.performance.PerformanceCounter;
 import ch.tankwars.transport.game.dto.ConnectResponse;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.dto.PlayersChangedResponse;
+import ch.tankwars.transport.game.dto.StartMessage;
 import ch.tankwars.transport.game.mapper.ActorListSerializer;
 
 public class GameController {
@@ -72,6 +73,8 @@ public class GameController {
 			}
 
 		}, 10000, INTERVAL_MILIS);
+		
+		gameCommunicator.sendMessage(new StartMessage(), playerPeers);
 	}
 
 	public void stop() {
