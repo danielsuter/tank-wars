@@ -148,7 +148,10 @@ public class Tank extends Actor {
 			RocketLauncherPowerUp rocketLauncherPowerUp = (RocketLauncherPowerUp) actor;
 			setWeapon(rocketLauncherPowerUp.getWeapon());
 		} else if(actor instanceof Tank) {
-			prohibitCollision(actor);
+			// We need to recheck, since the other tank could have already been moved
+			if(collidesWith(actor)) {
+				prohibitCollision(actor);
+			}
 		}
 	}
 
