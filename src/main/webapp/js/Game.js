@@ -119,8 +119,6 @@ var Game = function(canvasId) {
     };
 
     var update = function(actorsFromResponse) {
-        if(isDead) return;
-
         removeDeadActors(actorsFromResponse);
 
         $.each(actorsFromResponse, function() {
