@@ -55,7 +55,6 @@ var ShapeRenderer = function(_canvas) {
             shapes[actor.id] = shape;
             canvas.add(shape);
         }
-
     };
 
     var getColor = function() {
