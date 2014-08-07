@@ -35,18 +35,14 @@ public class GameController {
 	private final Set<PlayerPeer> playerPeers = Collections.synchronizedSet(new HashSet<PlayerPeer>());
 	
 	private boolean isStarted;
+	private String defaultMapName = "howlingAbyss.json";
 	
 	private PerformanceCounter perf = new PerformanceCounter(10);
 	
 	public GameController() {
-		initPlayground();
+		loadMap(defaultMapName);
 	}
 	
-	// TODO will be replaced by loadMap
-	private void initPlayground() {
-		loadMap("labyrinth.json");
-	}
-
 	public synchronized void start() {
 		if(isStarted) {
 			LOGGER.warn("Already started! Aborting...");
@@ -137,7 +133,7 @@ public class GameController {
 		isStarted = false;
 		playerPeers.clear();
 		gameCommunicator = new GameCommunicator();
-		initPlayground();
+		loadMap(defaultMapName);
 	}
 
 	public void loadMap(String mapName) {
