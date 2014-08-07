@@ -30,6 +30,12 @@ public class Game implements ActorListener {
 	private Referee referee = new Referee();
 
 	public synchronized void tick() {
+		if(roundCounter % 200 == 0) {
+			final List<Actor> powerUps = actors.stream().filter(a -> a instanceof PowerUp).collect(Collectors.toList());
+			if(powerUps.size() <= 10) {
+				reSpawnNewPowerUps();
+			}
+		}
 		roundCounter++;
 		addActorsInQueue();
 
@@ -51,18 +57,12 @@ public class Game implements ActorListener {
 				}
 			}
 		}
-		if(roundCounter % 200 == 0) {
-			final List<Actor> powerUps = actors.stream().filter(a -> a instanceof PowerUp).collect(Collectors.toList());
-			if(powerUps.size() <= 10) {
-				reSpawnNewPowerUps();
-			}
-		}
 		removeDeadActors();
 	}
 
 	private void reSpawnNewPowerUps() {
 		final Random random = new Random();
-		final int powerUpCount = random.nextInt(5);
+		final int powerUpCount = random.nextInt(7 - 2) + 2;
 		for (int i = 0; i <= powerUpCount; i++) {
 			spawnNewPowerUp(random);
 		}
