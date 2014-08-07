@@ -11,9 +11,9 @@ import javax.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Direction;
 import ch.tankwars.game.Game;
-import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Tank;
 import ch.tankwars.maps.MapReader;
 import ch.tankwars.performance.PerformanceCounter;
@@ -21,6 +21,7 @@ import ch.tankwars.transport.game.dto.ConnectResponse;
 import ch.tankwars.transport.game.dto.JoinResponse;
 import ch.tankwars.transport.game.dto.PlayersChangedResponse;
 import ch.tankwars.transport.game.dto.StartMessage;
+import ch.tankwars.transport.game.dto.StopMessage;
 import ch.tankwars.transport.game.mapper.ActorListSerializer;
 
 public class GameController {
@@ -76,6 +77,7 @@ public class GameController {
 	}
 
 	public void stop() {
+		gameCommunicator.sendMessage(new StopMessage(), playerPeers);
 		timer.cancel();
 		isStarted = false;
 	}

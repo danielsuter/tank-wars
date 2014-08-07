@@ -1,10 +1,11 @@
-var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart) {
+var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart, _onStop) {
     var onGameUpdate = _onGameUpdate;
     var websocket;
     var onJoined;
     var onConnect;
     var onPlayersChanged = _onPlayersChanged;
     var onStart = _onStart;
+    var onStop = _onStop;
 
     var lastMessageTime = 0;
 
@@ -64,6 +65,8 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart) {
             onPlayersChanged(message.players);
         } else if(message.messageType === "START") {
             onStart();
+        } else if(message.messageType === "STROP") {
+            onStop();
         }
     };
 
