@@ -23,7 +23,7 @@ public class Tank extends Actor {
 		this.playerName = playerName;
 		setWidth(DEFAULT_WIDTH);
 		setHeight(DEFAULT_HEIGHT);
-		setVelocity(DEFAULT_SPEED);
+		setVelocity(0);
 		this.weapon = Weapon.STANDARD_CANON;
 	}
 	
