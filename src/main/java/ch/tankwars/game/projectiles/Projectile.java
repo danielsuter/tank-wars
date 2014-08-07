@@ -8,7 +8,7 @@ import ch.tankwars.game.Referee;
 
 public abstract class Projectile extends Actor {
 	
-	public static final int DEFAULT_PROJECTILE_SPEED = 10;
+	public static final int DEFAULT_PROJECTILE_SPEED = 20;
 	public static final int DEFAULT_PROJECTILE_DIMENSION = 3; 
 	public static final int DEFAULT_PROJECTILE_POWER = 10; 
 	private int projectileDimension;
