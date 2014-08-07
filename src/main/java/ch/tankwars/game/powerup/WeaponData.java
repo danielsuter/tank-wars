@@ -6,9 +6,9 @@ import ch.tankwars.game.projectiles.Projectile;
 
 public enum WeaponData {
 
-	STANDARD_CANON(0, Projectile.DEFAULT_PROJECTILE_SPEED, Projectile.DEFAULT_PROJECTILE_POWER, Projectile.DEFAULT_PROJECTILE_DIMENSION, 1, -1),
+	STANDARD_CANON(0, Projectile.DEFAULT_PROJECTILE_SPEED, Projectile.DEFAULT_PROJECTILE_POWER, Projectile.DEFAULT_PROJECTILE_DIMENSION, 3, -1),
 	LASER_GUN(1, 30, 7, 2, 10, 30),
-	ROCKET_LAUNCHER(2, 8, 25, 4, 1, 10);
+	ROCKET_LAUNCHER(2, 15, 25, 4, 1, 10);
 	
 	private int velocity;
 	private int power;
