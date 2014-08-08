@@ -138,6 +138,13 @@ public class GameController {
 		}
 	}
 	
+	public void plantBomb(PlayerPeer playerSession) {
+		Tank tank = playerSession.getTank();
+		if(tank != null) {
+			tank.plantBomb();
+		}
+	}
+	
 	public void clear() {
 		game = new Game();
 		timer.cancel();

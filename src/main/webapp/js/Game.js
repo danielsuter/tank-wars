@@ -89,6 +89,10 @@ var Game = function(canvasId) {
                 event.preventDefault();
                 resource.plantMine();
                 break;
+            case 66: // b
+                event.preventDefault();
+                resource.plantBomb();
+                break;
         }
     };
 

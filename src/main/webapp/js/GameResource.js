@@ -44,6 +44,10 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart, _onStop)
         sendMessage('PLANTMINE');
     };
 
+    this.plantBomb = function() {
+        sendMessage('PLANTBOMB');
+    };
+
     this.onMessage = function(event) {
         var message = JSON.parse(event.data);
 

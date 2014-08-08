@@ -154,6 +154,12 @@ public class Tank extends Actor {
 			}
 		}
 	}
+	
+	public void plantBomb() {
+		if(items.getBombs() > 0) {
+			// TODO bomb
+		}
+	}
 
 	@Override
 	public void onCollision(Actor actor, Referee referee) {
