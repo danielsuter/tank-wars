@@ -35,10 +35,10 @@ TUtil.getBaseUrl = function() {
     var wsUri;
     var hostname =  window.location.hostname;
     if(hostname === '91.138.8.56') {
-        wsUri = "ws://" + hostname + ":9090/tank-wars/";
+        wsUri = "http://" + hostname + ":9090/tank-wars/";
         console.log("detected CI, using wsUri: " + wsUri);
     } else {
-        wsUri = "ws://" + hostname + ":8080/tank-wars/";
+        wsUri = "http://" + hostname + ":8080/tank-wars/";
     }
     return wsUri;
 };
