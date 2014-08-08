@@ -3,10 +3,13 @@ package ch.tankwars.game.items;
 import ch.tankwars.game.Actor;
 import ch.tankwars.game.ActorType;
 import ch.tankwars.game.Referee;
+import ch.tankwars.game.Tank;
+import ch.tankwars.game.projectiles.Projectile;
 
 public class Mine extends Actor {
 	private int power = 25;
 	private int owningTankId;
+	private int health = 50;
 	
 	public Mine(int owningTankId) {
 		super(ActorType.MINE);
@@ -17,8 +20,17 @@ public class Mine extends Actor {
 
 	@Override
 	public void onCollision(Actor actor, Referee referee) {
-		if(actor.getId() != owningTankId) {
-			setRemove(true);
+		if(actor instanceof Projectile) {
+			Projectile projectile = (Projectile) actor;
+			health -= projectile.getPower();
+			if(health <= 0) {
+				setRemove(true);
+			}
+		} else if(actor instanceof Tank) {
+			Tank tank = (Tank) actor;
+			if(tank.getId() != owningTankId) {
+				setRemove(true);
+			}
 		}
 	}
 
