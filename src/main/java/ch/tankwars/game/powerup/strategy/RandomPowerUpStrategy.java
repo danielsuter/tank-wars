@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import ch.tankwars.game.Actor;
 import ch.tankwars.game.powerup.HealthPowerUp;
 import ch.tankwars.game.powerup.LaserGunPowerUp;
+import ch.tankwars.game.powerup.MineBag;
 import ch.tankwars.game.powerup.PowerUp;
 import ch.tankwars.game.powerup.RocketLauncherPowerUp;
 
@@ -44,15 +45,19 @@ public class RandomPowerUpStrategy implements PowerUpSpawnStrategy {
 	}
 	
 	private PowerUp spawnNewPowerUp(final Random random) {
-		final int type = random.nextInt(3);
-		
+		final int type = random.nextInt(4);
+
 		switch (type) {
-		case 0: 
+		case 0:
 			return new HealthPowerUp(0, 0);
-		case 1: 
+		case 1:
 			return new LaserGunPowerUp(0, 0);
-		default:
+		case 2:
 			return new RocketLauncherPowerUp(0, 0);
+		case 3:
+			return new MineBag();
+		default:
+			throw new RuntimeException("If this happens, it's a bug!");
 		}
 	}
 }
