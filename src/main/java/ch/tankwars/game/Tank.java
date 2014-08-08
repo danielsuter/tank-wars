@@ -1,6 +1,7 @@
 package ch.tankwars.game;
 
 import ch.tankwars.game.items.Mine;
+import ch.tankwars.game.powerup.BombBag;
 import ch.tankwars.game.powerup.CurrentWeapon;
 import ch.tankwars.game.powerup.HealthPowerUp;
 import ch.tankwars.game.powerup.LaserGunPowerUp;
@@ -196,6 +197,9 @@ public class Tank extends Actor {
 		} else if(actor instanceof Mine) {
 			Mine mine = (Mine) actor;
 			damage(mine.getPower());
+		} else if(actor instanceof BombBag) {
+			BombBag bombBag = (BombBag) actor;
+			items.addBombs(bombBag.getAmount());
 		}
 	}
 

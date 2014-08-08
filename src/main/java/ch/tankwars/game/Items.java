@@ -17,15 +17,15 @@ public class Items implements Cloneable{
 		return bombs;
 	}
 
-	public void setBombs(int bombs) {
-		this.bombs = bombs;
-	}
-
 	public void addMines(int amount) {
 		mines += amount;
 	}
 
 	public void removeMine() {
 		--mines;
+	}
+
+	public void addBombs(int amount) {
+		bombs += amount;
 	}
 }

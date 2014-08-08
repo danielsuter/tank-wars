@@ -20,7 +20,7 @@ var BombBag = {
             radius: (bombBag.width - 4) / 2
         });
 
-        return new fabric.Group([background, innerMine], {
+        return new fabric.Group([background, innerBomb], {
             left: bombBag.x,
             top: bombBag.y
         });

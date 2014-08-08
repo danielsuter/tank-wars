@@ -1,6 +1,8 @@
 package ch.tankwars.game.powerup;
 
+import ch.tankwars.game.Actor;
 import ch.tankwars.game.ActorType;
+import ch.tankwars.game.Referee;
 
 public class BombBag extends PowerUp {
 	private int amount = 5;
@@ -16,5 +18,9 @@ public class BombBag extends PowerUp {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-
+	
+	@Override
+	public void onCollision(Actor actor, Referee referee) {
+		setRemove(true);
+	}
 }
