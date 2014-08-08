@@ -85,6 +85,10 @@ var Game = function(canvasId) {
                     resource.shoot();
                 }
                 break;
+            case 77: // m
+                event.preventDefault();
+                resource.plantMine();
+                break;
         }
     };
 

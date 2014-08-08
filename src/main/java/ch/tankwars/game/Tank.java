@@ -133,7 +133,7 @@ public class Tank extends Actor {
 	public void plantMine() {
 		if(items.getMines() > 0) {
 			items.removeMine();
-			Mine mine = new Mine();
+			Mine mine = new Mine(getId());
 			mine.setPosition(getX(), getY());
 			actorListener.createActor(mine);
 		}
@@ -173,7 +173,9 @@ public class Tank extends Actor {
 			items.addMines(mineBag.getAmount());
 		} else if(actor instanceof Mine) {
 			Mine mine = (Mine) actor;
-			damage(mine.getPower());
+			if(mine.getOwningTankId() != getId()) {
+				damage(mine.getPower());
+			}
 		}
 	}
 

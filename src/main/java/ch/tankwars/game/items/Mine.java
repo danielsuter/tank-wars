@@ -6,19 +6,27 @@ import ch.tankwars.game.Referee;
 
 public class Mine extends Actor {
 	private int power = 25;
+	private int owningTankId;
 	
-	public Mine() {
-		super(ActorType.BOMB);
+	public Mine(int owningTankId) {
+		super(ActorType.MINE);
+		this.owningTankId = owningTankId;
 		setHeight(25);
 		setWidth(25);
 	}
 
 	@Override
 	public void onCollision(Actor actor, Referee referee) {
-		setRemove(true);
+		if(actor.getId() != owningTankId) {
+			setRemove(true);
+		}
 	}
 
 	public int getPower() {
 		return power;
+	}
+	
+	public int getOwningTankId() {
+		return owningTankId;
 	}
 }

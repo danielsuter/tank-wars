@@ -44,6 +44,9 @@ var ShapeRenderer = function(_canvas) {
             case "MineBag":
                 shape = MineBag.drawMineBag(actor);
                 break;
+            case "Mine":
+                shape = Mine.drawMine(actor);
+                break;
         }
 
         // optimize
