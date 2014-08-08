@@ -119,7 +119,11 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart) {
         3 : "HealthPowerUp",
         4:  "FireRatePowerUp",
         5:  "LaserGunPowerUp",
-        6:  "RocketLauncherPowerUp"
+        6:  "RocketLauncherPowerUp",
+        7:  "MineBag",
+        8:  "BombBag",
+        9:  "Mine",
+        10: "Bomb"
     };
 
     var mapToActorArray = function(protocol) {

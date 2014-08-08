@@ -41,6 +41,9 @@ var ShapeRenderer = function(_canvas) {
             case "RocketLauncherPowerUp":
                 shape = RocketLauncherPowerUp.drawRocketLauncherPowerUp(actor);
                 break;
+            case "MineBag":
+                shape = MineBag.drawMineBag(actor);
+                break;
         }
 
         // optimize

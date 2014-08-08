@@ -1,8 +1,10 @@
 package ch.tankwars.game;
 
+import ch.tankwars.game.items.Mine;
 import ch.tankwars.game.powerup.CurrentWeapon;
 import ch.tankwars.game.powerup.HealthPowerUp;
 import ch.tankwars.game.powerup.LaserGunPowerUp;
+import ch.tankwars.game.powerup.MineBag;
 import ch.tankwars.game.powerup.RocketLauncherPowerUp;
 import ch.tankwars.game.powerup.WeaponData;
 import ch.tankwars.game.projectiles.Projectile;
@@ -15,9 +17,11 @@ public class Tank extends Actor {
 	private final static int MAX_HEALTH = 100;
 	
 	private CurrentWeapon currentWeapon;
-
+	private Items items = new Items();
+	
 	private final String playerName;
 	private int health = MAX_HEALTH;
+	
 	private int hitsMade = 0;
 	private int killsMade = 0;
 	private int mostRecentTankHit = -1;
@@ -118,11 +122,20 @@ public class Tank extends Actor {
 	public void shoot() {
 		Projectile projectile = currentWeapon.shoot(getId(), getDirection(), battlefieldMap);
 		
-		// TODO beautify
-		projectile.setPosition(this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2), 
-				this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2));
+		int projectileX = this.getX() + (this.getWidth() / 2 ) - (projectile.getProjectileDimension() / 2);
+		int projectileY = this.getY() + (this.getHeight() / 2) - (projectile.getProjectileDimension()  / 2);
+		projectile.setPosition(projectileX, projectileY);
 		
 		actorListener.createActor(projectile);
+	}
+	
+	public void plantMine() {
+		if(items.getMines() > 0) {
+			items.removeMine();
+			Mine mine = new Mine();
+			mine.setPosition(getX(), getY());
+			actorListener.createActor(mine);
+		}
 	}
 
 	@Override
@@ -154,6 +167,12 @@ public class Tank extends Actor {
 			if(collidesWith(actor)) {
 				prohibitCollision(actor);
 			}
+		} else if(actor instanceof MineBag) {
+			MineBag mineBag = (MineBag) actor;
+			items.addMines(mineBag.getAmount());
+		} else if(actor instanceof Mine) {
+			Mine mine = (Mine) actor;
+			damage(mine.getPower());
 		}
 	}
 
