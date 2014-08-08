@@ -132,10 +132,26 @@ public class Tank extends Actor {
 	
 	public void plantMine() {
 		if(items.getMines() > 0) {
-			items.removeMine();
-			Mine mine = new Mine(getId());
-			mine.setPosition(getX(), getY());
-			actorListener.createActor(mine);
+			
+			Mine mine = new Mine();
+			switch(getDirection()) {
+			case DOWN:
+				mine.setPosition(getX(), getY() - mine.getHeight() - 20);
+				break;
+			case UP:
+				mine.setPosition(getX(), getY() + mine.getHeight() + 20);
+				break;
+			case LEFT:
+				mine.setPosition(getX() + mine.getWidth() + 20, getY());
+				break;
+			case RIGHT:
+				mine.setPosition(getX() - mine.getX() - 20, getY());
+				break;
+			}
+			
+			if(actorListener.createActorIfNoCollision(mine)) {
+				items.removeMine();
+			}
 		}
 	}
 
@@ -173,9 +189,7 @@ public class Tank extends Actor {
 			items.addMines(mineBag.getAmount());
 		} else if(actor instanceof Mine) {
 			Mine mine = (Mine) actor;
-			if(mine.getOwningTankId() != getId()) {
-				damage(mine.getPower());
-			}
+			damage(mine.getPower());
 		}
 	}
 
