@@ -174,11 +174,11 @@ public class Tank extends Actor {
 			Projectile projectile = (Projectile) actor;
 			if(projectile.getOwningTankId() != getId()) {
 				damage(projectile.getPower());
+				referee.tankMadeHit(projectile.getOwningTankId(), getId());
+				
 				if (health <= 0) {
 					referee.tankMadeKill(projectile.getOwningTankId(), getId());
-				} else {
-					referee.tankMadeHit(projectile.getOwningTankId(), getId());
-				}
+				} 
 			}
 		} else if (actor instanceof Wall) {
 			prohibitCollision(actor);
