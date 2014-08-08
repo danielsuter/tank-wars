@@ -16,8 +16,11 @@ var Game = function(canvasId) {
      */
     var isDead = false;
 
-    var audioHit = document.createElement('audio');
-    audioHit.setAttribute('src', 'sound/hit.flac');
+//    var audioHit = document.createElement('audio');
+//    audioHit.setAttribute('src', 'sound/hit.flac');
+
+    var audioHit = new Audio('sound/hit.flac');
+
 
     var doKeyDown = function(event) {
         if(event.keyCode === lastCode || isDead) {
