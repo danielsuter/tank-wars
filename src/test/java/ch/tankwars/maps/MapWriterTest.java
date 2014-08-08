@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.tankwars.game.BattlefieldMap;
-import ch.tankwars.game.Game;
 import ch.tankwars.game.Wall;
 import ch.tankwars.transport.game.mapper.GsonFactory;
 
@@ -16,6 +15,8 @@ import com.google.gson.Gson;
 
 public class MapWriterTest {
 
+	private static final int GAME_HEIGHT = 600;
+	private static final int GAME_WIDTH = 800;
 	private static final int WALL_WIDTH = 10;
 	private static final String MAP_PATH = "src/main/resources/maps/";
 	private Gson gson;
@@ -23,17 +24,17 @@ public class MapWriterTest {
 
 	@Before
 	public void init() {
-		battlefieldMap = new BattlefieldMap(Game.GAME_WIDTH, Game.GAME_HEIGHT);
+		battlefieldMap = new BattlefieldMap(GAME_WIDTH, GAME_HEIGHT);
 		gson = GsonFactory.create();
 	}
 
 	@Test
 	public void labyrinth() throws Exception {
 		// OUTER WALLS
-		addWallToBattleField(0, 0, WALL_WIDTH, Game.GAME_HEIGHT);
-		addWallToBattleField(Game.GAME_WIDTH - WALL_WIDTH, 0, WALL_WIDTH, Game.GAME_HEIGHT);
-		addWallToBattleField(WALL_WIDTH, 0, Game.GAME_WIDTH - 2 * WALL_WIDTH, WALL_WIDTH);
-		addWallToBattleField(WALL_WIDTH, Game.GAME_HEIGHT - WALL_WIDTH, Game.GAME_WIDTH - 2 * WALL_WIDTH, WALL_WIDTH);
+		addWallToBattleField(0, 0, WALL_WIDTH, GAME_HEIGHT);
+		addWallToBattleField(GAME_WIDTH - WALL_WIDTH, 0, WALL_WIDTH, GAME_HEIGHT);
+		addWallToBattleField(WALL_WIDTH, 0, GAME_WIDTH - 2 * WALL_WIDTH, WALL_WIDTH);
+		addWallToBattleField(WALL_WIDTH, GAME_HEIGHT - WALL_WIDTH, GAME_WIDTH - 2 * WALL_WIDTH, WALL_WIDTH);
 
 		addWallToBattleField(100, 100, 600, WALL_WIDTH);
 		addWallToBattleField(100, 400, 600, WALL_WIDTH);

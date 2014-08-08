@@ -1,5 +1,6 @@
 package ch.tankwars.game.powerup;
 
+import ch.tankwars.game.BattlefieldMap;
 import ch.tankwars.game.Direction;
 import ch.tankwars.game.projectiles.Projectile;
 
@@ -17,9 +18,9 @@ public class CurrentWeapon {
 		this.currentShots = 0;
 	}
 	
-	public Projectile shoot(int tankId, Direction direction) {
+	public Projectile shoot(int tankId, Direction direction, BattlefieldMap battlefieldMap) {
 		++currentShots;
-		Projectile projectile = weaponData.shoot(tankId, direction);
+		Projectile projectile = weaponData.shoot(tankId, direction, battlefieldMap);
 		if(this.weaponData.getMaxShots() != INFINITE && currentShots >= this.weaponData.getMaxShots()) {
 			setWeapon(WeaponData.STANDARD_CANON);
 			currentShots = 0;
