@@ -1,5 +1,6 @@
 package ch.tankwars.game;
 
+import ch.tankwars.game.items.Bomb;
 import ch.tankwars.game.items.Mine;
 import ch.tankwars.game.powerup.BombBag;
 import ch.tankwars.game.powerup.CurrentWeapon;
@@ -158,7 +159,10 @@ public class Tank extends Actor {
 	
 	public void plantBomb() {
 		if(items.getBombs() > 0) {
-			// TODO bomb
+			Bomb bomb = new Bomb(actorListener);
+			bomb.setX(getX());
+			bomb.setY(getY());
+			items.removeBomb();
 		}
 	}
 

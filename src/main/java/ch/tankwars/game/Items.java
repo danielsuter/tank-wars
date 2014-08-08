@@ -28,4 +28,8 @@ public class Items implements Cloneable{
 	public void addBombs(int amount) {
 		bombs += amount;
 	}
+
+	public void removeBomb() {
+		--bombs;
+	}
 }
