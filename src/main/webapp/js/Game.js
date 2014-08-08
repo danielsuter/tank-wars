@@ -271,7 +271,7 @@ var Game = function(canvasId) {
    };
 
    var playerDisplayTemplate =
-       "<tr id='color{{id}}'>" +
+       "<tr style='font-weight: bold' id='color{{id}}'>" +
            "<td name='rank'></td>" +
            "<td>{{name}}</span>" +
            "<td data-value='0' name='hitsBadge' id='hits{{id}}'>0</td>" +
