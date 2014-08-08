@@ -16,6 +16,9 @@ var Game = function(canvasId) {
      */
     var isDead = false;
 
+    var audioHit = document.createElement('audio');
+    audioHit.setAttribute('src', 'sound/hit.flac');
+
     var doKeyDown = function(event) {
         if(event.keyCode === lastCode || isDead) {
             return;
@@ -194,6 +197,9 @@ var Game = function(canvasId) {
         for (var id in knownActors) {
             if (ids.indexOf(parseInt(id)) === -1) {
                 renderer.removeShape(id);
+                if(knownActors[id].actorType === 'PROJECTILE') {
+                    audioHit.play();
+                }
                 delete knownActors[id];
             }
         }
