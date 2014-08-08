@@ -5,12 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
 
-import ch.tankwars.game.powerup.HealthPowerUp;
-import ch.tankwars.game.powerup.LaserGunPowerUp;
-import ch.tankwars.game.powerup.PowerUp;
-import ch.tankwars.game.powerup.RocketLauncherPowerUp;
+import ch.tankwars.game.powerup.strategy.PowerUpSpawnStrategy;
+import ch.tankwars.game.powerup.strategy.RandomPowerUpStrategy;
 
 /**
  * Contains all game logic.
@@ -24,21 +21,18 @@ public class Game implements ActorListener {
 
 	private List<Actor> actors = new LinkedList<Actor>();
 	private int globalId;
-	private static int roundCounter = 0; 
 
 	private BattlefieldMap battlefieldMap;
 	private Referee referee = new Referee();
 	
+	private PowerUpSpawnStrategy powerUpSpawnStrategy = new RandomPowerUpStrategy();
 	
+//	private RandomPositionCalculator positionCalculator = new RandomPositionCalculator();
 	
 	public synchronized void tick() {
-		if(roundCounter % 400 == 0) {
-			final List<Actor> powerUps = actors.stream().filter(a -> a instanceof PowerUp).collect(Collectors.toList());
-			if(powerUps.size() <= 10) {
-				reSpawnNewPowerUps();
-			}
-		}
-		roundCounter++;
+		powerUpSpawnStrategy.spawnPowerUps(actors).forEach(powerup -> this.createActor(powerup));
+		
+		
 		addActorsInQueue();
 
 		removeDeadActors();
@@ -62,35 +56,6 @@ public class Game implements ActorListener {
 		removeDeadActors();
 	}
 
-	private void reSpawnNewPowerUps() {
-		final Random random = new Random();
-		final int powerUpCount = random.nextInt(3);
-		for (int i = 0; i <= powerUpCount; i++) {
-			spawnNewPowerUp(random);
-		}
-	}
-	
-	// TODO rework
-	private void spawnNewPowerUp(final Random random) {
-		PowerUp powerUp = null;
-		final int type = random.nextInt(5);
-		
-		switch (type) {
-		case 0: 
-			powerUp = new HealthPowerUp(0, 0);
-			break;
-		case 1: 
-		case 2:
-			powerUp = new LaserGunPowerUp(0, 0);
-			break;
-		case 3:
-		case 4:
-			powerUp = new RocketLauncherPowerUp(0, 0);
-			break;
-		}
-		computeRandomActorPosition(powerUp);
-		createActor(powerUp);
-	}
 
 	private void addActorsInQueue() {
 		Actor actorToAdd = null;
@@ -112,6 +77,7 @@ public class Game implements ActorListener {
 	public Tank spawn(String playerName) {
 		final Tank tank = new Tank(this, playerName);
 
+		// TODO replace
 		computeRandomActorPosition(tank);
 		createActor(tank);
 		referee.addTank(tank);
@@ -121,8 +87,8 @@ public class Game implements ActorListener {
 
 	private void computeRandomActorPosition(final Actor actor) {
 		final Random random = new Random();
-		final int x = random.nextInt(GAME_WIDTH - 50 - actor.getWidth());
-		final int y = random.nextInt(GAME_HEIGHT - 50 - actor.getHeight());
+		final int x = random.nextInt(GAME_WIDTH - 50 - actor.getWidth()) + 20;
+		final int y = random.nextInt(GAME_HEIGHT - 50 - actor.getHeight()) + 20;
 		actor.setPosition(x, y);
 		checkForCollisions(actor);
 	}
