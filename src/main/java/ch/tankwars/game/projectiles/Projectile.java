@@ -60,12 +60,20 @@ public class Projectile extends Actor {
 		super.act();
 	}
 	
+	
 	public int getOwningTankId() {
 		return owningTankId;
 	}
 
 	@Override
 	public void onCollision(Actor actor, Referee referee) {
+		if(actor instanceof Projectile) {
+			Projectile projectile = (Projectile) actor;
+			if(projectile.getOwningTankId() == getOwningTankId()) {
+				return;
+			}
+		}
+		
 		if(actor.getId() != owningTankId && !(actor instanceof Mine)) {
 			setRemove(true);
 		}
