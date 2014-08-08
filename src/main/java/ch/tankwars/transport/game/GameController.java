@@ -25,7 +25,7 @@ import ch.tankwars.transport.game.dto.StopMessage;
 import ch.tankwars.transport.game.mapper.ActorListSerializer;
 
 public class GameController {
-	private static final int COUNT_DOWN_MILLIS = 10000;
+	private static final int COUNT_DOWN_MILLIS = 1000;
 
 	private static final long INTERVAL_MILIS = 50L;
 	

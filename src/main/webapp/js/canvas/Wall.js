@@ -1,11 +1,17 @@
 var Wall = {
     drawWall : function(wall) {
-        return new fabric.Rect({
+
+        var imgElement = document.getElementById('wallImg');
+        var scaleFactorX = wall.width / imgElement.width;
+        var scaleFactorY = wall.height / imgElement.height;
+
+        var imgInstance = new fabric.Image(imgElement, {
             left: wall.x,
             top: wall.y,
-            fill: 'rgb(134,134,136)',
-            width: wall.width,
-            height: wall.height
+            scaleX : scaleFactorX,
+            scaleY : scaleFactorY
         });
+
+        return imgInstance;
     }
 };
