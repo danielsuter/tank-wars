@@ -142,13 +142,13 @@ var ShapeRenderer = function(_canvas) {
         return 'Health:' + player.health + '   Fire rate: ' + player.fireRate;
     };
 
-    this.renderStatusBar= function(player) {
+    this.renderStatusBar= function(player, gameHeight) {
         if(!player) return;
 
         if(!statusBarShape) {
             statusBarShape = new fabric.Text(generateStatusbarText(player), {
                 left: 10,
-                top: 560,
+                top: gameHeight - 40,
                 fontSize: 20,
                 fill: 'white',
                 fontFamily: 'Arial',
