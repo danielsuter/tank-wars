@@ -109,7 +109,9 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart) {
         "f" : "fireRate",
 		"k" : "kills",
         "s" : "hits",
-		"l" : "health"
+		"l" : "health",
+        "m" : "mines",
+        "n" : "bombs"
     };
 
     var actorTypeMap = {

@@ -142,7 +142,7 @@ var ShapeRenderer = function(_canvas) {
     };
 
     var generateStatusbarText = function(player) {
-        return 'Health:' + player.health + '   Fire rate: ' + player.fireRate;
+        return 'Health:' + player.health + '   Fire rate: ' + player.fireRate + '   Mines: ' + player.mines + '   Bombs: ' + player.bombs;
     };
 
     this.renderStatusBar= function(player, gameHeight) {

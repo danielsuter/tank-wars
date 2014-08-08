@@ -83,6 +83,7 @@ public class Tank extends Actor {
 		clonedCurrentWeapon.setWeapon(getWeaponData());
 		
 		clone.currentWeapon = clonedCurrentWeapon;
+		clone.items = items.clone();
 		return clone;
 	}
 	
@@ -214,5 +215,9 @@ public class Tank extends Actor {
 
 	public void setWeapon(WeaponData weaponData) {
 		this.currentWeapon.setWeapon(weaponData);
+	}
+	
+	public Items getItems() {
+		return items;
 	}
 }

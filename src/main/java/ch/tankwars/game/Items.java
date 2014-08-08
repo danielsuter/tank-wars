@@ -1,8 +1,13 @@
 package ch.tankwars.game;
 
-public class Items {
+public class Items implements Cloneable{
 	private int mines;
 	private int bombs;
+	
+	@Override
+	protected Items clone() throws CloneNotSupportedException {
+		return (Items) super.clone();
+	}
 	
 	public int getMines() {
 		return mines;
