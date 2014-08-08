@@ -34,7 +34,7 @@ public class Bomb extends Actor {
 			createBulletsRight();
 			createBulletsDown();
 			createBulletsUp();
-			
+
 			setRemove(true);
 		}
 
@@ -42,10 +42,10 @@ public class Bomb extends Actor {
 	}
 
 	private void createBulletsLeft() {
-		for(int i = 1; i< 4; i++) {
+		for (int i = 1; i < 7; i++) {
 			Projectile projectile = new Projectile(owningTankId, battlefieldMap);
 			projectile.setDirection(Direction.LEFT);
-			projectile.setVelocity(10);
+			projectile.setVelocity(40);
 			projectile.setPower(20);
 			int pX = getX() + getWidth() / 2;
 			int pY = getY() + getHeight() / 2;
@@ -55,10 +55,10 @@ public class Bomb extends Actor {
 	}
 
 	private void createBulletsRight() {
-		for(int i = 1; i< 4; i++) {
+		for (int i = 1; i < 7; i++) {
 			Projectile projectile = new Projectile(owningTankId, battlefieldMap);
 			projectile.setDirection(Direction.RIGHT);
-			projectile.setVelocity(10);
+			projectile.setVelocity(40);
 			projectile.setPower(20);
 			int pX = getX() + getWidth() / 2;
 			int pY = getY() + getHeight() / 2;
@@ -66,12 +66,12 @@ public class Bomb extends Actor {
 			actorListener.createActor(projectile);
 		}
 	}
-	
+
 	private void createBulletsUp() {
-		for(int i = 1; i< 4; i++) {
+		for (int i = 1; i < 7; i++) {
 			Projectile projectile = new Projectile(owningTankId, battlefieldMap);
 			projectile.setDirection(Direction.UP);
-			projectile.setVelocity(10);
+			projectile.setVelocity(40);
 			projectile.setPower(20);
 			int pX = getX() + getWidth() / 2;
 			int pY = getY() + getHeight() / 2;
@@ -79,12 +79,12 @@ public class Bomb extends Actor {
 			actorListener.createActor(projectile);
 		}
 	}
-	
+
 	private void createBulletsDown() {
-		for(int i = 1; i< 4; i++) {
+		for (int i = 1; i < 7; i++) {
 			Projectile projectile = new Projectile(owningTankId, battlefieldMap);
 			projectile.setDirection(Direction.DOWN);
-			projectile.setVelocity(10);
+			projectile.setVelocity(40);
 			projectile.setPower(20);
 			int pX = getX() + getWidth() / 2;
 			int pY = getY() + getHeight() / 2;
@@ -92,7 +92,7 @@ public class Bomb extends Actor {
 			actorListener.createActor(projectile);
 		}
 	}
-	
+
 	@Override
 	public void onCollision(Actor actor, Referee referee) {
 	}
