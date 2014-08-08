@@ -159,10 +159,11 @@ public class Tank extends Actor {
 	
 	public void plantBomb() {
 		if(items.getBombs() > 0) {
-			Bomb bomb = new Bomb(actorListener);
+			Bomb bomb = new Bomb(actorListener, getId(), battlefieldMap);
 			bomb.setX(getX());
 			bomb.setY(getY());
 			items.removeBomb();
+			actorListener.createActor(bomb);
 		}
 	}
 
