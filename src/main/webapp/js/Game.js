@@ -225,7 +225,6 @@ var Game = function(canvasId) {
             $("#stopGame").show();
             $("#clearGame").show();
             resource.start();
-            clock.start();
         });
 
         $("#stopGame").click(function() {
@@ -330,7 +329,11 @@ var Game = function(canvasId) {
         container.fadeOut(7000);
     };
 
-    resource = new GameResource(update, onPlayersChanged);
+    var onStart = function() {
+        clock.start();
+    };
+
+    resource = new GameResource(update, onPlayersChanged, onStart);
     renderer = new ShapeRenderer(canvas);
 
     canvas.renderOnAddRemove = false;

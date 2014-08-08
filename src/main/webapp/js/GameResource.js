@@ -1,9 +1,10 @@
-var GameResource = function(_onGameUpdate, _onPlayersChanged) {
+var GameResource = function(_onGameUpdate, _onPlayersChanged, _onStart) {
     var onGameUpdate = _onGameUpdate;
     var websocket;
     var onJoined;
     var onConnect;
     var onPlayersChanged = _onPlayersChanged;
+    var onStart = _onStart;
 
     var lastMessageTime = 0;
 
@@ -57,6 +58,8 @@ var GameResource = function(_onGameUpdate, _onPlayersChanged) {
             onJoined(message.playerId, message.battlefieldMap);
         } else if(message.messageType === "PLAYERS_CHANGED") {
             onPlayersChanged(message.players);
+        } else if(message.messageType === "START") {
+            onStart();
         }
     };
 

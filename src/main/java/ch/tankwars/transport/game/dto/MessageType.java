@@ -4,7 +4,8 @@ public enum MessageType {
 
 	JOIN("JOIN"),
 	PLAYERS_CHANGED("PLAYERS_CHANGED"),
-	CONNECT("CONNECT");
+	CONNECT("CONNECT"), 
+	START("START");
 
 	private final String type;
 
