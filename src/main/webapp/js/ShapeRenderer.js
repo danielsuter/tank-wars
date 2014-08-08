@@ -69,7 +69,7 @@ var ShapeRenderer = function(_canvas) {
                 shape = Tank.drawTankNorth(actor);
                 break;
             case "E":
-                shape = Tank.drawTankEast(actor)
+                shape = Tank.drawTankEast(actor);
                 break;
             case "S":
                 shape = Tank.drawTankSouth(actor);

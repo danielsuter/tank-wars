@@ -18,7 +18,7 @@ var Game = function(canvasId) {
             return;
         }
 
-        if (lastCode) {
+        if (lastCode && isDirectionKey(event.keyCode)) {
             ignoreNextKeyUp = true;
         }
 
@@ -42,6 +42,10 @@ var Game = function(canvasId) {
                 resource.move('DOWN');
                 break;
         }
+    };
+
+    var isDirectionKey = function(keyCode) {
+        return keyCode >= 37 && keyCode <= 40;
     };
 
     var doKeyUp = function(event) {
@@ -230,8 +234,8 @@ var Game = function(canvasId) {
    };
 
    var playerDisplayTemplate =
-       "<li class='list-group-item playerScore'>" +
-           "<span class='label label-default' id='color{{id}}'>{{name}}</span>" +
+       "<li class='list-group-item playerScore' id='color{{id}}'>" +
+           "<span class='label label-default'>{{name}}</span>" +
            "<span class='badge' name='killsBadge' data-value='0' id='kills{{id}}'>Kills: 0</span>" +
            "<span class='badge' name='hitsBadge' data-value='0' id='hits{{id}}'>Hits: 0</span>" +
        "</li>";
