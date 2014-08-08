@@ -116,7 +116,7 @@ var Game = function(canvasId) {
     var onConnect = function (gameRunning) {
         $("#connectGame").hide();
         if (gameRunning) {
-            $("#gameRunning").show();
+            $(".gameAlreadyRunning").show();
         } else {
             $(".enterName").show();
         }
