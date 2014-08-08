@@ -27,7 +27,7 @@ public class Game implements ActorListener {
 	
 	private PowerUpSpawnStrategy powerUpSpawnStrategy = new RandomPowerUpStrategy();
 	
-//	private RandomPositionCalculator positionCalculator = new RandomPositionCalculator();
+	private RandomPositionCalculator positionCalculator = new RandomPositionCalculator();
 	
 	public synchronized void tick() {
 		powerUpSpawnStrategy.spawnPowerUps(actors).forEach(powerup -> this.createActor(powerup));
@@ -76,9 +76,7 @@ public class Game implements ActorListener {
 
 	public Tank spawn(String playerName) {
 		final Tank tank = new Tank(this, playerName);
-
-		// TODO replace
-		computeRandomActorPosition(tank);
+		positionCalculator.setPosition(getActors(), tank);
 		createActor(tank);
 		referee.addTank(tank);
 
