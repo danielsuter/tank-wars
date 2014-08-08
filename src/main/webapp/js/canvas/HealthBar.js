@@ -4,9 +4,10 @@ var HealthBar = {
      * @param tank {Tank}
      * @returns {fabric.Group}
      */
-    drawHealthBar : function (tank) {
+    drawHealthBar : function (tank, playerName) {
         var bar;
         var health;
+        var playerName;
 
         var maxHealth = 100;
 
@@ -14,25 +15,32 @@ var HealthBar = {
             return tank.health / maxHealth * tank.height;
         };
 
+        playerName = new fabric.Text(playerName, {
+            left: 0,
+            fontSize: 10,
+            fill: 'black',
+            top: 0
+        });
+
         bar = new fabric.Rect({
             left: 0,
-            top: 0,
+            top: 14,
             fill: 'black',
-            width: 3,
-            height: tank.height
+            width: tank.width,
+            height: 4
         });
 
         health = new fabric.Rect({
             left: 0,
-            top: 0,
+            top: 14,
             fill: '#66FF33',
-            width: 3,
-            height: calculateHealth(tank)
+            width: calculateHealth(tank),
+            height: 4
         });
 
-        var group = new fabric.Group([bar, health], {
-            left: tank.x-10,
-            top: tank.y
+        var group = new fabric.Group([bar, health, playerName], {
+            left: tank.x,
+            top: tank.y - 20
         });
 
 
@@ -41,11 +49,23 @@ var HealthBar = {
          * @param tank {Tank}
          */
         group.updateLocation = function(tank) {
-            this.set({"left" : tank.x-10});
-            this.set({"top" : tank.y});
+            var deltaX;
+            switch (tank.direction) {
+                case "W":
+                    deltaX = 4;
+                    break;
+                case "N":
+                case "S":
+                case "E":
+                    deltaX = 0;
+                    break;
+            }
+
+            this.set({"left" : tank.x + deltaX});
+            this.set({"top" : tank.y - 20});
 
             this.item(1).set({
-                height: calculateHealth(tank)
+                width: calculateHealth(tank)
             });
         };
 
