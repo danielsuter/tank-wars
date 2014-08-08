@@ -13,7 +13,7 @@ public class Tank extends Actor {
 
 	private final static int DEFAULT_WIDTH = 35;
 	private final static int DEFAULT_HEIGHT = 35;
-	private final static int DEFAULT_SPEED = 8;
+	private final static int DEFAULT_SPEED = 10;
 	private final static int MAX_HEALTH = 100;
 	
 	private CurrentWeapon currentWeapon;
