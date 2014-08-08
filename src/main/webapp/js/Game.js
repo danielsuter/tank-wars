@@ -308,7 +308,7 @@ var Game = function(canvasId) {
            }
        }
        if (actor.color) {
-           $("#color" + actor.id).css('text-color', actor.color);
+           $("#color" + actor.id).css('color', actor.color);
        }
 
        if (scoreChanged) {
